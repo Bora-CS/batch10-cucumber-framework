@@ -8,7 +8,6 @@ public class BoraTechLogin {
 
 	public static void main(String[] args) {
 
-
 		WebDriver driver = new ChromeDriver();
 
 		try {
@@ -47,4 +46,3 @@ public class BoraTechLogin {
 	}
 
 }
-
