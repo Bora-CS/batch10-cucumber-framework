@@ -36,6 +36,8 @@ public class AddExperienceTest {
 			// validation
 			testDriver.findElement(By.xpath("//tbody/tr/td[text()='Walmart']"));
 			testDriver.findElement(By.xpath("//tbody/tr/td[text()='Cashier']"));
+			testDriver.findElement(By.xpath("//tbody/tr/td/time[text()='2006/05/31']"));
+			testDriver.findElement(By.xpath("//tbody/tr/td/time[text()='2008/07/14']"));
 			
 			System.out.println("Test passed.");
 		} catch (Exception e) {

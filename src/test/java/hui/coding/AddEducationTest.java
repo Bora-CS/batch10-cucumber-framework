@@ -26,8 +26,8 @@ public class AddEducationTest {
 			testDriver.findElement(By.xpath("//input[@name='school']")).sendKeys("George Mason University");
 			testDriver.findElement(By.xpath("//input[@name='degree']")).sendKeys("Bachelor's Degree");
 			testDriver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys("Biology");
-			testDriver.findElement(By.xpath("//input[@name='from']")).sendKeys("09/15/2008");
-			testDriver.findElement(By.xpath("//input[@name='to']")).sendKeys("05/15/2010");
+			testDriver.findElement(By.xpath("//input[@name='from']")).sendKeys("09/16/2008");
+			testDriver.findElement(By.xpath("//input[@name='to']")).sendKeys("05/16/2010");
 			testDriver.findElement(By.xpath("//textarea[@name='description']")).sendKeys("Study and understand living organisms.");
 
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
@@ -36,6 +36,8 @@ public class AddEducationTest {
 			// validation
 			testDriver.findElement(By.xpath("//tbody/tr/td[text()='George Mason University']"));
 			testDriver.findElement(By.xpath("//tbody/tr/td[text()=\"Bachelor's Degree\"]"));
+			testDriver.findElement(By.xpath("//tbody/tr/td/time[text()='2008/09/16']"));
+			testDriver.findElement(By.xpath("//tbody/tr/td/time[text()='2010/05/16']"));
 			
 			System.out.println("Test passed.");
 		} catch (Exception e) {
