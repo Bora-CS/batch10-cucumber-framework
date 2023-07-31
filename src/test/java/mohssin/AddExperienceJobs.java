@@ -1,4 +1,4 @@
-package selenium;
+package mohssin;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ public class AddExperienceJobs {
 
 		WebDriver driver = new ChromeDriver();
 		
-		String username = "your username";
+		String username = "username";
 		String password = "password";
 
 		try {
