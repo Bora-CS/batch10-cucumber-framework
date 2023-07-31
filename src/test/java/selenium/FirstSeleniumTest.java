@@ -12,15 +12,18 @@ public class FirstSeleniumTest {
 	public static void main(String[] args) {
 
 		WebDriver driver = new ChromeDriver();
-		String expectedName = "Jin Joh";
-		String expectedDob = "07/29/2022";
+		String expectedName = "Lena Chen";
+		String expectedDob = "07/01/1995";
 		String formattedExpectedDob = formatInputDate(expectedDob);
 
 		try {
-			driver.get("file:///Users/bora/Desktop/batch10-html-practice/index.html");
+			driver.get("file:///Users/lenachen/projects/batch10-html-practice/index.html");
 
 			driver.findElement(By.id("name-input")).sendKeys(expectedName);
-			driver.findElement(By.id("name-submit")).click();
+			Thread.sleep(2000);
+			
+			driver.findElement(By.id("name-submit")).click();	
+			Thread.sleep(2000);
 
 			String actualName = driver.findElement(By.cssSelector("#name-display")).getText();
 
@@ -29,8 +32,11 @@ public class FirstSeleniumTest {
 			}
 
 			driver.findElement(By.id("dob-input")).sendKeys(expectedDob);
+			Thread.sleep(2000);
+			
 			driver.findElement(By.id("dob-submit")).click();
-
+			Thread.sleep(2000);
+			
 			String actualDob = driver.findElement(By.id("dob-display")).getText();
 
 			if (!formattedExpectedDob.equals(actualDob)) {
