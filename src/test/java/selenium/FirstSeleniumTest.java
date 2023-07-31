@@ -17,7 +17,7 @@ public class FirstSeleniumTest {
 		String formattedExpectedDob = formatInputDate(expectedDob);
 
 		try {
-			driver.get("file:///Users/kg/projects/batch10-html-practice/index.html");
+			driver.get("file:///Users/bora/Desktop/batch10-html-practice/index.html");
 
 			driver.findElement(By.id("name-input")).sendKeys(expectedName);
 			driver.findElement(By.id("name-submit")).click();
