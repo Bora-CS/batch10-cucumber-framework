@@ -19,7 +19,8 @@ public class addExperienceTest {
 			String titleText = driver.findElement(By.xpath("//h1[@class='large text-primary']")).getText();
 
 			if (!titleText.equals("Dashboard")) {
-				throw new Exception("Title text does not match." + "\n Title text should be: " + titleText);
+				throw new Exception("Title text does not match." + 
+			"\n Title text should be: " + titleText);
 			}
 
 			driver.findElement(By.xpath("//*[@href='/add-experience']")).click();
@@ -29,7 +30,8 @@ public class addExperienceTest {
 
 			if (!experienceIntro.equals("Add An Experience")) {
 				throw new Exception(
-						"Experience text does not match." + "\n Experience text should be: " + experienceIntro);
+						"Experience text does not match." + 
+				"\n Experience text should be: " + experienceIntro);
 			}
 
 			driver.findElement(By.name("title")).sendKeys("Noob Automator");
@@ -42,7 +44,6 @@ public class addExperienceTest {
 			driver.findElement(By.xpath("//*/input[@type='submit']")).click();
 
 			Thread.sleep(7000);
-
 
 			System.out.println("Test passed");
 		} catch (Exception e) {
