@@ -21,7 +21,7 @@ public class AddEducationTest {
 
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
 
-			// adding experience
+			// adding education
 			testDriver.findElement(By.xpath("//a[@href='/add-education']")).click();
 			testDriver.findElement(By.xpath("//input[@name='school']")).sendKeys("George Mason University");
 			testDriver.findElement(By.xpath("//input[@name='degree']")).sendKeys("Bachelor's Degree");
