@@ -36,12 +36,12 @@ public class AddExperienceTest {
 			testDriver.findElement(By.xpath("//input[@name='location']")).sendKeys("Manassas, Virginia");
 
 			testDriver.findElement(By.xpath("//input[@name='from']"))
-					.sendKeys(TestAsst.findInputDateStrYMD(expStartDate, "yyyy/MM/dd"));
+					.sendKeys(TestAsst.findInputDateStrMDY(expStartDate, "yyyy/MM/dd"));
 			if (current)
 				testDriver.findElement(By.name("current")).click();
 			else
 				testDriver.findElement(By.xpath("//input[@name='to']"))
-						.sendKeys(TestAsst.findInputDateStrYMD(expEndDate, "yyyy/MM/dd"));
+						.sendKeys(TestAsst.findInputDateStrMDY(expEndDate, "yyyy/MM/dd"));
 			testDriver.findElement(By.xpath("//textarea[@name='description']")).sendKeys("Payment collection.");
 
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();

@@ -35,9 +35,9 @@ public class AddEducationTest {
 			testDriver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys("Biology");
 
 			testDriver.findElement(By.xpath("//input[@name='from']"))
-					.sendKeys(TestAsst.findInputDateStrYMD(expStartDate, "yyyy/MM/dd"));
+					.sendKeys(TestAsst.findInputDateStrMDY(expStartDate, "yyyy/MM/dd"));
 			testDriver.findElement(By.xpath("//input[@name='to']"))
-					.sendKeys(TestAsst.findInputDateStrYMD(expEndDate, "yyyy/MM/dd"));
+					.sendKeys(TestAsst.findInputDateStrMDY(expEndDate, "yyyy/MM/dd"));
 			testDriver.findElement(By.xpath("//textarea[@name='description']"))
 					.sendKeys("Practice the scientific study of life.");
 

@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 
 class TestAsst {
 
-	public static String findInputDateStrYMD(String dateStr, String dateStrPattern) {
+	public static String findInputDateStrMDY(String dateStr, String dateStrPattern) {
 		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(dateStrPattern));
 		String inputDateStr = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
 		return inputDateStr;
