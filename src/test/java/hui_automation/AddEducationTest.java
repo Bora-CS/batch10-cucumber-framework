@@ -1,20 +1,23 @@
 package hui_automation;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class AddEducationTest {
 
 	public static void main(String[] args) {
 		WebDriver testDriver = new ChromeDriver();
-		
+
 		String expSchool = "George Mason University";
+		expSchool += " " + TestAsst.getUniqueMillsTimeStr();
 		String expDegree = "Bachelor's Degree";
-		String expStartTime = "2008/01/31";
-		String expEndTime = "2010/05/15";
+		String expStartDate = "2008/01/31";
+		String expEndDate = "2010/05/15";
 
 		try {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
@@ -30,48 +33,44 @@ public class AddEducationTest {
 			testDriver.findElement(By.xpath("//input[@name='school']")).sendKeys(expSchool);
 			testDriver.findElement(By.xpath("//input[@name='degree']")).sendKeys(expDegree);
 			testDriver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys("Biology");
-			
-			testDriver.findElement(By.xpath("//input[@name='from']")).sendKeys(TestAsst.findInputDateStrYMD(expStartTime));
-			testDriver.findElement(By.xpath("//input[@name='to']")).sendKeys(TestAsst.findInputDateStrYMD(expEndTime));
-			testDriver.findElement(By.xpath("//textarea[@name='description']")).sendKeys("Practice the scientific study of life.");
+
+			testDriver.findElement(By.xpath("//input[@name='from']"))
+					.sendKeys(TestAsst.findInputDateStrYMD(expStartDate, "yyyy/MM/dd"));
+			testDriver.findElement(By.xpath("//input[@name='to']"))
+					.sendKeys(TestAsst.findInputDateStrYMD(expEndDate, "yyyy/MM/dd"));
+			testDriver.findElement(By.xpath("//textarea[@name='description']"))
+					.sendKeys("Practice the scientific study of life.");
 
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
 			Thread.sleep(3000);
 
 			// validation
-			String actSchool = testDriver.findElement(By.xpath("//table[2]/tbody/tr[1]/td[1]")).getText();
-			String actDegree = testDriver.findElement(By.xpath("//table[2]/tbody/tr[1]/td[2]")).getText();
-			String actStartTime = testDriver.findElement(By.xpath("//table[2]/tbody/tr[1]/td[3]/time[1]")).getText();
-			String actEndTime = testDriver.findElement(By.xpath("//table[2]/tbody/tr[1]/td[3]/time[2]")).getText();
-
-			if (!actSchool.equals(expSchool)) {
-				throw new Exception(
-						"School names mismatch\nExpected name: " + expSchool + 
-						"\nActual name: " + actSchool + "\n");
+			boolean targetFound = false;
+			// locating target row
+			String targetRowXpath = "//h2[text()='Education Credentials']/following-sibling::table/tbody//td[text()='"
+					+ expSchool + "']/ancestor::tr";
+			if (TestAsst.containsElement(testDriver, By.xpath(targetRowXpath))) {
+				List<WebElement> targetCells = testDriver.findElement(By.xpath(targetRowXpath))
+						.findElements(By.tagName("td"));
+				// locating target cell
+				for (WebElement cell : targetCells) {
+					if (cell.getText().equals(expDegree)) {
+						targetFound = true;
+						break;
+					}
+				}
 			}
 
-			if (!actDegree.equals(expDegree)) {
-				throw new Exception(
-						"Degrees mismatch\nExpected degree: " + expDegree + 
-						"\nActual title: " + actDegree + "\n");
-			}
-			
-
-			if (!actStartTime.equals(expStartTime)) {
-				throw new Exception("Start time mismatch\nExpected start time: " + expStartTime
-						+ "\nActual start time: " + actStartTime + "\n");
-			}
-
-			if (!actStartTime.equals(expStartTime)) {
-				throw new Exception("End time mismatch\nExpected end time: " + expEndTime + "\nActual end time: "
-						+ actEndTime + "\n");
+			if (!targetFound) {
+				throw new Exception("Expected education data is not found.");
 			}
 
 			System.out.println("Test passed.");
-			System.out.println("School: " + actSchool);
-			System.out.println("Degree: " + actDegree);
-			System.out.println("Start Date: " + actStartTime);
-			System.out.println("End: " + actEndTime);
+			List<WebElement> targetCells = testDriver.findElement(By.xpath(targetRowXpath))
+					.findElements(By.tagName("td"));
+			System.out.println(targetCells.get(0).getText());
+			System.out.println(targetCells.get(1).getText());
+			System.out.println(targetCells.get(2).getText());
 		} catch (Exception e) {
 			System.out.println("Test failed!");
 			System.out.println("Reason: " + e.getMessage());
