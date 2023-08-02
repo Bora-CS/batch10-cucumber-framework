@@ -1,4 +1,4 @@
-package hui10;
+package hui_automation;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
