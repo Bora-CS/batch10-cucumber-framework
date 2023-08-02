@@ -50,8 +50,8 @@ public class addEducation {
 			Thread.sleep(20000);
 
 			// third validation to see if education was added successfully
-			driver.findElement(By.xpath("//*/td[text()='Bachelor']"));
-			driver.findElement(By.xpath("//*/td[text()='British Columbia Institute Of Technology']"));
+			driver.findElement(By.xpath("//td[text()='Bachelor']"));
+			driver.findElement(By.xpath("//td[text()='British Columbia Institute Of Technology']"));
 
 			System.out.println("Test passed");
 		} catch (Exception e) {
