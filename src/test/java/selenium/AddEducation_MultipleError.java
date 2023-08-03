@@ -1,6 +1,5 @@
 package selenium;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import utilities.Keywords;
 
 public class AddEducation_MultipleError {
 
@@ -33,10 +34,10 @@ public class AddEducation_MultipleError {
 			driver.get("https://boratech-practice-app.onrender.com/login");
 			driver.findElement(By.xpath("//input[@name='email']")).sendKeys(username);
 			driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password + Keys.ENTER);
-			wait(2);
+			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//a[@href='/add-education']")).click();
-			wait(2);
+			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//input[@name='school']")).sendKeys(school);
 			driver.findElement(By.xpath("//input[@name='degree']")).sendKeys(degree);
@@ -49,7 +50,7 @@ public class AddEducation_MultipleError {
 			}
 			driver.findElement(By.tagName("textarea")).sendKeys(description);
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
-			wait(2);
+			Keywords.wait(2);
 
 			List<WebElement> errorAlerts = driver.findElements(By.xpath("//div[@class='alert alert-danger']"));
 			List<String> actualErrors = new ArrayList<>();
@@ -80,15 +81,6 @@ public class AddEducation_MultipleError {
 			driver.quit();
 		}
 
-	}
-
-	public static void wait(int second) throws InterruptedException {
-		Thread.sleep(second * 1000);
-	}
-
-	public static String getTimeStamp() {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		return timestamp.getTime() + "";
 	}
 
 }

@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import utilities.Keywords;
+
 public class AddEducation_SingleError {
 
 	public static void main(String[] args) {
@@ -30,10 +32,10 @@ public class AddEducation_SingleError {
 			driver.get("https://boratech-practice-app.onrender.com/login");
 			driver.findElement(By.xpath("//input[@name='email']")).sendKeys(username);
 			driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password + Keys.ENTER);
-			wait(2);
+			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//a[@href='/add-education']")).click();
-			wait(2);
+			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//input[@name='school']")).sendKeys(school);
 			driver.findElement(By.xpath("//input[@name='degree']")).sendKeys(degree);
@@ -46,7 +48,7 @@ public class AddEducation_SingleError {
 			}
 			driver.findElement(By.tagName("textarea")).sendKeys(description);
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
-			wait(2);
+			Keywords.wait(2);
 
 			List<WebElement> errorAlerts = driver.findElements(By.xpath("//div[@class='alert alert-danger']"));
 			if (errorAlerts.size() != 1) {
@@ -55,8 +57,8 @@ public class AddEducation_SingleError {
 
 			String actualErrorMessage = errorAlerts.get(0).getText();
 			if (!expectedErrorMessage.equals(actualErrorMessage)) {
-				throw new Exception(
-						"Error mismatch. Expected: [" + expectedErrorMessage + "] Actual: [" + actualErrorMessage + "]");
+				throw new Exception("Error mismatch. Expected: [" + expectedErrorMessage + "] Actual: ["
+						+ actualErrorMessage + "]");
 			}
 
 			System.out.println("Test Passed");
@@ -68,15 +70,6 @@ public class AddEducation_SingleError {
 			driver.quit();
 		}
 
-	}
-
-	public static void wait(int second) throws InterruptedException {
-		Thread.sleep(second * 1000);
-	}
-
-	public static String getTimeStamp() {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		return timestamp.getTime() + "";
 	}
 
 }
