@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class FirstSeleniumTest {
+public class FirstSeleniumTestExpectedNameExpectedDobTest {
 
 	public static void main(String[] args) {
 
@@ -17,7 +17,7 @@ public class FirstSeleniumTest {
 		String formattedExpectedDob = formatInputDate(expectedDob);
 
 		try {
-			driver.get("file:///Users/bora/Desktop/batch10-html-practice/index.html");
+			driver.get("file:///Users/apple/projects/batch10-html-practice/index.html");
 
 			driver.findElement(By.id("name-input")).sendKeys(expectedName);
 			driver.findElement(By.id("name-submit")).click();
