@@ -51,7 +51,7 @@ public class AddExperienceTest {
 			// validation
 			boolean targetFound = false;
 			// locating target row
-			String targetRowXpath = "//h2[text()='Experience Credentials']/following-sibling::table/tbody//td[text()='"
+			String targetRowXpath = "//h2[text()='Experience Credentials']/following-sibling::table[1]/tbody//td[text()='"
 					+ expCompany + "']/ancestor::tr";
 			if (TestAsst.containsElement(testDriver, By.xpath(targetRowXpath))) {
 				List<WebElement> targetCells = testDriver.findElement(By.xpath(targetRowXpath))

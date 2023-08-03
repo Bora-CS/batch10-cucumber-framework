@@ -47,7 +47,7 @@ public class AddEducationTest {
 			// validation
 			boolean targetFound = false;
 			// locating target row
-			String targetRowXpath = "//h2[text()='Education Credentials']/following-sibling::table/tbody//td[text()='"
+			String targetRowXpath = "//h2[text()='Education Credentials']/following-sibling::table[1]/tbody//td[text()='"
 					+ expSchool + "']/ancestor::tr";
 			if (TestAsst.containsElement(testDriver, By.xpath(targetRowXpath))) {
 				List<WebElement> targetCells = testDriver.findElement(By.xpath(targetRowXpath))
