@@ -1,10 +1,5 @@
 package selenium;
 
-<<<<<<< HEAD
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-=======
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -12,31 +7,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
->>>>>>> master
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class AddExperience {
 
 	public static void main(String[] args) {
-<<<<<<< HEAD
-		WebDriver driver = new ChromeDriver();
-
-		String username = "turhunjuma@gmail.com";
-		String password = "turhunjuma";
-		String jobTitle = "Information Security Officer";
-		String company = "AWS";
-		String location = "Chantilly, VA ";
-		String from = "10/05/2021";
-		String to = "10/14/2022 ";
-		boolean current = false;
-		String description = "Conduct inspections, audits and reviews in your area of responsibility";
-
-		try {
-			driver.get("https://boratech-practice-app.onrender.com/");
-			// driver.findElement(By.linkText("Login")).click();
-			driver.findElement(By.xpath("//a[@class='btn btn-light']")).click();
-
-=======
 
 		WebDriver driver = new ChromeDriver();
 
@@ -52,7 +27,6 @@ public class AddExperience {
 
 		try {
 			driver.get("https://boratech-practice-app.onrender.com/login");
->>>>>>> master
 			driver.findElement(By.xpath("//input[@name='email']")).sendKeys(username);
 			driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password + Keys.ENTER);
 			wait(2);
@@ -60,16 +34,6 @@ public class AddExperience {
 			driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
 			wait(2);
 
-<<<<<<< HEAD
-			String experienceIntro = driver.findElement(By.xpath("//section/h1[@class='large text-primary']"))
-					.getText();
-			if (!experienceIntro.equals("Add An Experience")) {
-				throw new Exception(
-						" An Experience text doesn't match." + "\n An Experience text should be: " + experienceIntro);
-			}
-
-=======
->>>>>>> master
 			driver.findElement(By.xpath("//input[@name='title']")).sendKeys(jobTitle);
 			driver.findElement(By.xpath("//input[@name='company']")).sendKeys(company);
 			driver.findElement(By.xpath("//input[@name='location']")).sendKeys(location);
@@ -78,21 +42,6 @@ public class AddExperience {
 				driver.findElement(By.xpath("//input[@name='current']")).click();
 			} else {
 				driver.findElement(By.xpath("//input[@name='to']")).sendKeys(to);
-<<<<<<< HEAD
-				driver.findElement(By.tagName("textarea")).sendKeys(description);
-				driver.findElement(By.xpath("//input[@type='submit']")).click();
-				wait(2);
-
-				System.out.println("Test Passed");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Test Failed");
-			System.out.println("Reason: " + e.getMessage());
-		} finally {
-			driver.quit();
-		}
-=======
 			}
 			driver.findElement(By.tagName("textarea")).sendKeys(description);
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
@@ -127,15 +76,11 @@ public class AddExperience {
 			driver.quit();
 		}
 
->>>>>>> master
 	}
 
 	public static void wait(int second) throws InterruptedException {
 		Thread.sleep(second * 1000);
 	}
-<<<<<<< HEAD
-}
-=======
 
 	public static String getTimeStamp() {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -143,4 +88,3 @@ public class AddExperience {
 	}
 
 }
->>>>>>> master
