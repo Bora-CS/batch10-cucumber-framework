@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import utilities.Keywords;
+
 public class AddEducationTest {
 
 	public static void main(String[] args) {
@@ -42,7 +44,7 @@ public class AddEducationTest {
 					.sendKeys("Practice the scientific study of life.");
 
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
-			Thread.sleep(3000);
+			Keywords.wait(3);
 
 			// validation
 			boolean targetFound = false;

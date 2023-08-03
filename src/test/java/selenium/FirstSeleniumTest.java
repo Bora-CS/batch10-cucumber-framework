@@ -1,11 +1,10 @@
 package selenium;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import utilities.Keywords;
 
 public class FirstSeleniumTest {
 
@@ -14,7 +13,7 @@ public class FirstSeleniumTest {
 		WebDriver driver = new ChromeDriver();
 		String expectedName = "Jin Joh";
 		String expectedDob = "07/29/2022";
-		String formattedExpectedDob = formatInputDate(expectedDob);
+		String formattedExpectedDob = Keywords.formatInputDate(expectedDob);
 
 		try {
 			driver.get("file:///Users/krystal/Desktop/batch10-html-practice/index.html");
@@ -47,14 +46,4 @@ public class FirstSeleniumTest {
 
 	}
 
-	/**
-	 * Converts date string from "MM/dd/yyyy" format to "yyyy-mm-dd" format
-	 * @param inputDateString
-	 * @return formattedDateString
-	 */
-	private static String formatInputDate(String inputDateString) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-		LocalDate date = LocalDate.parse(inputDateString, formatter);
-		return date.toString();
-	}
 }

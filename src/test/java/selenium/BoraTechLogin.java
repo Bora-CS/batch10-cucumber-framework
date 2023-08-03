@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import utilities.Keywords;
+
 public class BoraTechLogin {
 
 	public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class BoraTechLogin {
 
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
 
-			Thread.sleep(2000);
+			Keywords.wait(2);
 
 			// Validation
 			String titleText = driver.findElement(By.xpath("//h1[@class='large text-primary']")).getText();
