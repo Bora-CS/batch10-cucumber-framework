@@ -1,7 +1,7 @@
 package hui_automation;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,18 +9,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class ApplicationFormPageDebugger {
+public class ApplicationFormNegativeTest {
 
 	public static void main(String[] args) {
 		WebDriver testDriver = new ChromeDriver();
-		String firstName = "John";
+		String firstName = "88";
 		String lastName = "Smith";
 		String dob = "12/25/2000";
 		String gender = "Other";
 		String email = "john.smith.1225@testmail.com";
-		String phoneNumber = "123-456-9999";
+		String phoneNumber = "12345";
 
 		try {
+			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 			testDriver.get("https://boratech-practice-app.onrender.com/apply");
 			WebElement sumbitButton = testDriver.findElement(By.xpath("//input[@value='Submit Application']"));
 
@@ -41,11 +42,10 @@ public class ApplicationFormPageDebugger {
 			if (sumbitButton.isEnabled())
 				sumbitButton.click();
 			
-			TestAsst.sleep(1);
-			BufferedWriter writer = new BufferedWriter(
-					new FileWriter("./src/test/java/hui_automation/ApplicationFormFailedTest.html"));
-			writer.write(testDriver.getPageSource());
-			writer.close();
+			List<WebElement> errMsgBlocks = testDriver.findElements(By.cssSelector(".alert.alert-danger"));
+			for (WebElement errMsgBlock : errMsgBlocks) {
+				System.out.println(errMsgBlock.getText());
+			}
 
 			TestAsst.sleep(3);
 			System.out.println("Test passed.");
@@ -53,10 +53,9 @@ public class ApplicationFormPageDebugger {
 			System.out.println("Bad shit happened!");
 			e.printStackTrace();
 		} finally {
-			testDriver.close();
 			testDriver.quit();
 		}
 
-	} // main
+	}
 
 }
