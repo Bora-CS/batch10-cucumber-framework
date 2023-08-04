@@ -13,12 +13,12 @@ public class ApplicationFormNegativeTest {
 
 	public static void main(String[] args) {
 		WebDriver testDriver = new ChromeDriver();
-		String firstName = "88";
+		String firstName = "John";
 		String lastName = "Smith";
-		String dob = "12/25/2000";
+		String dob = "12/25/2026";
 		String gender = "Other";
 		String email = "john.smith.1225@testmail.com";
-		String phoneNumber = "12345";
+		String phoneNumber = "123456789012";
 
 		try {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
@@ -32,16 +32,21 @@ public class ApplicationFormNegativeTest {
 			testDriver.findElement(By.xpath("//input[@name='gender'][@value='" + gender.toLowerCase() + "']")).click();
 			testDriver.findElement(By.name("email")).sendKeys(email);
 			testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
-			
+
 			Select courseSelect = new Select(testDriver.findElement(By.name("course")));
 			courseSelect.selectByValue("sdet");
 			Select sourceSelect = new Select(testDriver.findElement(By.name("source")));
 			sourceSelect.selectByValue("website");
-						
+
 			testDriver.findElement(By.name("notarobot")).click();
 			if (sumbitButton.isEnabled())
 				sumbitButton.click();
-			
+
+			if (TestAsst.containsElement(testDriver, By.cssSelector(".alert.alert-success"))) {
+				String realMessage = testDriver.findElement(By.cssSelector(".alert.alert-success")).getText();
+				System.out.println(realMessage);
+			}
+
 			List<WebElement> errMsgBlocks = testDriver.findElements(By.cssSelector(".alert.alert-danger"));
 			for (WebElement errMsgBlock : errMsgBlocks) {
 				System.out.println(errMsgBlock.getText());
