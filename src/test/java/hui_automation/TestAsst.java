@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-class TestAsst {
+public class TestAsst {
 
 	public static String findInputDateStrMDY(String dateStr, String dateStrPattern) {
 		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(dateStrPattern));
