@@ -17,8 +17,8 @@ public class ApplicationFormPageDebugger {
 		String lastName = "Smith";
 		String dob = "12/25/2000";
 		String gender = "Other";
-		String email = "john.smith.1225@testmail.com";
-		String phoneNumber = "123-456-9999";
+		String email = "john.smith.1225#testmail.com";
+		String phoneNumber = "1234569999";
 
 		try {
 			testDriver.get("https://boratech-practice-app.onrender.com/apply");
@@ -43,7 +43,7 @@ public class ApplicationFormPageDebugger {
 			
 			TestAsst.sleep(1);
 			BufferedWriter writer = new BufferedWriter(
-					new FileWriter("./src/test/java/hui_automation/ApplicationFormFailedTest.html"));
+					new FileWriter("./src/test/java/hui_automation/ApplicationFormFailedTest_Email.html"));
 			writer.write(testDriver.getPageSource());
 			writer.close();
 
