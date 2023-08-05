@@ -18,7 +18,8 @@ public class ApplicationFormTest {
 		String dob = "12/25/2000";
 		String gender = "Other";
 		String email = "john.smith.1225@testmail.com";
-		String phoneNumber = "1234569999";
+		String phoneNumber = "123-456-9999";
+		boolean invalid = false;
 
 		try {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
@@ -32,7 +33,13 @@ public class ApplicationFormTest {
 			testDriver.findElement(By.name("dob")).sendKeys(dob);
 			testDriver.findElement(By.xpath("//input[@name='gender'][@value='" + gender.toLowerCase() + "']")).click();
 			testDriver.findElement(By.name("email")).sendKeys(email);
-			testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
+			// switch between valid and invalid phone number
+			if (invalid)
+				testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
+			else {
+				phoneNumber = phoneNumber.replace("-", "");
+				testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
+			}
 
 			Select courseSelect = new Select(testDriver.findElement(By.name("course")));
 			courseSelect.selectByValue("sdet");
