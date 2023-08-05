@@ -1,4 +1,4 @@
-package helen_profile;
+package helen;
 
 
 import org.openqa.selenium.By;
