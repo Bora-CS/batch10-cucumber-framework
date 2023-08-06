@@ -1,15 +1,16 @@
-package hui_automation;
+package hui_automation.boratech_tests;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import hui_automation.Testkeys;
 
 public class ApplicationFormNegativeTest {
 
@@ -29,6 +30,10 @@ public class ApplicationFormNegativeTest {
 			WebElement sumbitButton = testDriver.findElement(By.xpath("//input[@value='Submit Application']"));
 
 			// fill out the application form
+			if (invalid) {
+				firstName = "";
+				lastName = "";
+			}
 			testDriver.findElement(By.name("firstname")).sendKeys(firstName);
 			testDriver.findElement(By.name("lastname")).sendKeys(lastName);
 
@@ -36,29 +41,23 @@ public class ApplicationFormNegativeTest {
 			LocalDate current = LocalDate.now();
 			if (invalid) {
 				current = current.plusDays(2);
-				String messDob = TestAsst.findInputDateStrMDY(current.toString(), "uuuu-MM-dd");
+				String messDob = Testkeys.findDateInputStrMDY(current.toString(), "uuuu-MM-dd");
 				testDriver.findElement(By.name("dob")).sendKeys(messDob);
 			} else {
 				current = current.minusYears(19);
-				String dob = TestAsst.findInputDateStrMDY(current.toString(), "uuuu-MM-dd");
+				String dob = Testkeys.findDateInputStrMDY(current.toString(), "uuuu-MM-dd");
 				testDriver.findElement(By.name("dob")).sendKeys(dob);
 			}
 
 			// sending messed up phone number
-			if (invalid)
-				testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
-			else {
+			if (!invalid)
 				phoneNumber = phoneNumber.replace("-", "");
-				testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
-			}
+			testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
 
 			// sending messed up email
-			if (invalid)
-				testDriver.findElement(By.name("email")).sendKeys(email);
-			else {
+			if (!invalid)
 				email = email.replaceAll("[!#$%^&*]", "@");
-				testDriver.findElement(By.name("email")).sendKeys(email);
-			}
+			testDriver.findElement(By.name("email")).sendKeys(email);
 
 			testDriver.findElement(By.xpath("//input[@name='gender'][@value='" + gender.toLowerCase() + "']")).click();
 
@@ -68,29 +67,28 @@ public class ApplicationFormNegativeTest {
 			sourceSelect.selectByValue("website");
 
 			testDriver.findElement(By.name("notarobot")).click();
-
-			TestAsst.sleep(6);
+			Testkeys.pause(5);
+			
 			if (sumbitButton.isEnabled())
 				sumbitButton.click();
+			Testkeys.jsViewTop(testDriver);
 
 			// locating error messages
-			JavascriptExecutor js = (JavascriptExecutor) testDriver;
 			By alertLocator = By.cssSelector(".alert.alert-success");
-			if (TestAsst.containsElement(testDriver, alertLocator)) {
-				js.executeScript("window.scrollTo(0, 0)");
+			if (Testkeys.containsElement(testDriver, alertLocator)) {
 				String realMessage = testDriver.findElement(alertLocator).getText();
-				TestAsst.sleep(2);
+				Testkeys.pause(2);
 				System.out.println(realMessage);
 				throw new Exception("The application should have been denied.");
 			}
 
 			List<WebElement> errMsgBlocks = testDriver.findElements(By.cssSelector(".alert.alert-danger"));
 			for (WebElement errMsgBlock : errMsgBlocks) {
-				System.out.println(errMsgBlock.getText());
+				System.out.println("Error: " + errMsgBlock.getText());
 			}
-			js.executeScript("window.scrollTo(0, 0)");
+			Testkeys.jsViewTop(testDriver); // view error messages
+			Testkeys.pause(3);
 
-			TestAsst.sleep(3);
 			System.out.println("Test passed.");
 		} catch (Exception e) {
 			System.out.println("Test failed!");

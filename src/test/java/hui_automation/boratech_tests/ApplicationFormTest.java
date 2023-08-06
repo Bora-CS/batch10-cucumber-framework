@@ -1,13 +1,15 @@
-package hui_automation;
+package hui_automation.boratech_tests;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import hui_automation.Testkeys;
 
 public class ApplicationFormTest {
 
@@ -15,8 +17,8 @@ public class ApplicationFormTest {
 		WebDriver testDriver = new ChromeDriver();
 		String firstName = "John";
 		String lastName = "Smith";
-		String dob = "12/25/2000";
-		String gender = "Other";
+		String dob = "12/25/1999";
+		String gender = "Male";
 		String email = "john.smith.1225@testmail.com";
 		String phoneNumber = "123-456-9999";
 		boolean invalid = false;
@@ -25,7 +27,7 @@ public class ApplicationFormTest {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 			testDriver.manage().window().maximize();
 			testDriver.get("https://boratech-practice-app.onrender.com/apply");
-			WebElement sumbitButton = testDriver.findElement(By.xpath("//input[@value='Submit Application']"));
+			WebElement submitButton = testDriver.findElement(By.xpath("//input[@value='Submit Application']"));
 
 			// fill out the application form
 			testDriver.findElement(By.name("firstname")).sendKeys(firstName);
@@ -48,26 +50,27 @@ public class ApplicationFormTest {
 
 			testDriver.findElement(By.name("notarobot")).click();
 
-			TestAsst.sleep(6);
-			if (sumbitButton.isEnabled())
-				sumbitButton.click();
+			Testkeys.pause(6);
+			if (submitButton.isEnabled())
+				submitButton.click();
+			Testkeys.jsViewTop(testDriver);
 
-			JavascriptExecutor js = (JavascriptExecutor) testDriver;
 			By locator = By.cssSelector(".alert.alert-success");
 			String realMessage = "";
-			if (TestAsst.containsElement(testDriver, locator)) {
+			if (Testkeys.containsElement(testDriver, locator)) {
 				WebElement goodTextElment = testDriver.findElement(locator);
-				js.executeScript("window.scrollTo(0, 0)");
 				realMessage = goodTextElment.getText();
 			} else {
-				js.executeScript("window.scrollTo(0, 0)");
-				TestAsst.sleep(3);
+				List<WebElement> errMsgBlocks = testDriver.findElements(By.cssSelector(".alert.alert-danger"));
+				for (WebElement errMsgBlock : errMsgBlocks)
+					System.out.println("Error: " + errMsgBlock.getText());
+				Testkeys.pause(3);
 				throw new Exception("The application has been denied.");
 			}
 
-			TestAsst.sleep(3);
 			System.out.println("Test passed.");
 			System.out.println(realMessage);
+			Testkeys.pause(3);
 		} catch (Exception e) {
 			System.out.println("Test failed!");
 			System.out.println(e.getMessage());

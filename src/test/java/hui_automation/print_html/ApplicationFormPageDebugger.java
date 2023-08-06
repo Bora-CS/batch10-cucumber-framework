@@ -1,4 +1,4 @@
-package hui_automation;
+package hui_automation.print_html;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import hui_automation.Testkeys;
 
 public class ApplicationFormPageDebugger {
 
@@ -41,13 +43,13 @@ public class ApplicationFormPageDebugger {
 			if (sumbitButton.isEnabled())
 				sumbitButton.click();
 			
-			TestAsst.sleep(1);
+			Testkeys.pause(1);
 			BufferedWriter writer = new BufferedWriter(
 					new FileWriter("./src/test/java/hui_automation/ApplicationFormFailedTest_Email.html"));
 			writer.write(testDriver.getPageSource());
 			writer.close();
 
-			TestAsst.sleep(3);
+			Testkeys.pause(3);
 			System.out.println("Test passed.");
 		} catch (Exception e) {
 			System.out.println("Bad shit happened!");
