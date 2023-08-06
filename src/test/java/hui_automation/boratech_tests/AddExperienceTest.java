@@ -1,4 +1,4 @@
-package hui_automation;
+package hui_automation.boratech_tests;
 
 import java.time.Duration;
 import java.util.List;
@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import hui_automation.Testkeys;
 
 public class AddExperienceTest {
 

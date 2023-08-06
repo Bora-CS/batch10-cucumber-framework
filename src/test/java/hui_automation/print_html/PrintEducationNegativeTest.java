@@ -1,4 +1,4 @@
-package hui_automation;
+package hui_automation.print_html;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -7,6 +7,8 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import hui_automation.Testkeys;
 
 public class PrintEducationNegativeTest {
 

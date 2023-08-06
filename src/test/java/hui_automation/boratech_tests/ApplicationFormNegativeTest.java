@@ -1,4 +1,4 @@
-package hui_automation;
+package hui_automation.boratech_tests;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import hui_automation.Testkeys;
 
 public class ApplicationFormNegativeTest {
 
