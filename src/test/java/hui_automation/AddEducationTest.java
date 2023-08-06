@@ -42,7 +42,8 @@ public class AddEducationTest {
 					.sendKeys(Testkeys.findDateInputStrMDY(expEndDate, "yyyy/MM/dd"));
 			testDriver.findElement(By.xpath("//textarea[@name='description']"))
 					.sendKeys("Practice the scientific study of life.");
-
+			
+			Testkeys.pause(3);
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
 			Testkeys.jsViewTop(testDriver);
 			Testkeys.pause(3);
@@ -74,6 +75,7 @@ public class AddEducationTest {
 			System.out.println(targetCells.get(0).getText());
 			System.out.println(targetCells.get(1).getText());
 			System.out.println(targetCells.get(2).getText());
+			Testkeys.pause(3);
 		} catch (Exception e) {
 			System.out.println("Test failed!");
 			System.out.println("Reason: " + e.getMessage());
