@@ -14,7 +14,7 @@ public class StudentRegistrationFormTest {
 
 	public static void main(String[] args) {
 		HashMap<String, String> testData1 = new HashMap<>();
-//		testData1.put("firstName", "John");
+		testData1.put("lastName", "Smith");
 		submitForm(testData1);
 
 //		HashMap<String, String> testData2 = new HashMap<>();
@@ -46,7 +46,10 @@ public class StudentRegistrationFormTest {
 			localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			localDriver.manage().window().maximize();
 			localDriver.get("https://demoqa.com/automation-practice-form");
-
+			
+			// check css values
+			System.out.println("Before: " + localDriver.findElement(By.id("lastName")).getCssValue("border"));
+			
 			// sending data
 			for (String dataKey : formData.keySet()) {
 				switch (dataKey.toLowerCase()) {
@@ -76,24 +79,27 @@ public class StudentRegistrationFormTest {
 					break;
 				}
 			}
-
 			Testkeys.pause(3);
 
 			// using JavascriptExecutor to click the hidden element
 			Testkeys.jsClick(localDriver, By.id("submit"));
 
-			Testkeys.pause(5);
-
-			if (!Testkeys.containsElement(localDriver, By.id("example-modal-sizes-title-lg"))) {
-				throw new Exception("Expected success pop-up message not visible.");
-			}
-			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
-
-			System.out.println("Test passed.");
-			System.out.println(realMessage);
+			
+			// result page
+			// validation
+//			Testkeys.pause(5);
+//			if (!Testkeys.containsElement(localDriver, By.id("example-modal-sizes-title-lg"))) {
+//				throw new Exception("Expected success pop-up message not visible.");
+//			}
+//			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
+			System.out.println("After: " + localDriver.findElement(By.id("lastName")).getCssValue("border"));
+			
+//			System.out.println("Test passed.");
+//			System.out.println(realMessage);
+			Testkeys.pause(3);
 		} catch (Exception e) {
 			System.out.println("Bad shit happened!");
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		} finally {
 			System.out.println("Test completed.");
 			localDriver.close();
