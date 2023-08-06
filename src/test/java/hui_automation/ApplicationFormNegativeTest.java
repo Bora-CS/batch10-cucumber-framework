@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -36,11 +35,11 @@ public class ApplicationFormNegativeTest {
 			LocalDate current = LocalDate.now();
 			if (invalid) {
 				current = current.plusDays(2);
-				String messDob = TestAsst.findInputDateStrMDY(current.toString(), "uuuu-MM-dd");
+				String messDob = Testkeys.findDateInputStrMDY(current.toString(), "uuuu-MM-dd");
 				testDriver.findElement(By.name("dob")).sendKeys(messDob);
 			} else {
 				current = current.minusYears(19);
-				String dob = TestAsst.findInputDateStrMDY(current.toString(), "uuuu-MM-dd");
+				String dob = Testkeys.findDateInputStrMDY(current.toString(), "uuuu-MM-dd");
 				testDriver.findElement(By.name("dob")).sendKeys(dob);
 			}
 
@@ -69,17 +68,16 @@ public class ApplicationFormNegativeTest {
 
 			testDriver.findElement(By.name("notarobot")).click();
 
-			TestAsst.sleep(6);
+			Testkeys.pause(6);
 			if (sumbitButton.isEnabled())
 				sumbitButton.click();
 
 			// locating error messages
-			JavascriptExecutor js = (JavascriptExecutor) testDriver;
 			By alertLocator = By.cssSelector(".alert.alert-success");
-			if (TestAsst.containsElement(testDriver, alertLocator)) {
-				js.executeScript("window.scrollTo(0, 0)");
+			if (Testkeys.containsElement(testDriver, alertLocator)) {
+				Testkeys.jsViewTop(testDriver);
 				String realMessage = testDriver.findElement(alertLocator).getText();
-				TestAsst.sleep(2);
+				Testkeys.pause(2);
 				System.out.println(realMessage);
 				throw new Exception("The application should have been denied.");
 			}
@@ -88,9 +86,9 @@ public class ApplicationFormNegativeTest {
 			for (WebElement errMsgBlock : errMsgBlocks) {
 				System.out.println(errMsgBlock.getText());
 			}
-			js.executeScript("window.scrollTo(0, 0)");
-
-			TestAsst.sleep(3);
+			Testkeys.jsViewTop(testDriver); // view error messages			
+			Testkeys.pause(3);
+			
 			System.out.println("Test passed.");
 		} catch (Exception e) {
 			System.out.println("Test failed!");

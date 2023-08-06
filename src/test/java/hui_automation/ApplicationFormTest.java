@@ -3,7 +3,6 @@ package hui_automation;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -48,24 +47,23 @@ public class ApplicationFormTest {
 
 			testDriver.findElement(By.name("notarobot")).click();
 
-			TestAsst.sleep(6);
+			Testkeys.pause(6);
 			if (sumbitButton.isEnabled())
 				sumbitButton.click();
 
-			JavascriptExecutor js = (JavascriptExecutor) testDriver;
 			By locator = By.cssSelector(".alert.alert-success");
 			String realMessage = "";
-			if (TestAsst.containsElement(testDriver, locator)) {
+			if (Testkeys.containsElement(testDriver, locator)) {
 				WebElement goodTextElment = testDriver.findElement(locator);
-				js.executeScript("window.scrollTo(0, 0)");
+				Testkeys.jsViewTop(testDriver);
 				realMessage = goodTextElment.getText();
 			} else {
-				js.executeScript("window.scrollTo(0, 0)");
-				TestAsst.sleep(3);
+				Testkeys.jsViewTop(testDriver);
+				Testkeys.pause(3);
 				throw new Exception("The application has been denied.");
 			}
 
-			TestAsst.sleep(3);
+			Testkeys.pause(3);
 			System.out.println("Test passed.");
 			System.out.println(realMessage);
 		} catch (Exception e) {

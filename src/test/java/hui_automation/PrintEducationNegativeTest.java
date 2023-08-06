@@ -25,7 +25,7 @@ public class PrintEducationNegativeTest {
 			// fake attempt at adding education
 			testDriver.findElement(By.xpath("//a[@href='/add-education']")).click();
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
-			TestAsst.sleep(3);
+			Testkeys.pause(3);
 
 			BufferedWriter writer = new BufferedWriter(
 					new FileWriter("./src/test/java/hui_automation/FailedTest.html"));

@@ -8,28 +8,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import utilities.Keywords;
-
 public class AddEducationTest {
 
 	public static void main(String[] args) {
 		WebDriver testDriver = new ChromeDriver();
 
 		String expSchool = "George Mason University";
-		expSchool += " " + TestAsst.getUniqueMillsTimeStr();
+		expSchool += " " + Testkeys.getUniqueMillsTimeStr();
 		String expDegree = "Bachelor's Degree";
 		String expStartDate = "2008/01/31";
 		String expEndDate = "2010/05/15";
 
 		try {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-			testDriver.navigate().to("https://boratech-practice-app.onrender.com/");
+			testDriver.manage().window().maximize();
+			testDriver.get("https://boratech-practice-app.onrender.com/");
 			testDriver.findElement(By.linkText("Login")).click();
 
 			testDriver.findElement(By.xpath("//input[@name='email']")).sendKeys("hui-pretender@outlook.com");
 			testDriver.findElement(By.xpath("//input[@name='password']")).sendKeys("Hui123456");
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
-
+			Testkeys.pause(3);
+			
 			// adding education
 			testDriver.findElement(By.xpath("//a[@href='/add-education']")).click();
 			testDriver.findElement(By.xpath("//input[@name='school']")).sendKeys(expSchool);
@@ -37,21 +37,22 @@ public class AddEducationTest {
 			testDriver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys("Biology");
 
 			testDriver.findElement(By.xpath("//input[@name='from']"))
-					.sendKeys(TestAsst.findInputDateStrMDY(expStartDate, "yyyy/MM/dd"));
+					.sendKeys(Testkeys.findDateInputStrMDY(expStartDate, "yyyy/MM/dd"));
 			testDriver.findElement(By.xpath("//input[@name='to']"))
-					.sendKeys(TestAsst.findInputDateStrMDY(expEndDate, "yyyy/MM/dd"));
+					.sendKeys(Testkeys.findDateInputStrMDY(expEndDate, "yyyy/MM/dd"));
 			testDriver.findElement(By.xpath("//textarea[@name='description']"))
 					.sendKeys("Practice the scientific study of life.");
 
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
-			Keywords.wait(3);
-
+			Testkeys.jsViewTop(testDriver);
+			Testkeys.pause(3);
+			
 			// validation
 			boolean targetFound = false;
 			// locating target row
 			String targetRowXpath = "//h2[text()='Education Credentials']/following-sibling::table[1]/tbody//td[text()='"
 					+ expSchool + "']/ancestor::tr";
-			if (TestAsst.containsElement(testDriver, By.xpath(targetRowXpath))) {
+			if (Testkeys.containsElement(testDriver, By.xpath(targetRowXpath))) {
 				List<WebElement> targetCells = testDriver.findElement(By.xpath(targetRowXpath))
 						.findElements(By.tagName("td"));
 				// locating target cell
@@ -77,6 +78,7 @@ public class AddEducationTest {
 			System.out.println("Test failed!");
 			System.out.println("Reason: " + e.getMessage());
 		} finally {
+			testDriver.close();
 			testDriver.quit();
 		}
 	}

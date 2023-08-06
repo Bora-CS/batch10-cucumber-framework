@@ -1,12 +1,11 @@
 package hui_automation;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+//import java.time.LocalDate;
+//import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,9 +13,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class StudentRegistrationFormTest {
 
 	public static void main(String[] args) {
-//		HashMap<String, String> testData1 = new HashMap<>();
+		HashMap<String, String> testData1 = new HashMap<>();
 //		testData1.put("firstName", "John");
-//		subitRegistrationForm(testData1);
+		submitForm(testData1);
 
 //		HashMap<String, String> testData2 = new HashMap<>();
 //		testData2.put("lastName", "Smith");
@@ -29,19 +28,19 @@ public class StudentRegistrationFormTest {
 //		testData3.put("subjects", "Biology");
 //		subitRegistrationForm(testData3);
 
-		HashMap<String, String> testData4 = new HashMap<>();
-		testData4.put("gender", "Male");
-		testData4.put("firstName", "John");
-		testData4.put("lastName", "Smith");
-		testData4.put("email", "john.smith@somemail.com");
-		testData4.put("phoneNumber", "1234569999");
-		testData4.put("subjects", "Biology");
-		testData4.put("dob", "12/25/2007");
-		subitRegistrationForm(testData4);
+//		HashMap<String, String> testData4 = new HashMap<>();
+//		testData4.put("gender", "Male");
+//		testData4.put("firstName", "John");
+//		testData4.put("lastName", "Smith");
+//		testData4.put("email", "john.smith@somemail.com");
+//		testData4.put("phoneNumber", "1234569999");
+//		testData4.put("subjects", "Biology");
+//		testData4.put("dob", "12/25/2007");
+//		subitRegistrationForm(testData4);
 
 	}
 
-	public static void subitRegistrationForm(HashMap<String, String> formData) {
+	private static void submitForm(HashMap<String, String> formData) {
 		WebDriver localDriver = driverFactory();
 		try {
 			localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -51,10 +50,10 @@ public class StudentRegistrationFormTest {
 			// sending data
 			for (String dataKey : formData.keySet()) {
 				switch (dataKey.toLowerCase()) {
-				case "dob": //dateOfBirthInput
-					String dobInputStr = formData.get(dataKey);
-					getWebElement(localDriver, By.id("dateOfBirthInput")).sendKeys(getDobInputDMY(dobInputStr, "MM/dd/uuuu"));
-					break;
+//				case "dob": //dateOfBirthInput
+//					String dobInputStr = formData.get(dataKey);
+//					getWebElement(localDriver, By.id("dateOfBirthInput")).sendKeys(getDobInputDMY(dobInputStr, "MM/dd/uuuu"));
+//					break;
 				case "gender":
 					selectGender(localDriver, formData.get(dataKey));
 					break;
@@ -78,14 +77,14 @@ public class StudentRegistrationFormTest {
 				}
 			}
 
-			TestAsst.sleep(3);
+			Testkeys.pause(3);
 
 			// using JavascriptExecutor to click the hidden element
-			TestAsst.jsClick(localDriver, By.id("submit"));
+			Testkeys.jsClick(localDriver, By.id("submit"));
 
-			TestAsst.sleep(5);
+			Testkeys.pause(5);
 
-			if (!TestAsst.containsElement(localDriver, By.id("example-modal-sizes-title-lg"))) {
+			if (!Testkeys.containsElement(localDriver, By.id("example-modal-sizes-title-lg"))) {
 				throw new Exception("Expected success pop-up message not visible.");
 			}
 			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
@@ -119,10 +118,10 @@ public class StudentRegistrationFormTest {
 		return driver.findElement(locator);
 	}
 	
-	public static String getDobInputDMY(String dateStr, String datePattern) {
-		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(datePattern));
-		return date.format(DateTimeFormatter.ofPattern("dd MMM/L uuuu")).toString();
-	}
+//	private static void selectDob(WebDriver driver,String dateStr, String datePattern) {
+//		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(datePattern));
+//		
+//	}
 
 	public static WebDriver driverFactory() {
 		WebDriver driver = new ChromeDriver();
