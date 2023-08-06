@@ -13,20 +13,27 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class StudentRegistrationFormTest {
 
 	public static void main(String[] args) {
+		// data set 1
+		System.out.println("Test 1 =>");
 		HashMap<String, String> testData1 = new HashMap<>();
 		testData1.put("lastName", "Smith");
 		submitForm(testData1);
 
-//		HashMap<String, String> testData2 = new HashMap<>();
-//		testData2.put("lastName", "Smith");
-//		testData2.put("userEmail", "john.smith@somemail.com");
-//		subitRegistrationForm(testData2);
+		// data set 2
+		System.out.println("Test 2 =>");
+		HashMap<String, String> testData2 = new HashMap<>();
+		testData2.put("firstName", "John");
+		testData2.put("phoneNumber", "123456");
+		submitForm(testData2);
 
-//		HashMap<String, String> testData3 = new HashMap<>();
-//		testData3.put("firstName", "John");
-//		testData3.put("userEmail", "john.smith@somemail.com");
-//		testData3.put("subjects", "Biology");
-//		subitRegistrationForm(testData3);
+		// data set 3
+		System.out.println("Test 3 =>");
+		HashMap<String, String> testData3 = new HashMap<>();
+		testData3.put("firstName", "John");
+		testData3.put("lastName", "Smith");
+		testData3.put("phoneNumber", "1234569999");
+		testData3.put("gender", "Male");
+		submitForm(testData3);
 
 //		HashMap<String, String> testData4 = new HashMap<>();
 //		testData4.put("gender", "Male");
@@ -46,13 +53,7 @@ public class StudentRegistrationFormTest {
 			localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			localDriver.manage().window().maximize();
 			localDriver.get("https://demoqa.com/automation-practice-form");
-			
-			// check properties values
-			String properties = localDriver.findElement(By.id("lastName")).getDomProperty("validity");
-			String validStr = properties.substring(properties.indexOf("valid="));
-			String validResult = validStr.substring(validStr.indexOf("=") + 1, validStr.indexOf(","));
-			System.out.println("Before submit valid: " + validResult);
-			
+
 			// sending data
 			for (String dataKey : formData.keySet()) {
 				switch (dataKey.toLowerCase()) {
@@ -86,26 +87,20 @@ public class StudentRegistrationFormTest {
 
 			// using JavascriptExecutor to click the hidden element
 			Testkeys.jsClick(localDriver, By.id("submit"));
+			Testkeys.pause(2);
 
-			
-			// result page
 			// validation
-//			Testkeys.pause(5);
-//			if (!Testkeys.containsElement(localDriver, By.id("example-modal-sizes-title-lg"))) {
-//				throw new Exception("Expected success pop-up message not visible.");
-//			}
-//			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
-			properties = localDriver.findElement(By.id("lastName")).getDomProperty("validity");
-			validStr = properties.substring(properties.indexOf("valid="));
-			validResult = validStr.substring(validStr.indexOf("=") + 1, validStr.indexOf(","));
-			System.out.println("After submit valid: " + validResult);
-			
-//			System.out.println("Test passed.");
-//			System.out.println(realMessage);
+			if (!Testkeys.containsElement(localDriver, By.xpath("//div[@class=\"modal-dialog modal-lg\"]"))) {
+				throw new Exception("Expected success alert message is not visible.");
+			}
+
+			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
+			System.out.println("Test passed.");
+			System.out.println(realMessage);
 			Testkeys.pause(2);
 		} catch (Exception e) {
-			System.out.println("Bad shit happened!");
-			e.printStackTrace();
+			System.out.println("Test failed");
+			System.out.println("Reason: " + e.getMessage());
 		} finally {
 			System.out.println("Test completed.");
 			localDriver.close();
@@ -125,11 +120,11 @@ public class StudentRegistrationFormTest {
 			other.click();
 		}
 	}
-	
+
 	private static WebElement getWebElement(WebDriver driver, By locator) {
 		return driver.findElement(locator);
 	}
-	
+
 //	private static void selectDob(WebDriver driver,String dateStr, String datePattern) {
 //		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(datePattern));
 //		
