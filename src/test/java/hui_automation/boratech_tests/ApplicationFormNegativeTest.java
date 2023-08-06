@@ -30,6 +30,10 @@ public class ApplicationFormNegativeTest {
 			WebElement sumbitButton = testDriver.findElement(By.xpath("//input[@value='Submit Application']"));
 
 			// fill out the application form
+			if (invalid) {
+				firstName = "";
+				lastName = "";
+			}
 			testDriver.findElement(By.name("firstname")).sendKeys(firstName);
 			testDriver.findElement(By.name("lastname")).sendKeys(lastName);
 
@@ -46,20 +50,14 @@ public class ApplicationFormNegativeTest {
 			}
 
 			// sending messed up phone number
-			if (invalid)
-				testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
-			else {
+			if (!invalid)
 				phoneNumber = phoneNumber.replace("-", "");
-				testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
-			}
+			testDriver.findElement(By.name("phonenumber")).sendKeys(phoneNumber);
 
 			// sending messed up email
-			if (invalid)
-				testDriver.findElement(By.name("email")).sendKeys(email);
-			else {
+			if (!invalid)
 				email = email.replaceAll("[!#$%^&*]", "@");
-				testDriver.findElement(By.name("email")).sendKeys(email);
-			}
+			testDriver.findElement(By.name("email")).sendKeys(email);
 
 			testDriver.findElement(By.xpath("//input[@name='gender'][@value='" + gender.toLowerCase() + "']")).click();
 
@@ -69,15 +67,15 @@ public class ApplicationFormNegativeTest {
 			sourceSelect.selectByValue("website");
 
 			testDriver.findElement(By.name("notarobot")).click();
-
-			Testkeys.pause(6);
+			Testkeys.pause(5);
+			
 			if (sumbitButton.isEnabled())
 				sumbitButton.click();
+			Testkeys.jsViewTop(testDriver);
 
 			// locating error messages
 			By alertLocator = By.cssSelector(".alert.alert-success");
 			if (Testkeys.containsElement(testDriver, alertLocator)) {
-				Testkeys.jsViewTop(testDriver);
 				String realMessage = testDriver.findElement(alertLocator).getText();
 				Testkeys.pause(2);
 				System.out.println(realMessage);
@@ -86,11 +84,11 @@ public class ApplicationFormNegativeTest {
 
 			List<WebElement> errMsgBlocks = testDriver.findElements(By.cssSelector(".alert.alert-danger"));
 			for (WebElement errMsgBlock : errMsgBlocks) {
-				System.out.println(errMsgBlock.getText());
+				System.out.println("Error: " + errMsgBlock.getText());
 			}
-			Testkeys.jsViewTop(testDriver); // view error messages			
+			Testkeys.jsViewTop(testDriver); // view error messages
 			Testkeys.pause(3);
-			
+
 			System.out.println("Test passed.");
 		} catch (Exception e) {
 			System.out.println("Test failed!");
