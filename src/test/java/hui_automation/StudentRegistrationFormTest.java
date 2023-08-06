@@ -47,8 +47,11 @@ public class StudentRegistrationFormTest {
 			localDriver.manage().window().maximize();
 			localDriver.get("https://demoqa.com/automation-practice-form");
 			
-			// check css values
-			System.out.println("Before: " + localDriver.findElement(By.id("lastName")).getCssValue("border"));
+			// check properties values
+			String properties = localDriver.findElement(By.id("lastName")).getDomProperty("validity");
+			String validStr = properties.substring(properties.indexOf("valid="));
+			String validResult = validStr.substring(validStr.indexOf("=") + 1, validStr.indexOf(","));
+			System.out.println("Before submit valid: " + validResult);
 			
 			// sending data
 			for (String dataKey : formData.keySet()) {
@@ -79,7 +82,7 @@ public class StudentRegistrationFormTest {
 					break;
 				}
 			}
-			Testkeys.pause(3);
+			Testkeys.pause(1);
 
 			// using JavascriptExecutor to click the hidden element
 			Testkeys.jsClick(localDriver, By.id("submit"));
@@ -92,11 +95,14 @@ public class StudentRegistrationFormTest {
 //				throw new Exception("Expected success pop-up message not visible.");
 //			}
 //			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
-			System.out.println("After: " + localDriver.findElement(By.id("lastName")).getCssValue("border"));
+			properties = localDriver.findElement(By.id("lastName")).getDomProperty("validity");
+			validStr = properties.substring(properties.indexOf("valid="));
+			validResult = validStr.substring(validStr.indexOf("=") + 1, validStr.indexOf(","));
+			System.out.println("After submit valid: " + validResult);
 			
 //			System.out.println("Test passed.");
 //			System.out.println(realMessage);
-			Testkeys.pause(3);
+			Testkeys.pause(2);
 		} catch (Exception e) {
 			System.out.println("Bad shit happened!");
 			e.printStackTrace();
