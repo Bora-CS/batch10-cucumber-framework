@@ -55,8 +55,7 @@ public class ApplicationFormPageDebugger {
 			System.out.println("Bad shit happened!");
 			e.printStackTrace();
 		} finally {
-			testDriver.close();
-			testDriver.quit();
+			Testkeys.terminate(testDriver);
 		}
 
 	} // main

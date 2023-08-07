@@ -23,8 +23,7 @@ public class ActionClassPractice0805 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			localDriver.close();
-			localDriver.quit();
+			Testkeys.terminate(localDriver);
 		}
 	}
 
@@ -70,8 +69,7 @@ public class ActionClassPractice0805 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			localDriver.close();
-			localDriver.quit();
+			Testkeys.terminate(localDriver);
 		}
 	}
 }

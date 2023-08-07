@@ -53,8 +53,7 @@ public class StudentRegistrationFormPreTest {
 			e.printStackTrace();
 		} finally {
 			System.out.println("Pre-Test completed.");
-			localDriver.close();
-			localDriver.quit();
+			Testkeys.terminate(localDriver);
 		}
 	} // submit form
 

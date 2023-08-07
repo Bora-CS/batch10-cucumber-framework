@@ -37,7 +37,7 @@ public class PrintEducationNegativeTest {
 			System.out.println("Bad shit happened!");
 		} finally {
 			System.out.println("Session closed.");
-			testDriver.quit();
+			Testkeys.terminate(testDriver);
 		}
 
 	}

@@ -99,15 +99,14 @@ public class StudentRegistrationFormTest {
 			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
 			System.out.println("Test passed.");
 			System.out.println(realMessage);
-			Testkeys.pause(5);
+			Testkeys.pause(3);
 		} catch (Exception e) {
 			System.out.println("Test failed");
 			System.out.println("Reason: " + e.getMessage());
 		} finally {
 			System.out.println("Test completed.");
 			System.out.println();
-			localDriver.close();
-			localDriver.quit();
+			Testkeys.terminate(localDriver);
 		}
 	}
 

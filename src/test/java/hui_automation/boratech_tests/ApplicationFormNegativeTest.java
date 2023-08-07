@@ -95,8 +95,7 @@ public class ApplicationFormNegativeTest {
 			System.out.println(e.getMessage());
 		} finally {
 			System.out.println("Test completed!");
-			testDriver.close();
-			testDriver.quit();
+			Testkeys.terminate(testDriver);
 		}
 
 	}

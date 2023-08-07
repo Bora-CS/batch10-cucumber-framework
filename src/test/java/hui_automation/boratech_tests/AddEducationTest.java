@@ -82,8 +82,7 @@ public class AddEducationTest {
 			System.out.println("Test failed!");
 			System.out.println("Reason: " + e.getMessage());
 		} finally {
-			testDriver.close();
-			testDriver.quit();
+			Testkeys.terminate(testDriver);
 		}
 	}
 
