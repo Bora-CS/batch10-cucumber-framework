@@ -56,5 +56,13 @@ public class Testkeys {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollTo(0, 0)");
 	}
+	
+	public static void terminate(WebDriver driver) {
+		try {
+			driver.quit();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+	}
 
 }
