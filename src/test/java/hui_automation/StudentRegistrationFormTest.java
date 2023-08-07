@@ -105,6 +105,7 @@ public class StudentRegistrationFormTest {
 			System.out.println("Reason: " + e.getMessage());
 		} finally {
 			System.out.println("Test completed.");
+			System.out.println();
 			localDriver.close();
 			localDriver.quit();
 		}
