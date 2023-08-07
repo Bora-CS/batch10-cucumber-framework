@@ -6,14 +6,13 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import hui_automation.Testkeys;
 
 public class DeleteEducationTest {
 
 	public static void main(String[] args) {
-		WebDriver testDriver = new ChromeDriver();
+		WebDriver testDriver = Testkeys.getChromeDriver();
 
 		try {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
@@ -36,6 +35,7 @@ public class DeleteEducationTest {
 				for (WebElement row : eduRows) {
 					delSchool = row.findElement(By.tagName("td")).getText();
 					row.findElement(By.tagName("button")).click(); // click delete
+					Testkeys.jsViewTop(testDriver);
 					break;
 				}
 			}

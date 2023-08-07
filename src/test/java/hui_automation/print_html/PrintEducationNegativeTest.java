@@ -6,14 +6,13 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import hui_automation.Testkeys;
 
 public class PrintEducationNegativeTest {
 
 	public static void main(String[] args) {
-		WebDriver testDriver = new ChromeDriver();
+		WebDriver testDriver = Testkeys.getChromeDriver();
 
 		try {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));

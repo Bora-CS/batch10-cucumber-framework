@@ -12,7 +12,7 @@ public class ActionClassPractice0805 {
 	}
 
 	private static void checkBox() {
-		WebDriver localDriver = StudentRegistrationFormTest.driverFactory();
+		WebDriver localDriver = Testkeys.getChromeDriver();
 		try {
 			localDriver.get("https://jqueryui.com/checkboxradio/");
 			localDriver.switchTo().frame(localDriver.findElement(By.tagName("iframe")));
@@ -28,7 +28,7 @@ public class ActionClassPractice0805 {
 	}
 
 	private static void action() {
-		WebDriver localDriver = StudentRegistrationFormTest.driverFactory();
+		WebDriver localDriver = Testkeys.getChromeDriver();
 		try {
 			Actions ac = new Actions(localDriver);
 			localDriver.get("https://jqueryui.com/droppable/");
@@ -72,4 +72,5 @@ public class ActionClassPractice0805 {
 			Testkeys.terminate(localDriver);
 		}
 	}
+	
 }

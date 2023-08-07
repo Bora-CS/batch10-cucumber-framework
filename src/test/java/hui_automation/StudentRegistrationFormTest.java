@@ -8,7 +8,6 @@ import java.util.HashMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class StudentRegistrationFormTest {
@@ -51,7 +50,7 @@ public class StudentRegistrationFormTest {
 	}
 
 	private static void submitForm(HashMap<String, String> formData) {
-		WebDriver localDriver = driverFactory();
+		WebDriver localDriver = Testkeys.getChromeDriver();
 		try {
 			localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			localDriver.manage().window().maximize();
@@ -142,11 +141,6 @@ public class StudentRegistrationFormTest {
 		String monthOfYearStr = date.format(DateTimeFormatter.ofPattern("MMMM"));
 		String dayXpath = "//div[contains(@aria-label, '" + dayOfWeekStr + ", " + monthOfYearStr + " " + day + "')]";
 		driver.findElement(By.xpath(dayXpath)).click();
-	}
-
-	public static WebDriver driverFactory() {
-		WebDriver driver = new ChromeDriver();
-		return driver;
 	}
 
 }

@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Testkeys {
 
@@ -56,13 +58,20 @@ public class Testkeys {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollTo(0, 0)");
 	}
-	
+
 	public static void terminate(WebDriver driver) {
 		try {
 			driver.quit();
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+	}
+
+	public static WebDriver getChromeDriver() {
+		ChromeOptions co = new ChromeOptions();
+		co.addArguments("--remote-allow-origins=*");
+		WebDriver driver = new ChromeDriver(co);
+		return driver;
 	}
 
 }

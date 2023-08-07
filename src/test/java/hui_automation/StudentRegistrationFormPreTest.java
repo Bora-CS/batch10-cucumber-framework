@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 //import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class StudentRegistrationFormPreTest {
 
@@ -17,7 +16,7 @@ public class StudentRegistrationFormPreTest {
 	} // main
 
 	private static void submitForm(HashMap<String, String> formData) {
-		WebDriver localDriver = driverFactory();
+		WebDriver localDriver = Testkeys.getChromeDriver();
 		try {
 			localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			localDriver.manage().window().maximize();
@@ -94,11 +93,6 @@ public class StudentRegistrationFormPreTest {
 		String emailValidResultStr = emailValidStr.substring(emailValidStr.indexOf("=") + 1, emailValidStr.indexOf(","));
 		boolean emailValid = Boolean.parseBoolean(emailValidResultStr);
 		System.out.println("Is email valid: " + emailValid);
-	}
-
-	public static WebDriver driverFactory() {
-		WebDriver driver = new ChromeDriver();
-		return driver;
 	}
 
 }
