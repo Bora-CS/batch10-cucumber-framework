@@ -35,7 +35,7 @@ public class StudentRegistrationFormTest {
 		testData3.put("phoneNumber", "1234569999");
 		testData3.put("gender", "Male");
 		submitForm(testData3);
-		
+
 		// data set 4
 		System.out.println("Test 4 =>");
 		HashMap<String, String> testData4 = new HashMap<>();
@@ -60,7 +60,7 @@ public class StudentRegistrationFormTest {
 			// sending data
 			for (String dataKey : formData.keySet()) {
 				switch (dataKey.toLowerCase()) {
-				case "dob": //dateOfBirthInput
+				case "dob": // dateOfBirthInput
 					selectDob(localDriver, formData.get(dataKey), "MM/dd/uuuu");
 					break;
 				case "gender":
@@ -127,12 +127,12 @@ public class StudentRegistrationFormTest {
 		return driver.findElement(locator);
 	}
 
-	private static void selectDob(WebDriver driver,String dateStr, String datePattern) {
+	private static void selectDob(WebDriver driver, String dateStr, String datePattern) {
 		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(datePattern));
 		int year = date.getYear();
 		int month = date.getMonthValue();
 		int day = date.getDayOfMonth();
-		
+
 		driver.findElement(By.id("dateOfBirthInput")).click();
 		Select yearSelect = new Select(driver.findElement(By.className("react-datepicker__year-select")));
 		yearSelect.selectByVisibleText("" + year);
