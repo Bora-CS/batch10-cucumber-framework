@@ -1,4 +1,4 @@
-package hui_automation;
+package hui_automation.boratech_tests;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -7,12 +7,13 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import hui_automation.Testkeys;
 
 public class AddEducationNegativeTest {
 
 	public static void main(String[] args) {
-		WebDriver testDriver = new ChromeDriver();
+		WebDriver testDriver = Testkeys.getChromeDriver();
 
 		List<String> errMessages = new ArrayList<>();
 		errMessages.add("School is required");
@@ -22,7 +23,8 @@ public class AddEducationNegativeTest {
 
 		try {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-			testDriver.navigate().to("https://boratech-practice-app.onrender.com/");
+			testDriver.manage().window().maximize();
+			testDriver.get("https://boratech-practice-app.onrender.com/");
 			testDriver.findElement(By.linkText("Login")).click();
 
 			testDriver.findElement(By.xpath("//input[@name='email']")).sendKeys("hui-pretender@outlook.com");
@@ -32,6 +34,7 @@ public class AddEducationNegativeTest {
 			// fake attempt at adding education
 			testDriver.findElement(By.xpath("//a[@href='/add-education']")).click();
 			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
+			Testkeys.jsViewTop(testDriver);
 			
 			// validation
 			List<WebElement> errBlocks = testDriver.findElements(By.cssSelector(".alert.alert-danger"));
@@ -48,13 +51,13 @@ public class AddEducationNegativeTest {
 				throw new Exception(testFailStr);
 			}
 			
-			TestAsst.sleep(3);
+			Testkeys.pause(3);
 			System.out.println("Test passed.");
 		} catch (Exception e) {
-			System.out.println("Bad shit happened!");
+			System.out.println("Test failed!");
 			System.out.println("Reason: " + e.getMessage());
 		} finally {
-			testDriver.quit();
+			Testkeys.terminate(testDriver);
 		}
 
 	} // main
