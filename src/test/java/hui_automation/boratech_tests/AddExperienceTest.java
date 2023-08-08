@@ -6,14 +6,13 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import hui_automation.Testkeys;
 
 public class AddExperienceTest {
 
 	public static void main(String[] args) {
-		WebDriver testDriver = new ChromeDriver();
+		WebDriver testDriver = Testkeys.getChromeDriver();
 
 		String expCompany = "Walmart";
 		expCompany += " " + Testkeys.getUniqueMillsTimeStr();
@@ -85,8 +84,7 @@ public class AddExperienceTest {
 			System.out.println("Test failed!");
 			System.out.println("Reason: " + e.getMessage());
 		} finally {
-			testDriver.close();
-			testDriver.quit();
+			Testkeys.terminate(testDriver);
 		}
 	}
 
