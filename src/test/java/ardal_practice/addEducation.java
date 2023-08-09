@@ -1,5 +1,6 @@
 package ardal_practice;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +9,14 @@ public class addEducation {
 
 	public static void main(String[] args) {
 		WebDriver driver = new ChromeDriver();
+		String school = "British Columbia Institute Of Technology" + Tools.timeStamp();
+		String degree = "Bachelor";
+		String fieldOfStudy = "Civil Engineering";
+		String from = "03/09/2015";
+		Boolean current = false;
+		String to = "05/27/2016";
+		String description = "Picked such a hard major and had to drop";
+
 		try {
 			driver.get("https://boratech-practice-app.onrender.com/");
 			driver.findElement(By.linkText("Login")).click();
@@ -35,19 +44,24 @@ public class addEducation {
 			}
 
 			// now testing add education functions
-			driver.findElement(By.name("school")).sendKeys("British Columbia Institute Of Technology");
-			driver.findElement(By.name("degree")).sendKeys("Bachelor");
-			driver.findElement(By.name("fieldofstudy")).sendKeys("Civil Engineering");
-			driver.findElement(By.xpath("//*[@name='from']")).sendKeys("2015-09-03");
-			driver.findElement(By.xpath("//*[@name='to']")).sendKeys("2016-05-27");
-			driver.findElement(By.xpath("//*/textarea[@name='description']"))
-					.sendKeys("Picked such a hard major and had to drop");
+			driver.findElement(By.name("school")).sendKeys(school);
+			driver.findElement(By.name("degree")).sendKeys(degree);
+			driver.findElement(By.name("fieldofstudy")).sendKeys(fieldOfStudy);
+			driver.findElement(By.xpath("//*[@name='from']")).sendKeys(from);
+
+			if (current) {
+				driver.findElement(By.xpath("//*/input[@type='current']")).click();
+			} else {
+				driver.findElement(By.xpath("//*[@name='to']")).sendKeys(to);
+			}
+
+			driver.findElement(By.xpath("//*/textarea[@name='description']")).sendKeys(description);
 			driver.findElement(By.xpath("//*/input[@type='submit']")).click();
 
 			// since adding uploading information is going to take a while hard coded wait
 			// time added
 
-			Thread.sleep(20000);
+			Thread.sleep(5000);
 
 			// third validation to see if education was added successfully
 			driver.findElement(By.xpath("//td[text()='Bachelor']"));
@@ -58,6 +72,7 @@ public class addEducation {
 			e.getStackTrace();
 			System.out.println("There is a exception:" + e.getMessage());
 		} finally {
+			driver.close();
 			driver.quit();
 		}
 	}

@@ -1,6 +1,5 @@
 package selenium;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,6 +7,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import utilities.Keywords;
 
 public class AddExperience {
 
@@ -18,7 +19,7 @@ public class AddExperience {
 		String username = "muradil.erkin@boratechschool.com";
 		String password = "Boratech";
 		String jobTitle = "Senior Cashier";
-		String company = "Chik-fil-a" + getTimeStamp();
+		String company = "Chik-fil-a" + Keywords.getTimeStamp();
 		String location = "Fairfax, VA";
 		String from = "08/13/2020";
 		String to = "";
@@ -29,10 +30,10 @@ public class AddExperience {
 			driver.get("https://boratech-practice-app.onrender.com/login");
 			driver.findElement(By.xpath("//input[@name='email']")).sendKeys(username);
 			driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password + Keys.ENTER);
-			wait(2);
+			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
-			wait(2);
+			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//input[@name='title']")).sendKeys(jobTitle);
 			driver.findElement(By.xpath("//input[@name='company']")).sendKeys(company);
@@ -45,7 +46,7 @@ public class AddExperience {
 			}
 			driver.findElement(By.tagName("textarea")).sendKeys(description);
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
-			wait(2);
+			Keywords.wait(2);
 
 			String tableXpath = "//h2[text()='Experience Credentials']/following-sibling::table[1]";
 			String tableRowXpath = tableXpath + "/tbody/tr";
@@ -76,15 +77,6 @@ public class AddExperience {
 			driver.quit();
 		}
 
-	}
-
-	public static void wait(int second) throws InterruptedException {
-		Thread.sleep(second * 1000);
-	}
-
-	public static String getTimeStamp() {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		return timestamp.getTime() + "";
 	}
 
 }

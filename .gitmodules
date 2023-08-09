@@ -1,0 +1,3 @@
+[submodule "src/test/resources/batch10-html-practice"]
+	path = src/test/resources/batch10-html-practice
+	url = git@github.com:Bora-CS/batch10-html-practice.git
