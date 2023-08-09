@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import utilities.Keywords;
 
-public class DataDriven_ApplicationForm {
+public class ApplicationForm_DataDrivenTest {
 	
 
 	public static void main(String[] args) {
@@ -51,10 +51,11 @@ public class DataDriven_ApplicationForm {
 	
 	public static void submitApplicationForm(HashMap<String, String> formData) {
 		
+		WebDriver localDriver = driverFactory();
 		
 		try {
 			
-			WebDriver localDriver = driverFactory();
+			
 			
 			localDriver.get("https://demoqa.com/automation-practice-form");
 			

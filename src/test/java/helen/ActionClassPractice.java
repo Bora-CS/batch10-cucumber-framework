@@ -17,7 +17,7 @@ public class ActionClassPractice {
 	
 	static void draggable() {
 		
-		WebDriver localDriver = DataDriven_ApplicationForm.driverFactory();
+		WebDriver localDriver = ApplicationForm_DataDrivenTest.driverFactory();
 
 		Actions ac = new Actions(localDriver);
 		
