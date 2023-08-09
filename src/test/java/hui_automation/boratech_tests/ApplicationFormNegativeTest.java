@@ -7,7 +7,6 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import hui_automation.Testkeys;
@@ -15,7 +14,7 @@ import hui_automation.Testkeys;
 public class ApplicationFormNegativeTest {
 
 	public static void main(String[] args) {
-		WebDriver testDriver = new ChromeDriver();
+		WebDriver testDriver = Testkeys.getChromeDriver();
 		String firstName = "John";
 		String lastName = "Smith";
 		String gender = "Other";
@@ -95,8 +94,7 @@ public class ApplicationFormNegativeTest {
 			System.out.println(e.getMessage());
 		} finally {
 			System.out.println("Test completed!");
-			testDriver.close();
-			testDriver.quit();
+			Testkeys.terminate(testDriver);
 		}
 
 	}

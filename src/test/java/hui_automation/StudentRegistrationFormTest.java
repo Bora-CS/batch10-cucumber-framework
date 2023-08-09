@@ -1,54 +1,53 @@
 package hui_automation;
 
 import java.time.Duration;
-//import java.time.LocalDate;
-//import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class StudentRegistrationFormTest {
 
 	public static void main(String[] args) {
 		// data set 1
-		System.out.println("Test 1 =>");
 		HashMap<String, String> testData1 = new HashMap<>();
 		testData1.put("lastName", "Smith");
-		submitForm(testData1);
+		submitForm(testData1, 1);
 
 		// data set 2
-		System.out.println("Test 2 =>");
 		HashMap<String, String> testData2 = new HashMap<>();
 		testData2.put("firstName", "John");
 		testData2.put("phoneNumber", "123456");
-		submitForm(testData2);
+		submitForm(testData2, 2);
 
 		// data set 3
-		System.out.println("Test 3 =>");
 		HashMap<String, String> testData3 = new HashMap<>();
 		testData3.put("firstName", "John");
 		testData3.put("lastName", "Smith");
 		testData3.put("phoneNumber", "1234569999");
 		testData3.put("gender", "Male");
-		submitForm(testData3);
+		submitForm(testData3, 3);
 
-//		HashMap<String, String> testData4 = new HashMap<>();
-//		testData4.put("gender", "Male");
-//		testData4.put("firstName", "John");
-//		testData4.put("lastName", "Smith");
-//		testData4.put("email", "john.smith@somemail.com");
-//		testData4.put("phoneNumber", "1234569999");
-//		testData4.put("subjects", "Biology");
-//		testData4.put("dob", "12/25/2007");
-//		subitRegistrationForm(testData4);
+		// data set 4
+		HashMap<String, String> testData4 = new HashMap<>();
+		testData4.put("gender", "Male");
+		testData4.put("firstName", "John");
+		testData4.put("lastName", "Smith");
+		testData4.put("email", "john.smith@somemail.com");
+		testData4.put("phoneNumber", "1234569999");
+		testData4.put("subjects", "Biology");
+		testData4.put("dob", "12/25/1999");
+		submitForm(testData4, 4);
 
 	}
 
-	private static void submitForm(HashMap<String, String> formData) {
-		WebDriver localDriver = driverFactory();
+	private static void submitForm(HashMap<String, String> formData, int testNumber) {
+		WebDriver localDriver = Testkeys.getChromeDriver();
+		System.out.printf("Test %d =>%n", testNumber);
 		try {
 			localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			localDriver.manage().window().maximize();
@@ -57,10 +56,9 @@ public class StudentRegistrationFormTest {
 			// sending data
 			for (String dataKey : formData.keySet()) {
 				switch (dataKey.toLowerCase()) {
-//				case "dob": //dateOfBirthInput
-//					String dobInputStr = formData.get(dataKey);
-//					getWebElement(localDriver, By.id("dateOfBirthInput")).sendKeys(getDobInputDMY(dobInputStr, "MM/dd/uuuu"));
-//					break;
+				case "dob": // dateOfBirthInput
+					selectDob(localDriver, formData.get(dataKey), "MM/dd/uuuu");
+					break;
 				case "gender":
 					selectGender(localDriver, formData.get(dataKey));
 					break;
@@ -97,14 +95,14 @@ public class StudentRegistrationFormTest {
 			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
 			System.out.println("Test passed.");
 			System.out.println(realMessage);
-			Testkeys.pause(2);
+			Testkeys.pause(3);
 		} catch (Exception e) {
 			System.out.println("Test failed");
 			System.out.println("Reason: " + e.getMessage());
 		} finally {
 			System.out.println("Test completed.");
-			localDriver.close();
-			localDriver.quit();
+			System.out.println();
+			Testkeys.terminate(localDriver);
 		}
 	}
 
@@ -125,14 +123,21 @@ public class StudentRegistrationFormTest {
 		return driver.findElement(locator);
 	}
 
-//	private static void selectDob(WebDriver driver,String dateStr, String datePattern) {
-//		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(datePattern));
-//		
-//	}
+	private static void selectDob(WebDriver driver, String dateStr, String datePattern) {
+		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(datePattern));
+		int year = date.getYear();
+		int month = date.getMonthValue();
+		int day = date.getDayOfMonth();
 
-	public static WebDriver driverFactory() {
-		WebDriver driver = new ChromeDriver();
-		return driver;
+		driver.findElement(By.id("dateOfBirthInput")).click();
+		Select yearSelect = new Select(driver.findElement(By.className("react-datepicker__year-select")));
+		yearSelect.selectByVisibleText("" + year);
+		Select monthSelect = new Select(driver.findElement(By.className("react-datepicker__month-select")));
+		monthSelect.selectByValue("" + (month - 1));
+		String dayOfWeekStr = date.format(DateTimeFormatter.ofPattern("EEEE"));
+		String monthOfYearStr = date.format(DateTimeFormatter.ofPattern("MMMM"));
+		String dayXpath = "//div[contains(@aria-label, '" + dayOfWeekStr + ", " + monthOfYearStr + " " + day + "')]";
+		driver.findElement(By.xpath(dayXpath)).click();
 	}
 
 }
