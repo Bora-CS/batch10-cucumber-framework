@@ -7,6 +7,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class AddEducationTest {
 	public static void main(String[] args) {
 		WebDriver driver= new ChromeDriver();
+		String school = "UNVA";
+		String degree = "Master";
+		String fieldOfStudy = "Business Administration";
+		String from ="01/10/2005";
+		String to = "06/25/2007";
+		String description = "It's 2-year full time in-school program.";
 		
 		try {
 			driver.get("https://boratech-practice-app.onrender.com/");
@@ -17,23 +23,15 @@ public class AddEducationTest {
 			driver.findElement(By.xpath("//input[@value='Login']")).click();
 			Thread.sleep(2000);
 			
-			driver.findElement(By.cssSelector("a[href='/add-education']")).click();
-			Thread.sleep(1000);
+			driver.findElement(By.xpath("//a[@href='/add-education']")).click();
+			driver.findElement(By.xpath("//input[@name='school']")).sendKeys(school);
+			driver.findElement(By.xpath("//input[@name='degree']")).sendKeys(degree);			
+			driver.findElement(By.xpath("//input[@name='fieldOfStudy']")).sendKeys(fieldOfStudy);
+			driver.findElement(By.xpath("//input[@name='from']")).sendKeys(from);			
+			driver.findElement(By.xpath("//input[@name='to']")).sendKeys(to);			
+			driver.findElement(By.xpath("//textarea[@name='description']")).sendKeys(description);			
+			driver.findElement(By.xpath("//input[@type='submit']")).click();
 			
-			driver.findElement(By.cssSelector("input[name='school']")).sendKeys("UNVA");
-			Thread.sleep(1000);
-			driver.findElement(By.cssSelector("input[name='degree']")).sendKeys("Master Degree");
-			Thread.sleep(1000);
-			driver.findElement(By.cssSelector("input[name='fieldofstudy']")).sendKeys("Business Administration");
-			Thread.sleep(1000);
-			driver.findElement(By.cssSelector("input[name='from']")).sendKeys("01/10/2005");
-			Thread.sleep(2000);
-			driver.findElement(By.cssSelector("input[name='to']")).sendKeys("06/25/2007");
-			Thread.sleep(2000);
-			driver.findElement(By.cssSelector("textarea[name='description']")).sendKeys("It's 2-year full time in-school program.");
-			Thread.sleep(2000);
-			driver.findElement(By.cssSelector("input[type='submit']")).click();
-			Thread.sleep(1000);
 			
 			
 			
