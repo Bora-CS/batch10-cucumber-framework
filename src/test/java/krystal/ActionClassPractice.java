@@ -11,23 +11,16 @@ public class ActionClassPractice {
 //		draggable();
 		checkBox();
 	}
-	
+
 	static void checkBox() {
-		
+
 		WebDriver localDriver = new ChromeDriver();
-		
+
 		localDriver.get(null);
 		localDriver.switchTo().frame(0);
 		localDriver.findElement(By.id("checkbox-1")).click();
-		boolean star_2 = localDriver.findElement(By.id("checkbox-1").isSelected();
+		boolean star_2 = localDriver.findElement(By.id("checkbox-1")).isSelected();
 	}
-	
-	
-	
-	
-	
-	
-	
 
 	static void draggable() {
 
@@ -44,22 +37,22 @@ public class ActionClassPractice {
 
 //		ac.dragAndDrop(localDrive.findElement(By.id("draggable")), localDrive.findElement(By.id("droppable")))
 //		.build().perform();
-		
+
 		localDrive.switchTo().defaultContent();
 		localDrive.findElement(By.linkText("Resizable")).click();
 		localDrive.switchTo().defaultContent();
 		localDrive.switchTo().frame(localDrive.findElement(By.tagName("iframe")));
 		localDrive.switchTo().defaultContent();
-		 
+
 		localDrive.findElement(By.xpath("//a[text()='Sortable']")).click();
 		localDrive.switchTo().frame(localDrive.findElement(By.tagName("iframe")));
-		ac.clickAndHold(localDrive.findElement(By.xpath("//li[@class='ui-state-default ui-sortable-handle'][5]"))).moveByOffset(0, -100).release().build().perform();
-		ac.clickAndHold(localDrive.findElement(By.xpath("//li[@class='ui-state-default ui-sortable-handle'][7]"))).moveByOffset(0, -100).release().build().perform();
-		ac.clickAndHold(localDrive.findElement(By.xpath("//li[@class='ui-state-default ui-sortable-handle'][3]"))).moveByOffset(0, -100).release().build().perform();
+		ac.clickAndHold(localDrive.findElement(By.xpath("//li[@class='ui-state-default ui-sortable-handle'][5]")))
+				.moveByOffset(0, -100).release().build().perform();
+		ac.clickAndHold(localDrive.findElement(By.xpath("//li[@class='ui-state-default ui-sortable-handle'][7]")))
+				.moveByOffset(0, -100).release().build().perform();
+		ac.clickAndHold(localDrive.findElement(By.xpath("//li[@class='ui-state-default ui-sortable-handle'][3]")))
+				.moveByOffset(0, -100).release().build().perform();
 
-		
-		
-		
 //		ac.clickAndHold(localDrive.findElement(By.className("ui-resizable-se"))).build().perform();
 //
 		localDrive.close();
