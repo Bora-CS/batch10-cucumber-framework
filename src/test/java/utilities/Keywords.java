@@ -27,4 +27,9 @@ public class Keywords {
 		return date.toString();
 	}
 
+	public static void waitWithOutTry(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
