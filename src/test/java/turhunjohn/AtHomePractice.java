@@ -55,7 +55,7 @@ public class AtHomePractice {
 			String tableRowXpath = tableXpath + "/tbody/tr";
 
 			List<WebElement> rows = driver.findElements(By.xpath(tableRowXpath));
-			System.out.println(rows.size());
+			      System.out.println(rows.size());
 	
 			boolean found=false;
             
@@ -63,7 +63,7 @@ public class AtHomePractice {
      List<WebElement>	cells	=row.findElements(By.tagName("td"));
             String actualCompany  = cells.get(0).getText();
             String actualJobTitle= cells.get(1).getText();
-            String actualYears= cells.get(2).getText();
+   
             
             if(jobTitle.equals(actualJobTitle) && company.equals(actualCompany)) {
             	found=true;

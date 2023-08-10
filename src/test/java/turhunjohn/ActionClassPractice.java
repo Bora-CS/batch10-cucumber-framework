@@ -13,8 +13,7 @@ public class ActionClassPractice {
 		draggable();
 
 	}
-	
-	
+		
 	static void checkBox() {
 		WebDriver localDriver= new ChromeDriver();
 		localDriver.get("https://jqueryui.com/checkboxradio/");
