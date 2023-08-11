@@ -8,36 +8,31 @@ import java.util.HashMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 public class StudentRegistrationFormTest {
 
 	public static void main(String[] args) {
 		// data set 1
-		System.out.println("Test 1 =>");
 		HashMap<String, String> testData1 = new HashMap<>();
 		testData1.put("lastName", "Smith");
-		submitForm(testData1);
+		submitForm(testData1, 1);
 
 		// data set 2
-		System.out.println("Test 2 =>");
 		HashMap<String, String> testData2 = new HashMap<>();
 		testData2.put("firstName", "John");
 		testData2.put("phoneNumber", "123456");
-		submitForm(testData2);
+		submitForm(testData2, 2);
 
 		// data set 3
-		System.out.println("Test 3 =>");
 		HashMap<String, String> testData3 = new HashMap<>();
 		testData3.put("firstName", "John");
 		testData3.put("lastName", "Smith");
 		testData3.put("phoneNumber", "1234569999");
 		testData3.put("gender", "Male");
-		submitForm(testData3);
+		submitForm(testData3, 3);
 
 		// data set 4
-		System.out.println("Test 4 =>");
 		HashMap<String, String> testData4 = new HashMap<>();
 		testData4.put("gender", "Male");
 		testData4.put("firstName", "John");
@@ -46,12 +41,13 @@ public class StudentRegistrationFormTest {
 		testData4.put("phoneNumber", "1234569999");
 		testData4.put("subjects", "Biology");
 		testData4.put("dob", "12/25/1999");
-		submitForm(testData4);
+		submitForm(testData4, 4);
 
 	}
 
-	private static void submitForm(HashMap<String, String> formData) {
-		WebDriver localDriver = driverFactory();
+	private static void submitForm(HashMap<String, String> formData, int testNumber) {
+		WebDriver localDriver = Testkeys.getChromeDriver();
+		System.out.printf("Test %d =>%n", testNumber);
 		try {
 			localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			localDriver.manage().window().maximize();
@@ -99,15 +95,14 @@ public class StudentRegistrationFormTest {
 			String realMessage = localDriver.findElement(By.id("example-modal-sizes-title-lg")).getText();
 			System.out.println("Test passed.");
 			System.out.println(realMessage);
-			Testkeys.pause(5);
+			Testkeys.pause(3);
 		} catch (Exception e) {
 			System.out.println("Test failed");
 			System.out.println("Reason: " + e.getMessage());
 		} finally {
 			System.out.println("Test completed.");
 			System.out.println();
-			localDriver.close();
-			localDriver.quit();
+			Testkeys.terminate(localDriver);
 		}
 	}
 
@@ -143,11 +138,6 @@ public class StudentRegistrationFormTest {
 		String monthOfYearStr = date.format(DateTimeFormatter.ofPattern("MMMM"));
 		String dayXpath = "//div[contains(@aria-label, '" + dayOfWeekStr + ", " + monthOfYearStr + " " + day + "')]";
 		driver.findElement(By.xpath(dayXpath)).click();
-	}
-
-	public static WebDriver driverFactory() {
-		WebDriver driver = new ChromeDriver();
-		return driver;
 	}
 
 }

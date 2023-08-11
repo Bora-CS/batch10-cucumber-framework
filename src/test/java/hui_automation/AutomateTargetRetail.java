@@ -6,12 +6,11 @@ import org.openqa.selenium.By;
 //import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class AutomationPractice0807 {
+public class AutomateTargetRetail {
 
 	public static void main(String[] args) {
-		WebDriver autoDriver = new ChromeDriver();
+		WebDriver autoDriver = Testkeys.getChromeDriver();
 		try {
 			autoDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 			autoDriver.manage().window().maximize();
@@ -26,8 +25,8 @@ public class AutomationPractice0807 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			autoDriver.quit();
 			System.out.println("Automation completed.");
+			Testkeys.terminate(autoDriver);
 		}
 	}
 
