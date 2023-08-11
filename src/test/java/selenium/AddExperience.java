@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import utilities.BoraTech;
 import utilities.Keywords;
 
 public class AddExperience {
@@ -27,10 +28,7 @@ public class AddExperience {
 		String description = "Bro I know I still count money, but I eat 'healthy' nowdays";
 
 		try {
-			driver.get("https://boratech-practice-app.onrender.com/login");
-			driver.findElement(By.xpath("//input[@name='email']")).sendKeys(username);
-			driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password + Keys.ENTER);
-			Keywords.wait(2);
+			BoraTech.login(driver, username, password);
 
 			driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
 			Keywords.wait(2);
