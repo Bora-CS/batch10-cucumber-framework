@@ -9,15 +9,15 @@ public class Keywords {
 	public static void wait(int second) throws InterruptedException {
 		Thread.sleep(second * 1000);
 	}
-	
+
 	public static void waitWithoutTry(int second) {
 		try {
-		Thread.sleep(second * 1000);
-	}catch(Exception e) {
-		
-	}		
+			Thread.sleep(second * 1000);
+		} catch (Exception e) {
+
+		}
 	}
-	
+
 	public static String getTimeStamp() {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		return timestamp.getTime() + "";
