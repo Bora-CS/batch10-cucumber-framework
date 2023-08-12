@@ -28,6 +28,15 @@ public class CostcoPractice0812 {
 			boolean isTargetText = Testkeys.containsElement(testDriver, By.xpath("//*[text()='What is Costco Next?']"));
 			if (!isTargetText)
 				throw new Exception("Target text not found.");
+			testDriver.close();
+
+			testDriver.switchTo().window(mainHandle);
+			testDriver.findElement(By.xpath("//a[@href=\"/all-costco-grocery.html\"]")).click();
+			String targetText = testDriver.findElement(By.xpath("//h1[@automation-id=\"headerOutput\"]")).getText();
+			String expectedText = "2-Day Delivery";
+
+			if (!targetText.equals(expectedText))
+				throw new Exception(String.format("Expected text not found: %s%n", expectedText));
 			
 			System.out.println("Test passed.");
 		} catch (Exception e) {
