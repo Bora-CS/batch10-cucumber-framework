@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 public class Keywords {
 
 	public static void wait(int second) throws InterruptedException {
@@ -27,9 +30,13 @@ public class Keywords {
 		return date.toString();
 	}
 
-	public static void waitWithOutTry(int i) {
-		// TODO Auto-generated method stub
-		
+	public static boolean checkIfElementExists(WebDriver driver, By locator) {
+		try {
+			driver.findElement(locator);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }
