@@ -37,7 +37,7 @@ public class AddExperienceTest {
 			}
 
 			driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
-			wait(5);
+			wait(2);
 
 			String experienceIntro = driver.findElement(By.xpath("//section/h1[@class='large text-primary']"))
 					.getText();
