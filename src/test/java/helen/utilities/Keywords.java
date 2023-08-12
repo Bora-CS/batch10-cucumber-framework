@@ -3,6 +3,11 @@ package helen.utilities;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class Keywords {
 
@@ -28,5 +33,38 @@ public class Keywords {
 			LocalDate date = LocalDate.parse(inputDateString, formatter);
 			return date.toString();
 		}
+		
+		
+		public static boolean checkIfElementExists(WebDriver driver, By locator) {
+			try {
+				driver.findElement(locator);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		
+		//overloading with different parameters
+		public static void checkIfElementExists(WebDriver driver, By locator, String errorMessage ) throws Exception {
+			boolean found = checkIfElementExists(driver, locator);
+	
+			if(!found) {
+				throw new Exception(errorMessage);
+			}
+		}
+		
+		
+		public static void switchToTheOtherWindow(WebDriver driver) {
+			Set<String> handles = driver.getWindowHandles();
+			String mainHandle = driver.getWindowHandle();
+			
+			for (String handle : handles) {
+				if (!handle.equals(mainHandle)) {
+					driver.switchTo().window(handle);
+				}
+			}
+			
+		}
+
 }
 
