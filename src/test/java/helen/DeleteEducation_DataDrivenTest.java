@@ -1,10 +1,11 @@
 package helen;
 
-import helen_utilities.BoraTech;
 import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import helen_pojo.Education;
+
+import helen.pojo.Education;
+import helen.utilities.BoraTech;
 
 public class DeleteEducation_DataDrivenTest {
 
@@ -15,9 +16,9 @@ public class DeleteEducation_DataDrivenTest {
 		String password = "06102021";
 		
 		Education edu1 = new Education("Bora Tech", "Test Automation Engineer", "Java, Selenium", "05/01/2022",
-								"10/30/2022", false, "Learning all about Test Automation");
+								"10/30/2022", false, "Learning all about Test Automation", new String[] { "School is required" });
 		Education edu2 = new Education("Bora School", "Tools", "My SQL", "05/01/2023",
-				"7/05/2023", false, "Learning more about Coding");
+				"7/05/2023", false, "Learning all about Test Automation", new String[] { "School is required" });
 
 		Education[] educations = {edu1, edu2};
 		

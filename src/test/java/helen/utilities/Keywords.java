@@ -1,4 +1,4 @@
-package helen_utilities;
+package helen.utilities;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
