@@ -2,21 +2,21 @@ package hui_automation.pojo;
 
 public class Education {
 
-	public String expSchool = "";
-	public String expDegree = "";
-	public String fieldofstudy = "";
-	public String expStartDate = "";
-	public String expEndDate = "";
+	public String school;
+	public String degree;
+	public String fieldofstudy;
+	public String startDate;
+	public String endDate;
 	public boolean current;
-	public String description = "";
+	public String description;
 
-	public Education(String expSchool, String expDegree, String fieldofstudy, String expStartDate, String expEndDate,
+	public Education(String school, String degree, String fieldofstudy, String startDate, String endDate,
 			boolean current, String description) {
-		this.expSchool = expSchool;
-		this.expDegree = expDegree;
+		this.school = school;
+		this.degree = degree;
 		this.fieldofstudy = fieldofstudy;
-		this.expStartDate = expStartDate;
-		this.expEndDate = expEndDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.current = current;
 		this.description = description;
 	}

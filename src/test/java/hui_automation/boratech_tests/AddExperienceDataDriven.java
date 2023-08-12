@@ -15,30 +15,30 @@ public class AddExperienceDataDriven {
 		String password = "Hui123456";
 
 		Experience exp1 = new Experience("Walmart", "Cashier", "Manassas, Virginia", "2006/06/06", "2008/11/11", false,
-				"Payment collection.");
-		Experience exp2 = new Experience("NASA ", "Astronaut", "Merritt Island, Florida", "2009/01/11", "2019/08/08",
-				false, "Maintain safety of the international space station and fly space shuttle.");
+				"Payment collection.", null);
+		Experience exp2 = new Experience("NASA", "Astronaut", "Merritt Island, Florida", "2009/01/11", "2019/08/08",
+				false, "Maintain safety of the international space station and fly space shuttle.", null);
 		Experience exp3 = new Experience("Self-employed", "Pirate", "High Sea", "2019/08/31", "", true,
-				"High sea raiding.");
+				"High sea raiding.", null);
 		Experience[] experiences = { exp1, exp2, exp3 };
 
 		try {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 			testDriver.manage().window().maximize();
 			BoraTech.login(testDriver, email, password);
+			Testkeys.pause(3);
 
 			// adding experience
 			for (Experience experience : experiences) {
 				BoraTech.addExperience(testDriver, experience);
 			}
-			Testkeys.pause(3);
+			Testkeys.pause(6);
 
 			// delete all experiences
 			BoraTech.deleteAllExperiences(testDriver);
-			Testkeys.jsViewTop(testDriver);
+			Testkeys.pause(3);
 
 			System.out.println("Test Passed.");
-			Testkeys.pause(3);
 		} catch (Exception e) {
 			System.out.println("Test failed.");
 		} finally {

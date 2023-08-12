@@ -36,7 +36,6 @@ public class AddEducationDataDriven {
 			Testkeys.jsViewTop(testDriver);
 			
 			System.out.println("Test Passed.");
-			Testkeys.pause(3);
 		} catch (Exception e) {
 			System.out.println("Test failed.");
 		} finally {
