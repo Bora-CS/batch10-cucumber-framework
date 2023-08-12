@@ -48,7 +48,6 @@ public class AddExperiencePremium {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 			testDriver.manage().window().maximize();
 			BoraTech.login(testDriver, email, password);
-			Testkeys.pause(3);
 
 			// testing
 			int testCount = 1;
