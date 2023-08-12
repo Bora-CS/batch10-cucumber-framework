@@ -1,5 +1,6 @@
 package selenium;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -7,6 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utilities.BoraTech;
 import utilities.Keywords;
@@ -16,6 +19,7 @@ public class AddExperience {
 	public static void main(String[] args) {
 
 		WebDriver driver = new ChromeDriver();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 		String username = "muradil.erkin@boratechschool.com";
 		String password = "Boratech";
@@ -31,6 +35,7 @@ public class AddExperience {
 			BoraTech.login(driver, username, password);
 
 			driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
+//			wait.until(ExpectedConditions.)
 			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//input[@name='title']")).sendKeys(jobTitle);
