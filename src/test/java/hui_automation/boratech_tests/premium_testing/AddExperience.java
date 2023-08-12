@@ -1,13 +1,14 @@
-package hui_automation.boratech_tests;
+package hui_automation.boratech_tests.premium_testing;
 
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 
 import hui_automation.Testkeys;
+import hui_automation.boratech_tests.BoraTech;
 import hui_automation.pojo.Experience;
 
-public class AddExperiencePremium {
+public class AddExperience {
 
 	public static void main(String[] args) {
 		// positive test cases
@@ -48,7 +49,6 @@ public class AddExperiencePremium {
 			testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 			testDriver.manage().window().maximize();
 			BoraTech.login(testDriver, email, password);
-			Testkeys.pause(3);
 
 			// testing
 			int testCount = 1;

@@ -1,5 +1,6 @@
 package hui_automation.boratech_tests;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.locators.RelativeLocator;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import hui_automation.Testkeys;
 import hui_automation.pojo.Education;
@@ -19,11 +22,13 @@ public class BoraTech {
 		driver.findElement(By.name("email")).sendKeys(email);
 		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.xpath("//input[@type='submit']")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.urlContains("dashboard"));
 	}
 
 	public static void addExperience(WebDriver driver, Experience exp) {
 		// go to dash board
-		driver.navigate().to("https://boratech-practice-app.onrender.com/dashboard");
+		driver.get("https://boratech-practice-app.onrender.com/dashboard");
 		driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
 
 		// adding experience
@@ -56,7 +61,10 @@ public class BoraTech {
 		String url = driver.getCurrentUrl();
 		if (!url.endsWith("dashboard"))
 			driver.get("https://boratech-practice-app.onrender.com/dashboard");
-		Testkeys.pause(1);
+
+		// wait for the dash board page
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.urlContains("dashboard"));
 
 		boolean targetRow = false;
 		By expTableLocator = RelativeLocator.with(By.tagName("table"))
@@ -83,12 +91,12 @@ public class BoraTech {
 			throw new Exception(
 					String.format("Actual error numbers mismatch.%nExpected number(s): %d%nActual number(s): %d%n",
 							exp.messages.size(), alerts.size()));
-		
+
 		// find actual error texts
 		List<String> alertTexts = new ArrayList<>();
 		for (WebElement alert : alerts)
 			alertTexts.add(alert.getText());
-		
+
 		// validation
 		for (String msg : exp.messages) {
 			if (!alertTexts.contains(msg))
@@ -97,6 +105,8 @@ public class BoraTech {
 	}
 
 	public static void addEducation(WebDriver driver, Education edu) {
+		// go to dash board
+		driver.get("https://boratech-practice-app.onrender.com/dashboard");
 		driver.findElement(By.xpath("//a[@href='/add-education']")).click();
 
 		// adding education
@@ -104,8 +114,9 @@ public class BoraTech {
 		driver.findElement(By.xpath("//input[@name='degree']")).sendKeys(edu.degree);
 		driver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys(edu.fieldofstudy);
 
-		driver.findElement(By.xpath("//input[@name='from']"))
-				.sendKeys(Testkeys.findDateInputStrMDY(edu.startDate, "yyyy/MM/dd"));
+		if (edu.startDate.length() > 0)
+			driver.findElement(By.xpath("//input[@name='from']"))
+					.sendKeys(Testkeys.findDateInputStrMDY(edu.startDate, "yyyy/MM/dd"));
 		if (edu.current)
 			driver.findElement(By.name("current")).click();
 		else
@@ -117,11 +128,68 @@ public class BoraTech {
 		Testkeys.jsViewTop(driver);
 	}
 
+	public static void validateEducation(WebDriver driver, Education edu) throws Exception {
+		if (edu.isTestPositive)
+			addEduPosValidation(driver, edu);
+		else
+			addEduNegValidation(driver, edu);
+	}
+
+	private static void addEduPosValidation(WebDriver driver, Education edu) throws Exception {
+		String url = driver.getCurrentUrl();
+		if (!url.endsWith("dashboard"))
+			driver.get("https://boratech-practice-app.onrender.com/dashboard");
+
+		// wait for the dash board page
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.urlContains("dashboard"));
+
+		boolean targetRow = false;
+		By eduTableLocator = RelativeLocator.with(By.tagName("table"))
+				.below(By.xpath("//h2[text()='Education Credentials']"));
+		// find all the experience table rows
+		List<WebElement> rows = driver.findElement(eduTableLocator).findElements(By.xpath("tbody/tr"));
+		for (WebElement row : rows) {
+			String school = row.findElement(By.xpath("td[1]")).getText();
+			String degree = row.findElement(By.xpath("td[2]")).getText();
+			if (school.equals(edu.school) && degree.equals(edu.degree))
+				targetRow = true;
+		}
+
+		// check targetRow
+		if (!targetRow)
+			throw new Exception(String.format("Added education not found: [%s, %s]%n", edu.school, edu.degree));
+	}
+
+	private static void addEduNegValidation(WebDriver driver, Education edu) throws Exception {
+		// find error elements
+		List<WebElement> alerts = driver.findElements(By.cssSelector(".alert.alert-danger"));
+		// check for size match
+		if (edu.messages.size() != alerts.size())
+			throw new Exception(
+					String.format("Actual error numbers mismatch.%nExpected number(s): %d%nActual number(s): %d%n",
+							edu.messages.size(), alerts.size()));
+
+		// find actual error texts
+		List<String> alertTexts = new ArrayList<>();
+		for (WebElement alert : alerts)
+			alertTexts.add(alert.getText());
+
+		// validation
+		for (String msg : edu.messages) {
+			if (!alertTexts.contains(msg))
+				throw new Exception("Expected error message not found: " + msg);
+		}
+	}
+
 	public static void deleteAllExperiences(WebDriver driver) throws Exception {
 		String url = driver.getCurrentUrl();
 		if (!url.endsWith("dashboard"))
 			driver.get("https://boratech-practice-app.onrender.com/dashboard");
-		Testkeys.pause(1);
+
+		// wait for the dash board page
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.urlContains("dashboard"));
 
 		// delete everything
 		String expDeleteXpath = "//h2[text()='Experience Credentials']/following-sibling::table[1]/tbody/tr/td/button[text()='Delete']";
@@ -139,6 +207,15 @@ public class BoraTech {
 	}
 
 	public static void deleteAllEducations(WebDriver driver) throws Exception {
+		String url = driver.getCurrentUrl();
+		if (!url.endsWith("dashboard"))
+			driver.get("https://boratech-practice-app.onrender.com/dashboard");
+
+		// wait for the dash board page
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.urlContains("dashboard"));
+
+		// delete everything
 		String eduDeleteXpath = "//h2[text()='Education Credentials']/following-sibling::table[1]/tbody/tr/td/button[text()='Delete']";
 		By locator = By.xpath(eduDeleteXpath);
 		int count = 0;
