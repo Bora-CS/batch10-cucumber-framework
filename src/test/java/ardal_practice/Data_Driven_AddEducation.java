@@ -33,13 +33,13 @@ public class Data_Driven_AddEducation {
 		educations.add(edu4);
 
 		try {
-			BoraTechLoginAndDelete.login(driver, userName, password);
+			BoraTechArdal.login(driver, userName, password);
 
 			for (Education education : educations) {
-				BoraTechLoginAndDelete.addEducations(driver, education);
+				BoraTechArdal.addEducations(driver, education);
 			}
 
-			BoraTechLoginAndDelete.deleteAllExperiences(driver);
+			BoraTechArdal.deleteAllEducations(driver);
 
 		} catch (Exception e) {
 			e.getStackTrace();
