@@ -11,6 +11,8 @@ public class ActionClass_Practice {
 
 	public static void main(String[] args) {
 		checkBox();
+		
+		
 
 	}
 
