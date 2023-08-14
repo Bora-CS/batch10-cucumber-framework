@@ -1,27 +1,34 @@
-package selenium;
+package lenaTest;
 
 import java.time.Duration;
 import java.util.Set;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WindowType;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import utilities.Keywords;
 
-public class CostcoMultipleWindow {
+public class Multi_Window {
 
 	public static void main(String[] args) {
 
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 		driver.manage().window().maximize();
-
+		Actions ac = new Actions(driver);
 		try {
 			driver.navigate().to("https://www.costco.com/");
-			driver.findElement(By.xpath("//a[contains(@data-bi-placement, 'top_scheduled_banner')]")).click();
+
+			WebElement stuff = driver.findElement(By.xpath("//p[text()='Costco NEXT']"));
+//			ac.scrollToElement(stuff).perform();
+			Keywords.wait(2);
+			stuff.click();
+
+			Keywords.wait(1);
+
 			Set<String> handles = driver.getWindowHandles();
 			String mainHandle = driver.getWindowHandle();
 
@@ -31,17 +38,22 @@ public class CostcoMultipleWindow {
 				}
 			}
 
-			Keywords.checkIfElementExists(driver,
-					By.xpath("//*[contains(text(), 'Help people affected by the Hawaii wildfires.')]"),
-					"We're not on the redcross page");
+			boolean targetMessageExists = Keywords.checkIfElementExists(driver,
+					By.xpath("//a[text()='What is Costco Next?']"));
+			if (!targetMessageExists) {
+				throw new Exception("We're not on the Costco Next page");
+			}
 
 			driver.close();
+
 			driver.switchTo().window(mainHandle);
+			Keywords.wait(1);
+			driver.findElement(By.xpath("//a[@href='/all-costco-grocery.html']")).click();
 
-			driver.findElement(By.xpath("//a[@id='header_sign_in']")).click();
-
-			Keywords.checkIfElementExists(driver, By.xpath("//input[@id='signInName']"),
-					"Email field was expected but not found");
+			boolean message = Keywords.checkIfElementExists(driver, By.xpath("//h1[@class='t1-style']"));
+			if (!message) {
+				throw new Exception("mmessage was not found");
+			}
 
 			driver.close();
 

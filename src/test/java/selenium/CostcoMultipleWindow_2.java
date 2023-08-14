@@ -1,17 +1,14 @@
 package selenium;
 
 import java.time.Duration;
-import java.util.Set;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import utilities.Keywords;
 
-public class CostcoMultipleWindow {
+public class CostcoMultipleWindow_2 {
 
 	public static void main(String[] args) {
 
@@ -21,27 +18,27 @@ public class CostcoMultipleWindow {
 
 		try {
 			driver.navigate().to("https://www.costco.com/");
-			driver.findElement(By.xpath("//a[contains(@data-bi-placement, 'top_scheduled_banner')]")).click();
-			Set<String> handles = driver.getWindowHandles();
+			driver.findElement(By.xpath("//a[@href='https://costconext.com/'][@target]")).click();
 			String mainHandle = driver.getWindowHandle();
+			Keywords.switchToTheOtherWindow(driver);
 
-			for (String handle : handles) {
-				if (!handle.equals(mainHandle)) {
-					driver.switchTo().window(handle);
-				}
+			String expectedUrl = "https://costconext.com/";
+			String actualUrl = driver.getCurrentUrl();
+			if (!expectedUrl.equals(actualUrl)) {
+				throw new Exception("Expected to be on the Costco Next page. Current Url: " + actualUrl);
 			}
 
 			Keywords.checkIfElementExists(driver,
-					By.xpath("//*[contains(text(), 'Help people affected by the Hawaii wildfires.')]"),
-					"We're not on the redcross page");
+					By.xpath("//a[@id='what-is-costco-next'][text()='What is Costco Next?']"),
+					"Costco Next title text is not found");
 
 			driver.close();
 			driver.switchTo().window(mainHandle);
 
-			driver.findElement(By.xpath("//a[@id='header_sign_in']")).click();
-
-			Keywords.checkIfElementExists(driver, By.xpath("//input[@id='signInName']"),
-					"Email field was expected but not found");
+			driver.findElement(By.xpath("//a[@href='/all-costco-grocery.html']")).click();
+			Keywords.checkIfElementExists(driver,
+					By.xpath("//*[@automation-id=\"headerOutput\"][contains(text(), '2-Day Delivery')]"),
+					"Title text '2-Day Delivery' is not found");
 
 			driver.close();
 

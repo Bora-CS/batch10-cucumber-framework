@@ -47,6 +47,12 @@ public class Testkeys {
 		}
 	}
 
+	public static void containsElement(WebDriver driver, By locator, String errStr) throws Exception {
+		boolean result = containsElement(driver, locator);
+		if (!result)
+			throw new Exception(errStr);
+	}
+
 	public static void pause(int sec) throws Exception {
 		Thread.sleep(sec * 1000);
 	}
@@ -75,7 +81,7 @@ public class Testkeys {
 		WebDriver driver = new ChromeDriver(co);
 		return driver;
 	}
-	
+
 	public static void clickDropDown(WebDriver driver, By loctor) {
 		try {
 			driver.findElement(loctor).click();

@@ -3,6 +3,8 @@ package utilities;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +13,14 @@ public class Keywords {
 
 	public static void wait(int second) throws InterruptedException {
 		Thread.sleep(second * 1000);
+	}
+
+	public static void waitWithoutTry(int second) {
+		try {
+			Thread.sleep(second * 1000);
+		} catch (Exception e) {
+
+		}
 	}
 
 	public static String getTimeStamp() {
@@ -36,6 +46,25 @@ public class Keywords {
 			return true;
 		} catch (Exception e) {
 			return false;
+		}
+	}
+
+	public static void checkIfElementExists(WebDriver driver, By locator, String errorMessage) throws Exception {
+		boolean found = checkIfElementExists(driver, locator);
+
+		if (!found) {
+			throw new Exception(errorMessage);
+		}
+	}
+
+	public static void switchToTheOtherWindow(WebDriver driver) {
+		Set<String> handles = driver.getWindowHandles();
+		String mainHandle = driver.getWindowHandle();
+
+		for (String handle : handles) {
+			if (!handle.equals(mainHandle)) {
+				driver.switchTo().window(handle);
+			}
 		}
 	}
 

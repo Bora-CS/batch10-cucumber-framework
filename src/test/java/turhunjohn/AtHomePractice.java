@@ -1,6 +1,5 @@
-package selenium;
+package turhunjohn;
 
-import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -8,18 +7,17 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Wait;
 
-import utilities.BoraTech;
 import utilities.Keywords;
 
-public class AddExperience {
+public class AtHomePractice {
+
+	private static WebDriver localDriver;
 
 	public static void main(String[] args) {
 
 		WebDriver driver = new ChromeDriver();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 		String username = "muradil.erkin@boratechschool.com";
 		String password = "Boratech";
@@ -32,10 +30,12 @@ public class AddExperience {
 		String description = "Bro I know I still count money, but I eat 'healthy' nowdays";
 
 		try {
-			BoraTech.login(driver, username, password);
+			driver.get("https://boratech-practice-app.onrender.com/login");
+			driver.findElement(By.xpath("//input[@name='email']")).sendKeys(username);
+			driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password + Keys.ENTER);
+			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
-//			wait.until(ExpectedConditions.)
 			Keywords.wait(2);
 
 			driver.findElement(By.xpath("//input[@name='title']")).sendKeys(jobTitle);
@@ -55,22 +55,27 @@ public class AddExperience {
 			String tableRowXpath = tableXpath + "/tbody/tr";
 
 			List<WebElement> rows = driver.findElements(By.xpath(tableRowXpath));
-
-			boolean found = false;
-			for (WebElement row : rows) {
-				List<WebElement> cells = row.findElements(By.tagName("td"));
-				String actualCompany = cells.get(0).getText();
-				String actualJobTitle = cells.get(1).getText();
-				if (jobTitle.equals(actualJobTitle) && company.equals(actualCompany)) {
-					found = true;
-					break;
-				}
-			}
-
-			if (!found) {
+			      System.out.println(rows.size());
+	
+			boolean found=false;
+            
+	for (WebElement row : rows) {
+     List<WebElement>	cells	=row.findElements(By.tagName("td"));
+            String actualCompany  = cells.get(0).getText();
+            String actualJobTitle= cells.get(1).getText();
+   
+            
+            if(jobTitle.equals(actualJobTitle) && company.equals(actualCompany)) {
+            	found=true;
+            	break;
+            }
+  	
+            } if(!found) {
 				throw new Exception("The newly entered experience was not found");
-			}
-
+            	
+            	
+            }
+	
 			System.out.println("Test Passed");
 		} catch (Exception e) {
 			System.out.println("Test Failed");
