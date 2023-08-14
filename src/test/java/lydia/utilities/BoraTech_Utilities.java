@@ -121,4 +121,9 @@ public class BoraTech_Utilities {
 		}
 	}
 
+	public static void educationValidation(WebDriver driver, Education education) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

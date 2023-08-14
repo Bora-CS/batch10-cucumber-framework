@@ -7,7 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import lydia.POJO.Education;
 import lydia.utilities.BoraTech_Utilities;
-import utilities.BoraTech;
 
 
 public class AddEducation_DataDriven {
@@ -30,11 +29,11 @@ public class AddEducation_DataDriven {
 		
 
 		try {
-			BoraTech.login(driver, username, password);
+			BoraTech_Utilities.login(driver, username, password);
 
 			for (Education education : educations) {
-				BoraTech.addEducation(driver, education);
-				BoraTech.educationValidation(driver, education);
+				BoraTech_Utilities.addEducation(driver, education);
+				BoraTech_Utilities.educationValidation(driver, education);
 			}
 
 
