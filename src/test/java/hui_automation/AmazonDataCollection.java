@@ -55,7 +55,7 @@ public class AmazonDataCollection {
 						count++;
 					}
 					// max results reached
-					if (count == 200)
+					if (count == numResults)
 						break SEARCH_LOOP;
 				} // for loop - result page
 				String nextPageXpath = "//a[contains(@aria-label,'Go to next page')]";
