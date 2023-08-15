@@ -43,7 +43,7 @@ public class AmazonDataCollection {
 				String title = driver.findElement(By.xpath(titleXpath)).getText();
 				String price = driver.findElement(By.xpath(priceXpath)).getText();
 				price = price.replace("\n", ".");
-
+				
 				System.out.println("ID: " + index + " Title: " + title + " Price: " + price);
 			}
 
