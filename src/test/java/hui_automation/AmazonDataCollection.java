@@ -8,7 +8,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-//import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AmazonDataCollection {
 
@@ -17,14 +18,14 @@ public class AmazonDataCollection {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.manage().window().maximize();
-//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 		String searchTerm = "men's shoes";
 		int numResults = 200;
 
 		try {
 			driver.get("https://www.amazon.com/");
-			driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys(searchTerm + Keys.ENTER);
+			driver.findElement(By.id("twotabsearchtextbox")).sendKeys(searchTerm + Keys.ENTER);
 
 			Testkeys.containsElement(driver,
 					By.xpath(String.format(
@@ -32,12 +33,12 @@ public class AmazonDataCollection {
 							searchTerm)),
 					String.format("%s not found", searchTerm));
 
-			// search results
-			String parentXpath = "(//div[@data-component-type='s-search-result'])";
-			List<WebElement> cards = driver.findElements(By.xpath(parentXpath));
-
 			int count = 0;
 			SEARCH_LOOP: while (count < numResults) {
+				// search results
+				String parentXpath = "(//div[@data-component-type='s-search-result'])";
+				List<WebElement> cards = driver.findElements(By.xpath(parentXpath));
+
 				for (int index = 1; index <= cards.size(); index++) {
 					String titleXpath = String.format("%s[%d]//h2", parentXpath, index);
 					String labelXpath = String.format("%s[%d]//h2/a", parentXpath, index);
@@ -51,17 +52,23 @@ public class AmazonDataCollection {
 						String price = driver.findElement(By.xpath(priceXpath)).getText();
 						price = price.replace("\n", ".");
 
-						System.out.println("ID: " + (count + 1) + " Title: " + realTitle + " Price: " + price);
-						count++;
+						System.out.println("ID: " + (++count) + " Title: " + realTitle + " Price: " + price);
 					}
 					// max results reached
 					if (count == numResults)
 						break SEARCH_LOOP;
 				} // for loop - result page
+
+				// find the current page
+				String currText = driver.findElement(By.xpath("//span[contains(@aria-label,'Current page')]"))
+						.getText();
+				int current = Integer.parseInt(currText);
 				String nextPageXpath = "//a[contains(@aria-label,'Go to next page')]";
-				if (Testkeys.containsElement(driver, By.xpath(nextPageXpath)))
+				if (Testkeys.containsElement(driver, By.xpath(nextPageXpath))) {
 					driver.findElement(By.xpath(nextPageXpath)).click();
-				else
+					wait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+							String.format("//span[contains(@aria-label,'Current page')][text()='%d']", ++current))));
+				} else
 					break;
 			} // while loop
 
