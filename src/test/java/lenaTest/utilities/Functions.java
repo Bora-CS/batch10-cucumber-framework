@@ -1,18 +1,15 @@
-package lenaTest;
+package lenaTest.utilities;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-import utilities.Keywords;
+public class Functions {
 
-public class lenaTest_utilities_Keywords {
 
 	public static void wait(int second) throws InterruptedException {
 		Thread.sleep(second * 1000);
@@ -69,39 +66,6 @@ public class lenaTest_utilities_Keywords {
 				driver.switchTo().window(handle);
 			}
 		}
-	}
-
-	public static void getProducts(WebDriver driver) throws InterruptedException {
-
-		driver.findElement(By
-				.xpath("//a[@class='s-pagination-item s-pagination-next s-pagination-button s-pagination-separator']"))
-				.click();
-		for (int i = 1; i <= 199; i++) {
-			String parentXpath = "(//div[@data-component-type='s-search-result'])";
-			List<WebElement> cards = driver.findElements(By.xpath(parentXpath));
-			driver.findElement(By.xpath(
-					"//a[@class='s-pagination-item s-pagination-next s-pagination-button s-pagination-separator']"))
-					.click();
-			
-			for (int index = 1; index <= cards.size(); index++) {
-				String titleXpath = parentXpath + "[" + index + "]//h2";
-				String priceXpath = parentXpath + "[" + index + "]//span[@class='a-price']";
-
-				String title = driver.findElement(By.xpath(titleXpath)).getText();
-				String price = driver.findElement(By.xpath(priceXpath)).getText();
-				price = price.replace("\n", ".");
-				
-				System.out.println("ID: " + index + " Title: " + title + " Price: " + price);
-			}
-
-		}
-
-	}
-
-	public static void getFirstPage(WebDriver driver) {
-		String parentXpath = "(//div[@data-component-type='s-search-result'])";
-		List<WebElement> cards = driver.findElements(By.xpath(parentXpath));
-
 	}
 
 }
