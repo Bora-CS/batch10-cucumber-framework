@@ -1,19 +1,26 @@
-package helen.utilities;
+package lenaTest.utilities;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class Keywords {
+public class Functions {
+
 
 	public static void wait(int second) throws InterruptedException {
 		Thread.sleep(second * 1000);
+	}
+
+	public static void waitWithoutTry(int second) {
+		try {
+			Thread.sleep(second * 1000);
+		} catch (Exception e) {
+
+		}
 	}
 
 	public static String getTimeStamp() {
@@ -42,7 +49,6 @@ public class Keywords {
 		}
 	}
 
-	// overloading with different parameters
 	public static void checkIfElementExists(WebDriver driver, By locator, String errorMessage) throws Exception {
 		boolean found = checkIfElementExists(driver, locator);
 
@@ -60,41 +66,6 @@ public class Keywords {
 				driver.switchTo().window(handle);
 			}
 		}
-
-	}
-	
-
-	public static Double getMaxPrice(WebDriver driver, ArrayList<Double> prices) {
-		Double max = prices.get(0);
-		for (int i = 0; i < prices.size(); i++) {
-			if (prices.get(i) > max) {
-				max = prices.get(i);
-			}
-		}
-		return max;
-
-	}
-
-	public static Double getMinPrice(WebDriver driver, ArrayList<Double> prices) {
-		Double min = prices.get(0);
-		for (int i = 0; i < prices.size(); i++) {
-			if (prices.get(i) < min) {
-				min = prices.get(i);
-			}
-		}
-		return min;
-
-	}
-
-	public static double getAvePrice(WebDriver driver, ArrayList<Double> prices) {
-		double sum = prices.get(0);
-		double ave = prices.get(0);
-		for (int i = 0; i < prices.size(); i++) {
-			sum += prices.get(i);
-		}
-		ave = sum / prices.size();
-		double roundedAve = (double) Math.round(ave * 100.0) / 100.0;
-		return roundedAve;
 	}
 
 }
