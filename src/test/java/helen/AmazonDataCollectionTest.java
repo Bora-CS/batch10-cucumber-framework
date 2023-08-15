@@ -56,19 +56,19 @@ public class AmazonDataCollectionTest {
 						// convert String price with $ into Double without $ and put in ArrayList
 						double priceNumber = Double.parseDouble(price.replace("$", ""));
 
-						System.out.println("[" + index + "] " + title + " | " + price);
+						System.out.println("[" + count + "] " + title + " | " + price);
 						priceNumberList.add(priceNumber);
 						count++;
 					}
 					//break for loop once numberToSearch is reached
-					if (count == numberToSearch) {
+					if (count > numberToSearch) {
 						break;
 					}
 
 				}
 				
 				//click the next page button
-				if (helen.utilities.Keywords.checkIfElementExists(driver, By.xpath("nextButtonXpath"))) {
+				if (helen.utilities.Keywords.checkIfElementExists(driver, By.xpath(nextButtonXpath))) {
 					driver.findElement(By.xpath(nextButtonXpath)).click();
 				} else {
 					break;
