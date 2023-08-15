@@ -66,12 +66,6 @@ public class DataDriven_ApplicationForm {
 		localDriver.close();
 		localDriver.quit();
 	}
-	
-	
-	
-	
-	
-	
 
 	private static void selectGender(WebDriver driver, String gender) {
 		if (gender.equalsIgnoreCase("male")) {
