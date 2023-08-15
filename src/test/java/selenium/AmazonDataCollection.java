@@ -1,15 +1,19 @@
 package selenium;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pojo.AmazonSearchResult;
 import utilities.BoraTech;
 import utilities.Keywords;
 
@@ -20,7 +24,8 @@ public class AmazonDataCollection {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 		driver.manage().window().maximize();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		List<AmazonSearchResult> results = new ArrayList<>();
 
 		String searchTerm = "Shampoo";
 
@@ -33,18 +38,36 @@ public class AmazonDataCollection {
 							"//*[@data-component-type='s-result-info-bar']//*[contains(text(), '" + searchTerm + "')]"),
 					"Expected to be on the search result page for '" + searchTerm + "'");
 
-			String parentXpath = "(//div[@data-component-type='s-search-result'])";
-			List<WebElement> cards = driver.findElements(By.xpath(parentXpath));
+			int counter = 0;
+			while (counter < 200) {
+				String parentXpath = "(//div[@data-component-type='s-search-result'])";
+				wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(parentXpath), 48));
+				List<WebElement> cards = driver.findElements(By.xpath(parentXpath));
 
-			for (int index = 1; index <= cards.size(); index++) {
-				String titleXpath = parentXpath + "[" + index + "]//h2";
-				String priceXpath = parentXpath + "[" + index + "]//span[@class='a-price']";
+				for (int index = 1; index <= cards.size(); index++) {
+					String titleXpath = parentXpath + "[" + index + "]//h2";
+					String priceXpath = parentXpath + "[" + index + "]//span[@class='a-price']";
 
-				String title = driver.findElement(By.xpath(titleXpath)).getText();
-				String price = driver.findElement(By.xpath(priceXpath)).getText();
-				price = price.replace("\n", ".");
+					String title = driver.findElement(By.xpath(titleXpath)).getText();
+					String price = null;
+					try {
+						price = driver.findElement(By.xpath(priceXpath)).getText();
+						price = price.replace("\n", ".").replace("$", "");
+					} catch (NoSuchElementException e) {
+						continue;
+					}
 
-				System.out.println("ID: " + index + " Title: " + title + " Price: " + price);
+					results.add(new AmazonSearchResult(++counter, Double.valueOf(price), title));
+
+					if (counter == 200) {
+						break;
+					}
+				}
+
+				if (counter == 200) {
+					break;
+				}
+				driver.findElement(By.xpath("//a[contains(@class,'s-pagination-next')]")).click();
 			}
 
 			System.out.println("Test Passed");
@@ -54,6 +77,10 @@ public class AmazonDataCollection {
 		} finally {
 			driver.close();
 			driver.quit();
+		}
+
+		for (AmazonSearchResult result : results) {
+			System.out.println("ID: " + result.id + " Price: " + result.price + " Title: " + result.title);
 		}
 
 	}
