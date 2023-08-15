@@ -21,8 +21,8 @@ public class CostcoDynamicWait {
 		
 		try {
 			driver.navigate().to("http://www.costco.com/");
-			WebElement audioDealsCrad = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt='shop audio deals']")));
-			audioDealsCrad.click();
+			WebElement audioDealsCard = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt='shop audio deals']")));
+			audioDealsCard.click();
 			
 			helen.utilities.Keywords.checkIfElementExists(driver, By.xpath("//h1[@id='refineCntMsg'][contains(text(), 'Audio/Video')]"), "Cannot find Audio/Video text");
 			//h1[@id='refineCntMsg'][contains(text(), 'Audio/Video')]
