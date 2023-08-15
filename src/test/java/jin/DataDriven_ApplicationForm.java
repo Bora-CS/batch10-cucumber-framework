@@ -62,16 +62,10 @@ public class DataDriven_ApplicationForm {
 
 //		localDriver.findElement(By.id("submit")).click();
 		jsClick(localDriver, By.id("submit"));
-		Keywords.waitWithOutTry(3);
+		Keywords.waitWithoutTry(3);
 		localDriver.close();
 		localDriver.quit();
 	}
-	
-	
-	
-	
-	
-	
 
 	private static void selectGender(WebDriver driver, String gender) {
 		if (gender.equalsIgnoreCase("male")) {
