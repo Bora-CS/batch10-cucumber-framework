@@ -25,6 +25,7 @@ public class Minimals_filteruser {
 			driver.get("https://minimals.cc/auth/amplify/login/");
 			Keywords.wait(1);
 
+			
 			driver.findElement(By.xpath("//input[@name='email']")).sendKeys(username);
 			driver.findElement(By.xpath("//input[@name='password']")).sendKeys(password);
 			driver.findElement(By.xpath("//button[@type='submit']")).click();
