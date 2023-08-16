@@ -10,66 +10,35 @@ import utilities.Keywords;
 public class ClassActionJquery {
 
 	public static void main(String[] args) {
-		draggable();
-	}
-	
-	static void checkBox () {
-		
-		WebDriver driver= new ChromeDriver();
-		try {
-			driver.get("https://jqueryui.com/checkboxradio/");
-			
-			driver.switchTo().frame(0);
-			
-			boolean star_2 = driver.findElement(By.xpath("//*[@class=\'ui-checkboxradio-label ui-corner-all ui-button"
-					+ " ui-widget\']")).isSelected();
-						
-			System.out.println("2 star status is: " +star_2 );
-			
-			Keywords.wait(3);
-			
-		}catch(Exception e) {
-		
-		}	finally {
-			
-		}
-		
+		checkBox();
+		action();
 	}
 
-	static void draggable() {
+	public static void checkBox() {
 		WebDriver driver = new ChromeDriver();
-		Actions ac = new Actions(driver);
 
 		try {
-			driver.get("https://jqueryui.com/draggable/");
-
+			// checking the newYork box
+			driver.get("https://jqueryui.com/checkboxradio/");
 			driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
+			driver.findElement(By.xpath("//label[@for='radio-1']")).click();
+			driver.findElement(By.xpath("//label[@for='checkbox-4']")).click();
 
-			ac.clickAndHold(driver.findElement(By.id("draggable"))).moveByOffset(-200, -100).build().perform();
-
-			ac.clickAndHold(driver.findElement(By.className("ui-resizable-se"))).moveByOffset(100, -30).build().perform();
-			
-			
-			
-			driver.switchTo().defaultContent();
-			driver.findElements(By.linkText("sortable"));
-			
-			ac.clickAndHold(driver.findElement(By.xpath("//*contains[@class='ui-sortable-handle'][1]"))).moveByOffset(0, -30).release().perform();
-			
-			ac.clickAndHold(driver.findElement(By.xpath("//*contains[@class='ui-sortable-handle'][1]"))).moveByOffset(0, 40).release().perform();
-			
-			
-			
-			Keywords.wait(3);
-
+			Thread.sleep(3000);
+			// checking 5 starBocks
+//			boolean checkFiveStars = driver.findElement(By.xpath("//label[@for='checkbox-4']")).isSelected();
+//			System.out.println(checkFiveStars);
+			// Thread.sleep(3000);
 		} catch (Exception e) {
-			System.out.println("bad");
-			System.out.println("bad bc: " + e.getMessage());
+			System.out.println("test failed because" + e.getMessage());
+			e.printStackTrace();
 		} finally {
-
 			driver.quit();
-			driver.close();
+
 		}
+	}
+
+	public static void action() {
 
 	}
 
