@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import pojo.AmazonSearchResult;
 import utilities.BoraTech;
+import utilities.Excel;
 import utilities.Keywords;
 
 public class AmazonDataCollection {
@@ -79,9 +80,7 @@ public class AmazonDataCollection {
 			driver.quit();
 		}
 
-		for (AmazonSearchResult result : results) {
-			System.out.println("ID: " + result.id + " Price: " + result.price + " Title: " + result.title);
-		}
+		Excel.exportAmazonSearchResults(searchTerm, results);
 
 	}
 
