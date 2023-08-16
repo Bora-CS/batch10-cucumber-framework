@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helen.pojo.AmazonSearchResult;
+import helen.utilities.Excel;
 
 public class AmazonDataCollectionTest {
 
@@ -107,12 +108,14 @@ public class AmazonDataCollectionTest {
 			driver.quit();
 		}
 		
-		System.out.println(results);  //pojo objects printed out
+//		System.out.println(results);  //pojo objects printed out
+//		
+//		for (AmazonSearchResult result : results) {
+//			System.out.println("ID: " + result.id + " Price: " + result.price + " Title: " + result.title);
+//		}
 		
+		Excel.exportAmazonSearchResults(searchTerm, results);
 		
-		for (AmazonSearchResult result : results) {
-			System.out.println("ID: " + result.id + " Price: " + result.price + " Title: " + result.title);
-		}
 	}
 
 }
