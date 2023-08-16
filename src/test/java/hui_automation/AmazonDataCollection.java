@@ -1,6 +1,7 @@
 package hui_automation;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -11,6 +12,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import hui_automation.pojo.AmazonSearchResult;
+import hui_automation.utilities.Excel;
+
 public class AmazonDataCollection {
 
 	public static void main(String[] args) {
@@ -19,7 +23,8 @@ public class AmazonDataCollection {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.manage().window().maximize();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+		List<AmazonSearchResult> results = new ArrayList<>();
+		
 		String searchTerm = "men's shoes";
 		int numResults = 200;
 
@@ -48,11 +53,13 @@ public class AmazonDataCollection {
 					if (Testkeys.containsElement(driver, By.xpath(priceXpath))) {
 						String title = driver.findElement(By.xpath(titleXpath)).getText();
 						String label = driver.findElement(By.xpath(labelXpath)).getText();
-						String realTitle = title + " - " + label;
-						String price = driver.findElement(By.xpath(priceXpath)).getText();
-						price = price.replace("\n", ".");
+//						String realTitle = title + " - " + label;
+						String price = driver.findElement(By.xpath(priceXpath)).getText();						
+						price = price.replace("\n", ".").replace("$", "");
 
-						System.out.println("ID: " + (++count) + " Title: " + realTitle + " Price: " + price);
+						results.add(new AmazonSearchResult(++count, Double.valueOf(price), title, label));
+
+//						System.out.println("ID: " + (++count) + " Title: " + realTitle + " Price: " + price);
 					}
 					// max results reached
 					if (count == numResults)
@@ -80,6 +87,8 @@ public class AmazonDataCollection {
 		} finally {
 			Testkeys.terminate(driver);
 		}
+		
+		Excel.exportAmazonSearchResult(searchTerm, results);
 
 	} // main
 
