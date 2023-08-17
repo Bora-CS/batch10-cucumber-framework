@@ -44,7 +44,8 @@ public class Excel {
 			
 			if (result.price < min) {
 				min = result.price;
-				minIndex = index;
+				minIndex = result.id;
+				minTitle = result.title;
 			}
 			
 			sum += result.price;
