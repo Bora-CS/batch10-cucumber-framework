@@ -38,7 +38,6 @@ public class Keywords {
 			return false;
 		}
 	}
-
 	public static void checkIfElementExists(WebDriver driver, By locator, String errorMessage) throws Exception {
 		boolean found = checkIfElementExists(driver, locator);
 
@@ -46,6 +45,7 @@ public class Keywords {
 			throw new Exception(errorMessage);
 		}
 	}
+
 	public static void switchToTheOtherWindow(WebDriver driver) {
 		Set<String> handles = driver.getWindowHandles();
 		String mainHandle = driver.getWindowHandle();
