@@ -26,6 +26,8 @@ public class Excel {
 		double min = firstResultPrice;
 		double max = firstResultPrice;
 		double avg = 0.0, sum = 0;
+		int maxIndex = 0,  minIndex = 0;
+		String maxTitle = null, minTitle = null;
 		
 		for (int index = 0; index < results.size(); index++) {
 			XSSFRow row = sheet.createRow(index + 1);  //right below the header
@@ -36,10 +38,13 @@ public class Excel {
 			
 			if (result.price > max) {
 				max = result.price;
+				maxIndex = result.id;
+				maxTitle = result.title;
 			}
 			
 			if (result.price < min) {
 				min = result.price;
+				minIndex = index;
 			}
 			
 			sum += result.price;
@@ -53,12 +58,26 @@ public class Excel {
 		XSSFRow avgRow = sheet.createRow(results.size() + 4);   
 		
 		minRow.createCell(0).setCellValue("Min");
-		maxRow.createCell(0).setCellValue("Max");
-		avgRow.createCell(0).setCellValue("Avg");
-		
 		minRow.createCell(1).setCellValue(min);
+		minRow.createCell(2).setCellValue("Product ID");
+		minRow.createCell(3).setCellValue(minIndex);
+		minRow.createCell(4).setCellValue("Title");
+		minRow.createCell(5).setCellValue(minTitle);
+		
+		
+		maxRow.createCell(0).setCellValue("Max");
 		maxRow.createCell(1).setCellValue(max);
+		maxRow.createCell(2).setCellValue("Product ID");
+		maxRow.createCell(3).setCellValue(maxIndex);
+		maxRow.createCell(4).setCellValue("Title");
+		maxRow.createCell(5).setCellValue(maxTitle);
+		
+		
+		avgRow.createCell(0).setCellValue("Avg");
 		avgRow.createCell(1).setCellValue(avg);
+		
+		
+		
 		
 		String timeStamp =  helen.utilities.Keywords.getTimeStamp();
 		FileOutputStream fos;
@@ -74,6 +93,3 @@ public class Excel {
 	}
 
 }
-
-
-/// put Pr0duct ID and Title INTO C203 CELL
