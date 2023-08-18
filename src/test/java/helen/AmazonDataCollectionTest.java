@@ -16,7 +16,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helen.pojo.AmazonSearchResult;
 import helen.utilities.Excel;
-import hui_automation.Testkeys;
 
 public class AmazonDataCollectionTest {
 

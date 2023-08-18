@@ -1,4 +1,4 @@
-package hui_automation;
+package hui_automation.selenium;
 
 import java.io.FileOutputStream;
 
