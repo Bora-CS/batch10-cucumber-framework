@@ -22,7 +22,17 @@ public class Login {
 		request.header("Content-Type", "application/json");
 
 		Response response = request.post(endpoint);
-		System.out.println(response.body().asPrettyString());
+		int actualStatusCode = response.statusCode();
+		int expectedStatusCode = 200;
+
+		if (actualStatusCode != expectedStatusCode) {
+			System.out.println("Failed, expected: " + expectedStatusCode + " actual: " + actualStatusCode);
+		}
+
+		String responseBody = response.body().asString();
+		if (!responseBody.contains("token")) {
+			System.out.println("Failed, token not found");
+		}
 
 	}
 
