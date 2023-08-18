@@ -17,7 +17,7 @@ public class AddEducationDataDriven {
 		Education edu1 = new Education("George Mason University", "Bachelor's Degree", "Biology", "2008/01/31",
 				"2010/05/15", false, "Practice the scientific study of life.", null);
 		Education edu2 = new Education("BoraTech School", "Certificate of Completion", "Test Automation Engineering",
-				"2023/05/07", "", true, "Web application testing for quality control.", null);
+				"2023/05/07", null, true, "Web application testing for quality control.", null);
 		Education[] educations = { edu1, edu2 };
 
 		try {
