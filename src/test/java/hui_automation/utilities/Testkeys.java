@@ -1,4 +1,4 @@
-package hui_automation;
+package hui_automation.utilities;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package hui_automation;
+package hui_automation.selenium;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import hui_automation.pojo.AmazonSearchResult;
 import hui_automation.utilities.Excel;
+import hui_automation.utilities.Testkeys;
 
 public class AmazonDataCollection {
 

@@ -1,11 +1,11 @@
-package hui_automation.boratech_tests;
+package hui_automation.selenium.boratech_tests;
 
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 
-import hui_automation.Testkeys;
 import hui_automation.pojo.Experience;
+import hui_automation.utilities.Testkeys;
 
 public class AddExperienceDataDriven {
 
