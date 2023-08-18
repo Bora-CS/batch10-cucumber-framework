@@ -1,8 +1,10 @@
-package hui_automation;
+package hui_automation.selenium;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+
+import hui_automation.utilities.Testkeys;
 
 public class ActionClassPractice0805 {
 

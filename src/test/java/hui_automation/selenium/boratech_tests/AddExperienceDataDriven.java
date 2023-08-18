@@ -1,11 +1,11 @@
-package hui_automation.boratech_tests;
+package hui_automation.selenium.boratech_tests;
 
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 
-import hui_automation.Testkeys;
 import hui_automation.pojo.Experience;
+import hui_automation.utilities.Testkeys;
 
 public class AddExperienceDataDriven {
 
@@ -18,7 +18,7 @@ public class AddExperienceDataDriven {
 				"Payment collection.", null);
 		Experience exp2 = new Experience("NASA", "Astronaut", "Merritt Island, Florida", "2009/01/11", "2019/08/08",
 				false, "Maintain safety of the international space station and fly space shuttle.", null);
-		Experience exp3 = new Experience("Self-employed", "Pirate", "High Sea", "2019/08/31", "", true,
+		Experience exp3 = new Experience("Self-employed", "Pirate", "High Sea", "2019/08/31", null, true,
 				"High sea raiding.", null);
 		Experience[] experiences = { exp1, exp2, exp3 };
 

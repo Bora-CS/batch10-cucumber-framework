@@ -1,4 +1,4 @@
-package hui_automation.boratech_tests;
+package hui_automation.selenium.boratech_tests;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import hui_automation.Testkeys;
 import hui_automation.pojo.Education;
 import hui_automation.pojo.Experience;
+import hui_automation.utilities.Testkeys;
 
 public class BoraTech {
 
@@ -69,6 +69,7 @@ public class BoraTech {
 		boolean targetRow = false;
 		By expTableLocator = RelativeLocator.with(By.tagName("table"))
 				.below(By.xpath("//h2[text()='Experience Credentials']"));
+		Testkeys.pause(2);
 		// find all the experience table rows
 		List<WebElement> rows = driver.findElement(expTableLocator).findElements(By.xpath("tbody/tr"));
 		for (WebElement row : rows) {
