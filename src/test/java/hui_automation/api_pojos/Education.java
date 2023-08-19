@@ -21,4 +21,13 @@ public class Education {
 		this.description = description;
 	}
 
+	public boolean equals(Object obj) {
+		if (obj instanceof Education) {
+			Education that = (Education) obj;
+			return this.school.equals(that.school) && this.degree.equals(that.degree)
+					&& this.fieldofstudy.equals(that.fieldofstudy);
+		}
+		return false;
+	}
+
 }

@@ -24,7 +24,7 @@ public class AddEducationTest {
 			// validate education
 			boolean targetFound = false;
 			for (Education education : educations) {
-				if (education.school.equals(edu.school) && education.degree.equals(edu.degree)) {
+				if (education.equals(edu)) {
 					targetFound = true;
 					System.out.println(education.school + ", " + education.degree);
 					break;
