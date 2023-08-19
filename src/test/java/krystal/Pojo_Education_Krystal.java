@@ -1,24 +1,36 @@
 package krystal;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Pojo_Education_Krystal {
 
 	public String school;
 	public String degree;
-	public String fieldStudy;
+	public String fieldOfStudy;
 	public String from;
 	public String to;
 	public boolean current;
 	public String description;
+	public List<String> expectedErrors;
+	public boolean isHappyPath;
 
 	public Pojo_Education_Krystal(String school, String degree, String fieldOfStudy, String from, String to, boolean current,
-			String description) {
+			String description, String[] expectedErrors) {
 		this.school = school;
 		this.degree = degree;
-		this.fieldStudy = fieldOfStudy;
+		this.fieldOfStudy = fieldOfStudy;
 		this.from = from;
 		this.to = to;
 		this.current = current;
 		this.description = description;
+		if (expectedErrors == null) {
+			this.expectedErrors = new ArrayList<>();
+		} else {
+			this.expectedErrors = Arrays.asList(expectedErrors);
+		}
+		this.isHappyPath = this.expectedErrors.size() == 0;
 	}
 
 }

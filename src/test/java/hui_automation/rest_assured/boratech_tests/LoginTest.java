@@ -1,4 +1,4 @@
-package apis;
+package hui_automation.rest_assured.boratech_tests;
 
 import java.util.HashMap;
 
@@ -6,7 +6,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class Login {
+public class LoginTest {
 
 	public static void main(String[] args) {
 
@@ -15,8 +15,8 @@ public class Login {
 		RequestSpecification request = RestAssured.given();
 
 		HashMap<String, String> body = new HashMap<>();
-		body.put("email", "muradil.erkin@boratechschool.com");
-		body.put("password", "Boratech");
+		body.put("email", "hui-pretender@outlook.com");
+		body.put("password", "Hui123456");
 
 		request.body(body);
 		request.header("Content-Type", "application/json");
@@ -26,12 +26,9 @@ public class Login {
 		int expectedStatusCode = 200;
 
 		if (actualStatusCode != expectedStatusCode) {
-			System.out.println("Failed, expected: " + expectedStatusCode + " actual: " + actualStatusCode);
-		}
-
-		String responseBody = response.body().asString();
-		if (!responseBody.contains("token")) {
-			System.out.println("Failed, token not found");
+			System.out.println("Test failed, expected: " + expectedStatusCode + " actual: " + actualStatusCode);
+		} else {
+			System.out.println("Test passed.");
 		}
 
 	}
