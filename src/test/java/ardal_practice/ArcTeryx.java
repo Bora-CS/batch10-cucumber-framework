@@ -5,13 +5,12 @@ import java.time.Duration;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import hui_automation.Testkeys;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class ArcTeryx {
 
 	public static void main(String[] args) {
-		WebDriver driver = Testkeys.getChromeDriver();
+		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.manage().window().maximize();
 		JavascriptExecutor js = (JavascriptExecutor) driver;

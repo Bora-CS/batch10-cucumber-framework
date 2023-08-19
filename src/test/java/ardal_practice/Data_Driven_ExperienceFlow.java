@@ -5,7 +5,7 @@ import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import ardal_test_pojo.Experience;
+import ardal_practice.pojo.Experience;
 
 public class Data_Driven_ExperienceFlow {
 

@@ -12,8 +12,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import ardal_test_pojo.ExcelArdal;
-import ardal_test_pojo.IndigoSearchResult;
+import ardal_practice.pojo.ExcelArdal;
+import ardal_practice.pojo.IndigoSearchResult;
 import utilities.Keywords;
 
 public class IndigoDataCollection {
