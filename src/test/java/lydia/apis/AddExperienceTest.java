@@ -42,9 +42,11 @@ public static void main(String[] args) {
 			
 			request.header("x-auth-token",token);
 			request.header("Content-Type", "application/json");
+			
+			request.body(body);//give the body
 			Response response = request.put(endpoint);
 			
-			request.body(body);
+		
 			
 			System.out.println(response.body().asPrettyString());
 				

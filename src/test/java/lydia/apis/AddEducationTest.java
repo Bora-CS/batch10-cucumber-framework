@@ -26,9 +26,8 @@ public class AddEducationTest {
 		request.header("x-auth-token",token);
 		request.header("Content-Type", "application/json");
 		
-		Response response = request.put("/api/profile/education");
-		
 		request.body(body);
+		Response response = request.put("/api/profile/education");
 		
 		System.out.println(response.body().asPrettyString());
 	
