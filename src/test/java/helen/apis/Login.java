@@ -26,7 +26,7 @@ public class Login {
 		//System.out.println(response.getStatusCode());
 		//System.out.println(response.body());   //hashcode
 		//System.out.println(response.body().asString());
-		//System.out.println(response.body().asPrettyString());
+		System.out.println(response.body().asPrettyString());
 
 		
 		//validation

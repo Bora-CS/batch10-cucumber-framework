@@ -25,7 +25,7 @@ public class BoraTechApis {
 
 		Response response = request.post(endpoint);
 		
-		JsonPath jp = response.jsonPath();  //get jsonpath object, extract token out of response
+		JsonPath jp = response.jsonPath();  
 		String token = jp.get("token");
 		return token;
 		
@@ -57,10 +57,12 @@ public class BoraTechApis {
 		request.header("Content-Type", "application/json");
 
 		Response response = request.put(endpoint);
-	
-		Object jp = response.body().asPrettyString();
-		System.out.println(jp);
-		 
+		
+//		JsonPath jp = response.jsonPath();
+//		String[] experience = jp.get("education");  
+//		System.out.println(experience.toString());
+		System.out.println(response.getBody().asPrettyString());
+
 	}
 
 
@@ -76,8 +78,10 @@ public class BoraTechApis {
 
 		Response response = request.put(endpoint);
 	
-		Object jp = response.body().asPrettyString();
-		System.out.println(jp);
+//		JsonPath jp = response.jsonPath();
+//		String[] education = jp.get("education");  
+//		System.out.println(education.toString());
+		System.out.println(response.getBody().asPrettyString());
 	}
 
 }
