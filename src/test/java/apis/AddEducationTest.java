@@ -1,11 +1,13 @@
 package apis;
 
-import com.google.gson.JsonObject;
+import java.util.List;
 
+import apiPojos.Education;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import utilities.BoraTechAPIs;
+import utilities.Keywords;
 
 public class AddEducationTest {
 
@@ -19,19 +21,27 @@ public class AddEducationTest {
 		request.header("Content-Type", "application/json");
 		request.header("x-auth-token", token);
 
-		JsonObject body = new JsonObject();
-		body.addProperty("school", "BoraTech");
-		body.addProperty("degree", "Certified Coffee Drinker");
-		body.addProperty("fieldofstudy", "Coffee Drinking");
-		body.addProperty("from", "2023-08-01");
-		body.addProperty("to", "");
-		body.addProperty("current", true);
-		body.addProperty("description", "Drinking all sorts of coffee");
+		Education expectedEducation = new Education("BoraTech" + Keywords.getTimeStamp(), "Certified Coffee Drinker",
+				"Coffee Drinking", "2023-08-01", "", true, "Drinking all sorts of coffee");
 
-		request.body(body);
+		request.body(expectedEducation);
 
 		Response response = request.put("/api/profile/education");
-		System.out.println(response.body().asPrettyString());
+		List<Education> educations = response.jsonPath().getList("education", Education.class);
+
+		boolean found = false;
+		for (Education actualEducation : educations) {
+			if (expectedEducation.equals(actualEducation)) {
+				found = true;
+				break;
+			}
+		}
+
+		if (found) {
+			System.out.println("Pass");
+		} else {
+			System.out.println("Fail");
+		}
 
 	}
 
