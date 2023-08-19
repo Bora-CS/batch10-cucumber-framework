@@ -1,6 +1,6 @@
 package hui_automation.rest_assured.boratech_tests;
 
-import hui_automation.pojo.Experience;
+import hui_automation.pojos.Experience;
 import hui_automation.utilities.BoraTechAPIs;
 import hui_automation.utilities.Testkeys;
 

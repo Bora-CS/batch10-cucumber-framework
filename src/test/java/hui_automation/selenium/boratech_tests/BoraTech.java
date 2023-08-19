@@ -11,8 +11,8 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import hui_automation.pojo.Education;
-import hui_automation.pojo.Experience;
+import hui_automation.pojos.Education;
+import hui_automation.pojos.Experience;
 import hui_automation.utilities.Testkeys;
 
 public class BoraTech {

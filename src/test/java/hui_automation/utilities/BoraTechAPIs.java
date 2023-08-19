@@ -5,8 +5,8 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import hui_automation.pojo.Education;
-import hui_automation.pojo.Experience;
+import hui_automation.pojos.Education;
+import hui_automation.pojos.Experience;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
