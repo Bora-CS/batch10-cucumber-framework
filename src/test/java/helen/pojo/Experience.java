@@ -19,6 +19,8 @@ public class Experience {
 	public List<String> expectedErrors;
 	public boolean isHappyPath;
 
+	
+	//constructor
 	public Experience(String jobTitle, String company, String location, String from, String to, boolean current,
 			String description, String[] expectedErrors) {
 		this.jobTitle = jobTitle;
@@ -51,8 +53,8 @@ public class Experience {
 	
 	private HashMap<String, Object> toHashMap() {
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("jobTitle", this.jobTitle);
 		map.put("company", this.company);
+		map.put("title", this.jobTitle);
 		map.put("location", this.location);
 		map.put("from", this.from);
 		map.put("to", this.to);

@@ -3,7 +3,9 @@ package helen.utilities;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
+import helen.apiPojos.User;
 import helen.pojo.Education;
 import helen.pojo.Experience;
 import io.restassured.RestAssured;
@@ -35,17 +37,16 @@ public class BoraTechApis {
 	
 	
 	
-	public static String getAuthorizedUserMeta(String token) {
+	public static User getAuthorizedUserMeta(String token) {
 		String endpoint = "/api/auth";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
-		request.header("x-auth-token", token);  // no body
+		request.header("x-auth-token", token); 
 		
 		Response response = request.get(endpoint);	
-		
-		//return response.jsonPath().get("name");
-		return response.jsonPath().get("email");
+		User user = response.as(User.class);
+		return user;
 		
 	}
 
@@ -73,14 +74,21 @@ public class BoraTechApis {
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
-		request.body(edu.pojoToJason());
 		request.header("x-auth-token", token);
-		request.header("Content-Type", "application/json");
-
+		request.header("Content-Type", "application/json");  //sending body data
+		request.body(edu.pojoToJason());
+		
+//		
+//		JsonObject body = new JsonObject();
+//		body.addProperty("school", "BoraTech");
+//		body.addProperty("degree", "STED");
+//		body.addProperty("current", true);
+//		
 		Response response = request.put(endpoint);
-	
+		//System.out.println(response.body().asPrettyString());
+		
 		System.out.println(edu.pojoToJason());
-//		Object result = response.body().jsonPath().get("education");
+//		Object result = response.body().get("education");
 //		System.out.println(result);
 	}
 
