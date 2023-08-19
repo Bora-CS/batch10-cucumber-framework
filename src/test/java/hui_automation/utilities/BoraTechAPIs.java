@@ -5,6 +5,7 @@ import java.util.List;
 
 import hui_automation.api_pojos.Education;
 import hui_automation.api_pojos.Experience;
+import hui_automation.api_pojos.Post;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -96,6 +97,54 @@ public class BoraTechAPIs {
 			throw new Exception("Add education failed: " + response.getStatusLine());
 		List<Education> educations = response.jsonPath().getList("education", Education.class);
 		return educations;
+	}
+
+	public static String postBoraTechPosts(String token, Post post) {
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		String endpoint = "/api/posts";
+		RequestSpecification request = RestAssured.given();
+
+		// setting a request
+		request.header("X-Auth-Token", token);
+		request.header("Content-Type", "application/json");
+		request.body(post);
+
+		// return a response
+		Response response = request.post(endpoint);
+
+		return response.jsonPath().get("name");
+	}
+	
+	public static String postBoraTechPosts(String token, HashMap<String, String> post) {
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		String endpoint = "/api/posts";
+		RequestSpecification request = RestAssured.given();
+
+		// setting a request
+		request.header("X-Auth-Token", token);
+		request.header("Content-Type", "application/json");
+		request.body(post);
+
+		// return a response
+		Response response = request.post(endpoint);
+
+		return response.jsonPath().get("name");
+	}
+
+
+	public static List<HashMap<String, Object>> getBoraTechPosts(String token) {
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		String endpoint = "/api/posts";
+		RequestSpecification request = RestAssured.given();
+
+		// setting a request
+		request.header("X-Auth-Token", token);
+
+		// return a response
+		Response response = request.get(endpoint);
+
+		List<HashMap<String, Object>> posts = response.jsonPath().getList("");
+		return posts;
 	}
 
 }

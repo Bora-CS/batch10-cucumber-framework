@@ -24,7 +24,7 @@ public class AddExperienceTest {
 			// validate experience
 			boolean targetFound = false;
 			for (Experience experience : experiences) {
-				if (experience.company.equals(exp.company) && experience.title.equals(exp.title)) {
+				if (experience.equals(exp)) {
 					targetFound = true;
 					System.out.println(experience.company + ", " + experience.title);
 					break;

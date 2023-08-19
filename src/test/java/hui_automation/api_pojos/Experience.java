@@ -21,4 +21,13 @@ public class Experience {
 		this.description = description;
 	}
 
+	public boolean equals(Object obj) {
+		if (obj instanceof Experience) {
+			Experience that = (Experience) obj;
+			return this.company.equals(that.company) && this.title.equals(that.title)
+					&& this.location.equals(that.location);
+		}
+		return false;
+	}
+
 }
