@@ -1,11 +1,12 @@
 package hui_automation.utilities;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import hui_automation.pojos.Education;
+import hui_automation.api_pojos.Education;
 import hui_automation.pojos.Experience;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -91,17 +92,29 @@ public class BoraTechAPIs {
 		// setting request
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
-		request.body(edu.toJsonString());
+		request.body(edu);
 
 		// return response
 		Response response = request.put(endpoint);
 
 		if (response.getStatusCode() != 200)
 			throw new Exception("Add education failed: " + response.getStatusLine());
+	}
 
-		Object x = response.body().jsonPath().get("education");
-		Gson gs = new GsonBuilder().setPrettyPrinting().create();
-		System.out.println(gs.toJson(x));
+	public static List<Education> getUserEducation(String token) throws Exception {
+		String endpoint = "/api/profile/me";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		request.header("x-auth-token", token);
+
+		Response response = request.get(endpoint);
+
+		if (response.getStatusCode() != 200)
+			throw new Exception("User profile failed to load: " + response.getStatusLine());
+
+		List<Education> educations = response.jsonPath().getList("education", Education.class);
+		return educations;
 	}
 
 }
