@@ -2,6 +2,8 @@ package helen.utilities;
 
 import java.util.HashMap;
 
+import com.google.gson.Gson;
+
 import helen.pojo.Education;
 import helen.pojo.Experience;
 import io.restassured.RestAssured;
@@ -51,18 +53,17 @@ public class BoraTechApis {
 		String endpoint = "/api/profile/experience";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
-
-		request.body(exp);
+		
+		request.body(exp.pojoToJason());
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
 
 		Response response = request.put(endpoint);
-		
-//		JsonPath jp = response.jsonPath();
-//		String[] experience = jp.get("education");  
-//		System.out.println(experience.toString());
-		System.out.println(response.getBody().asPrettyString());
 
+		System.out.println(exp.pojoToJason());
+//		Object result = response.body().jsonPath().get("experience");
+//		System.out.println(result);
+		
 	}
 
 
@@ -72,16 +73,15 @@ public class BoraTechApis {
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
-		request.body(edu);
+		request.body(edu.pojoToJason());
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
 
 		Response response = request.put(endpoint);
 	
-//		JsonPath jp = response.jsonPath();
-//		String[] education = jp.get("education");  
-//		System.out.println(education.toString());
-		System.out.println(response.getBody().asPrettyString());
+		System.out.println(edu.pojoToJason());
+//		Object result = response.body().jsonPath().get("education");
+//		System.out.println(result);
 	}
 
 }

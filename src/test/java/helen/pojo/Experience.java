@@ -2,7 +2,10 @@ package helen.pojo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import com.google.gson.Gson;
 
 public class Experience {
 
@@ -32,5 +35,33 @@ public class Experience {
 		}
 		this.isHappyPath = this.expectedErrors.size() == 0;
 	}
+	
+//	
+//	public Experience(String jobTitle, String company, String from) {
+//		this.jobTitle = jobTitle;
+//		this.company = company;
+//		this.from = from;
+//	}
+
+
+
+	public String pojoToJason() {
+		return new Gson().toJson(toHashMap());
+	}
+	
+	private HashMap<String, Object> toHashMap() {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("jobTitle", this.jobTitle);
+		map.put("company", this.company);
+		map.put("location", this.location);
+		map.put("from", this.from);
+		map.put("to", this.to);
+		map.put("current", this.current);
+		map.put("description",  this.description);
+		
+		return map;
+		
+	}
+	
 
 }
