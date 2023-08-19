@@ -10,56 +10,65 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import lydia.POJO.AmazonSearchResult;
+import lydia.utilities.ExcelLydia;
+import lydia.utilities.Keywords;
 
 public class AmazonDataCollection {
 
 	public static void main(String[] args) {
-		WebDriver driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		driver.manage().window().maximize();
-		//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-		List<String> twoHundredShampoos = new ArrayList<>();
-		int count = 1;
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+		driver.manage().window().maximize();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		List<AmazonSearchResult> results = new ArrayList<>();
+
 		int numberOfItemNeeded = 200;
 		String searchItem = "shampoo";
 
 		try {
 			driver.navigate().to("https://www.amazon.com/");
 			driver.findElement(By.id("twotabsearchtextbox")).sendKeys(searchItem + Keys.ENTER);
-			String parentXpath = "(//div[@data-component-type='s-search-result'])";
-
-			while (count < numberOfItemNeeded) {
-				List<WebElement> cards = driver.findElements(By.xpath(parentXpath));
+			Keywords.checkIfElementExists(driver,
+					By.xpath(
+							"//*[@data-component-type='s-result-info-bar']//*[contains(text(), '" + searchItem + "')]"),
+					"Expected to be on the search result page for '" + searchItem + "'");
+			int counter = 0;
+			while (counter < numberOfItemNeeded) {
+				String parentXpath = "(//div[@data-component-type='s-search-result'])";
+				List<WebElement> cards = wait
+						.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(parentXpath), 48));
 
 				for (int index = 1; index <= cards.size(); index++) {
-					String shampoo = "";
-					try {
-						String titleXpath = parentXpath + "[" + index + "]//h2";
-						String priceXpath = parentXpath + "[" + index + "]//span[@class='a-price']";
+					String titleXpath = parentXpath + "[" + index + "]//h2";
+					String priceXpath = parentXpath + "[" + index + "]//span[@class='a-price']";
 
-						String title = driver.findElement(By.xpath(titleXpath)).getText();
-						String price = driver.findElement(By.xpath(priceXpath)).getText();
-						price = price.replaceAll("\n", ".");
-						shampoo = "ID: " + count + " Title: " + title + " Price: " + price;
+					String title = driver.findElement(By.xpath(titleXpath)).getText();
+					String price = null;
+					try {
+						price = driver.findElement(By.xpath(priceXpath)).getText();
+						price = price.replaceAll("\n", ".").replace("$", "");
+
 					} catch (NoSuchElementException e) {
 						continue;
 					}
 
-					twoHundredShampoos.add(shampoo);
-					count++;
-					if (twoHundredShampoos.size() == numberOfItemNeeded) {
+					results.add(new AmazonSearchResult(++counter, Double.valueOf(price), title));
+
+					if (counter == numberOfItemNeeded) {
 						break;
 					}
 				}
-				driver.findElement(By.xpath(
-						"//a[@class='s-pagination-item s-pagination-next s-pagination-button s-pagination-separator']"))
-						.click();
 
-			}
-			for (String shampoo : twoHundredShampoos) {
-				System.out.println(shampoo);
+				if (counter == numberOfItemNeeded) {
+					break;
+				}
+				driver.findElement(By.xpath("//a[contains(@class,'s-pagination-next')]")).click();
+
 			}
 			System.out.println("Test Passed");
 
@@ -71,7 +80,7 @@ public class AmazonDataCollection {
 			driver.close();
 			driver.quit();
 		}
-
+		ExcelLydia.exportAmazonSearchResults(searchItem, results);
 	}
 
 }
