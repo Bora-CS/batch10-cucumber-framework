@@ -1,15 +1,20 @@
 package hui_automation.pojo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import com.google.gson.Gson;
 
 public class Experience {
 
 	public String company;
 	public String title;
 	public String location;
-	public String startDate;
+	public String startDate; // uuuu/MM/dd
 	public String endDate;
 	public boolean current;
 	public String description;
@@ -30,6 +35,28 @@ public class Experience {
 		else
 			this.messages = Arrays.asList(messages);
 		this.isTestPositive = this.messages.size() == 0;
+	}
+
+	public HashMap<String, Object> toHashMap() {
+		HashMap<String, Object> expMap = new HashMap<>();
+		expMap.put("company", this.company);
+		expMap.put("title", this.title);
+		expMap.put("location", this.location);
+		// parse start date
+		LocalDate localStartDate = LocalDate.parse(this.startDate, DateTimeFormatter.ofPattern("uuuu/MM/dd"));
+		expMap.put("from", localStartDate.toString());
+		// parse end date
+		if (this.current)
+			expMap.put("to", null);
+		else
+			expMap.put("to", LocalDate.parse(this.endDate, DateTimeFormatter.ofPattern("uuuu/MM/dd")).toString());
+		expMap.put("current", this.current);
+		expMap.put("description", this.description);
+		return expMap;
+	}
+	
+	public String toJsonString() {
+		return new Gson().toJson(toHashMap());
 	}
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import ardal_test_pojo.Education;
+import ardal_practice.pojo.Education;
 
 public class Data_Driven_AddEducation {
 
