@@ -1,4 +1,4 @@
-package ardal_test_pojo;
+package ardal_practice.pojo;
 
 import java.io.FileOutputStream;
 import java.util.List;

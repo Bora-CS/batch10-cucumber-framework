@@ -1,4 +1,4 @@
-package ardal_test_pojo;
+package ardal_practice.pojo;
 
 public class Education {
 

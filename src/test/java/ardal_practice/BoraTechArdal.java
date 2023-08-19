@@ -10,8 +10,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import ardal_test_pojo.Education;
-import ardal_test_pojo.Experience;
+import ardal_practice.pojo.Education;
+import ardal_practice.pojo.Experience;
 
 public class BoraTechArdal {
 
