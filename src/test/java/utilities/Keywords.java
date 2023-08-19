@@ -9,6 +9,8 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import apiPojos.Education;
+
 public class Keywords {
 
 	public static void wait(int second) throws InterruptedException {
