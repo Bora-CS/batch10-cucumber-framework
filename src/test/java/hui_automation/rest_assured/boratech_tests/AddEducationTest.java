@@ -19,11 +19,10 @@ public class AddEducationTest {
 			Education edu = new Education(school, "Certificate of Completion", "Test Automation Engineering",
 					"2023-05-07", "", true, "Web application testing for quality control.", null);
 			// add education
-			BoraTechAPIs.putEducation(token, edu);
+			List<Education> educations = BoraTechAPIs.putEducation(token, edu);
 
 			// validate education
 			boolean targetFound = false;
-			List<Education> educations = BoraTechAPIs.getUserEducation(token);
 			for (Education education : educations) {
 				if (education.school.equals(edu.school) && education.degree.equals(edu.degree)) {
 					targetFound = true;

@@ -3,11 +3,8 @@ package hui_automation.utilities;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import hui_automation.api_pojos.Education;
-import hui_automation.pojos.Experience;
+import hui_automation.api_pojos.Experience;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -63,7 +60,7 @@ public class BoraTechAPIs {
 		System.out.println(response.body().asPrettyString());
 	}
 
-	public static void putExperience(String token, Experience exp) throws Exception {
+	public static List<Experience> putExperience(String token, Experience exp) throws Exception {
 		String endpoint = "/api/profile/experience";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
@@ -71,20 +68,18 @@ public class BoraTechAPIs {
 		// setting request
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
-		request.body(exp.toJsonString());
+		request.body(exp);
 
 		// return response
 		Response response = request.put(endpoint);
 
 		if (response.getStatusCode() != 200)
 			throw new Exception("Add experience failed: " + response.getStatusLine());
-
-		Object x = response.body().jsonPath().get("experience");
-		Gson gs = new GsonBuilder().setPrettyPrinting().create();
-		System.out.println(gs.toJson(x));
+		List<Experience> experiences = response.jsonPath().getList("experience", Experience.class);
+		return experiences;
 	}
 
-	public static void putEducation(String token, Education edu) throws Exception {
+	public static List<Education> putEducation(String token, Education edu) throws Exception {
 		String endpoint = "/api/profile/education";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
@@ -99,20 +94,6 @@ public class BoraTechAPIs {
 
 		if (response.getStatusCode() != 200)
 			throw new Exception("Add education failed: " + response.getStatusLine());
-	}
-
-	public static List<Education> getUserEducation(String token) throws Exception {
-		String endpoint = "/api/profile/me";
-		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
-		RequestSpecification request = RestAssured.given();
-
-		request.header("x-auth-token", token);
-
-		Response response = request.get(endpoint);
-
-		if (response.getStatusCode() != 200)
-			throw new Exception("User profile failed to load: " + response.getStatusLine());
-
 		List<Education> educations = response.jsonPath().getList("education", Education.class);
 		return educations;
 	}
