@@ -1,7 +1,5 @@
 package hui_automation.pojos;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,17 +38,14 @@ public class Experience {
 		expMap.put("company", this.company);
 		expMap.put("title", this.title);
 		expMap.put("location", this.location);
-		// parse start date
-		LocalDate localStartDate = LocalDate.parse(this.startDate, DateTimeFormatter.ofPattern("uuuu/MM/dd"));
-		expMap.put("from", localStartDate.toString());
-		// parse end date
+		expMap.put("from", this.startDate.replace("/", "-"));
 		if (this.current)
 			expMap.put("to", null);
 		else
-			expMap.put("to", LocalDate.parse(this.endDate, DateTimeFormatter.ofPattern("uuuu/MM/dd")).toString());
+			expMap.put("to", this.endDate.replace("/", "-"));
 		expMap.put("current", this.current);
 		expMap.put("description", this.description);
 		return expMap;
 	}
-	
+
 }
