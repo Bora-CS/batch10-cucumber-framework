@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.Gson;
-
 public class Experience {
 
 	public String company;
@@ -55,8 +53,4 @@ public class Experience {
 		return expMap;
 	}
 	
-	public String toJsonString() {
-		return new Gson().toJson(toHashMap());
-	}
-
 }

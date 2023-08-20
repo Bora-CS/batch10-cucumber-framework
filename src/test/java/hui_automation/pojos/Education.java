@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.Gson;
-
 public class Education {
 
 	public String school;
@@ -53,10 +51,6 @@ public class Education {
 		eduMap.put("current", this.current);
 		eduMap.put("description", this.description);
 		return eduMap;
-	}
-
-	public String toJsonString() {
-		return new Gson().toJson(toHashMap());
 	}
 
 }
