@@ -1,4 +1,4 @@
-package hui_automation.pojo;
+package hui_automation.pojos;
 
 public class AmazonSearchResult {
 

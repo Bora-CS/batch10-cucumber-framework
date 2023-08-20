@@ -12,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import hui_automation.pojo.AmazonSearchResult;
+import hui_automation.pojos.AmazonSearchResult;
 import hui_automation.utilities.Excel;
 import hui_automation.utilities.Testkeys;
 

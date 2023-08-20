@@ -1,4 +1,4 @@
-package hui_automation.pojo;
+package hui_automation.pojos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

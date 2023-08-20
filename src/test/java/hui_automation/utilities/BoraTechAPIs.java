@@ -1,12 +1,13 @@
 package hui_automation.utilities;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import hui_automation.pojo.Education;
-import hui_automation.pojo.Experience;
+import apiPojos.User;
+import hui_automation.api_pojos.Education;
+import hui_automation.api_pojos.Experience;
+import hui_automation.api_pojos.Post;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -36,7 +37,7 @@ public class BoraTechAPIs {
 		return token;
 	}
 
-	public static String getAuthorizedUserMeta(String token) {
+	public static User getAuthorizedUserMeta(String token) {
 		String endpoint = "/api/auth";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
@@ -44,7 +45,9 @@ public class BoraTechAPIs {
 		request.header("x-auth-token", token);
 
 		Response response = request.get(endpoint);
-		return response.jsonPath().get("name");
+		User user = response.as(User.class);
+
+		return user;
 	}
 
 	public static void getUserProfile(String token) throws Exception {
@@ -62,7 +65,7 @@ public class BoraTechAPIs {
 		System.out.println(response.body().asPrettyString());
 	}
 
-	public static void putExperience(String token, Experience exp) throws Exception {
+	public static List<Experience> putExperience(String token, Experience exp) throws Exception {
 		String endpoint = "/api/profile/experience";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
@@ -70,20 +73,18 @@ public class BoraTechAPIs {
 		// setting request
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
-		request.body(exp.toJsonString());
+		request.body(exp);
 
 		// return response
 		Response response = request.put(endpoint);
 
 		if (response.getStatusCode() != 200)
 			throw new Exception("Add experience failed: " + response.getStatusLine());
-
-		Object x = response.body().jsonPath().get("experience");
-		Gson gs = new GsonBuilder().setPrettyPrinting().create();
-		System.out.println(gs.toJson(x));
+		List<Experience> experiences = response.jsonPath().getList("experience", Experience.class);
+		return experiences;
 	}
 
-	public static void putEducation(String token, Education edu) throws Exception {
+	public static List<Education> putEducation(String token, Education edu) throws Exception {
 		String endpoint = "/api/profile/education";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
@@ -91,17 +92,73 @@ public class BoraTechAPIs {
 		// setting request
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
-		request.body(edu.toJsonString());
+		request.body(edu);
 
 		// return response
 		Response response = request.put(endpoint);
 
 		if (response.getStatusCode() != 200)
 			throw new Exception("Add education failed: " + response.getStatusLine());
+		List<Education> educations = response.jsonPath().getList("education", Education.class);
+		return educations;
+	}
 
-		Object x = response.body().jsonPath().get("education");
-		Gson gs = new GsonBuilder().setPrettyPrinting().create();
-		System.out.println(gs.toJson(x));
+	public static Post postBoraTechPosts(String token, String postContent) throws Exception {
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		String endpoint = "/api/posts";
+		RequestSpecification request = RestAssured.given();
+
+		// setting a request
+		request.header("X-Auth-Token", token);
+		request.header("Content-Type", "application/json");
+		Map<String, String> body = new HashMap<>();
+		body.put("text", postContent);
+		request.body(body);
+
+		// return a response
+		Response response = request.post(endpoint);
+
+		if (response.getStatusCode() != 200)
+			throw new Exception("Add post failed: " + response.getStatusLine());
+
+		return response.jsonPath().getObject("", Post.class);
+	}
+
+	public static Post postBoraTechPosts(String token, HashMap<String, String> postBody) throws Exception {
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		String endpoint = "/api/posts";
+		RequestSpecification request = RestAssured.given();
+
+		// setting a request
+		request.header("X-Auth-Token", token);
+		request.header("Content-Type", "application/json");
+		request.body(postBody);
+
+		// return a response
+		Response response = request.post(endpoint);
+
+		if (response.getStatusCode() != 200)
+			throw new Exception("Add post failed: " + response.getStatusLine());
+
+		return response.jsonPath().get("");
+	}
+
+	public static List<Post> getBoraTechPosts(String token) throws Exception {
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		String endpoint = "/api/posts";
+		RequestSpecification request = RestAssured.given();
+
+		// setting a request
+		request.header("X-Auth-Token", token);
+
+		// return a response
+		Response response = request.get(endpoint);
+
+		if (response.getStatusCode() != 200)
+			throw new Exception("Posts page failed to load: " + response.getStatusLine());
+
+		List<Post> posts = response.jsonPath().getList("", Post.class);
+		return posts;
 	}
 
 }

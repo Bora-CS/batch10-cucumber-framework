@@ -4,7 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 
-import hui_automation.pojo.Education;
+import hui_automation.pojos.Education;
 import hui_automation.utilities.Testkeys;
 
 public class AddEducationDataDriven {
