@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import apiPojos.User;
 import hui_automation.api_pojos.Education;
 import hui_automation.api_pojos.Experience;
 import hui_automation.api_pojos.Post;
+import hui_automation.api_pojos.User;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
