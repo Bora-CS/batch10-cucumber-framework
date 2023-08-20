@@ -24,7 +24,7 @@ public class GetPostPageMeta {
 		
 		JsonPath jp = response.jsonPath();
 		
-		List<NewPost> newPosts = jp.getList("text"  + helen.utilities.Keywords.getTimeStamp(), NewPost.class);
+		List<NewPost> newPosts = jp.getList("text", NewPost.class);
 
 
 		//validate

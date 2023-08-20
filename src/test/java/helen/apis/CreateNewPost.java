@@ -2,6 +2,7 @@ package helen.apis;
 
 import java.util.List;
 
+import helen.apiPojos.Education;
 import helen.apiPojos.NewPost;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -22,7 +23,9 @@ public class CreateNewPost {
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json"); 
 		
-		NewPost expectedNewPost = new NewPost("Hi again"  + helen.utilities.Keywords.getTimeStamp());		
+		Map <String, String> expectedNewPost = new HashMap<>();
+		
+		expectedNewPost.put = ("Hi again"  + helen.utilities.Keywords.getTimeStamp());		
 		
 		request.body(expectedNewPost);
 		
@@ -30,21 +33,14 @@ public class CreateNewPost {
 		
 		JsonPath jp = response.jsonPath();
 		
-		List<NewPost> newPosts = jp.getList("text", NewPost.class);
-
-
-		//validate
-		boolean found = false;
-		for (NewPost actualNewPost : newPosts) {
-			if (expectedNewPost.equals(actualNewPost)) {
-				found = true;
-				break;
-			}
-		}
+		String actualNewPost = jp.getString("title");
+		List <NewPost> np = response.jsonPath().getList("education", NewPost.class);
 		
-		if (found) {
+		
+		//validate a single json object
+		if (expectedNewPost.equals(actualNewPost)) {
 			System.out.println("Pass");
-		} else {	
+		} else {
 			System.out.println("Fail");
 		}
 		

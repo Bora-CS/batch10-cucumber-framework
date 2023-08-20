@@ -1,13 +1,14 @@
 package helen.utilities;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import helen.apiPojos.User;
-import helen.pojo.Education;
-import helen.pojo.Experience;
+import helen.apiPojos.Education;
+import helen.apiPojos.Experience;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -44,26 +45,28 @@ public class BoraTechApis {
 
 		request.header("x-auth-token", token); 
 		
-		Response response = request.get(endpoint);	
+		Response response = request.get(endpoint);
+		//return response.jsonPath().get("name");
 		User user = response.as(User.class);
 		return user;
 		
 	}
+	
 
 	public static void addExperience(String token, Experience exp) {
 		String endpoint = "/api/profile/experience";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 		
-		request.body(exp.pojoToJason());
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
-
+		request.body(exp);
+		
 		Response response = request.put(endpoint);
 
-		System.out.println(exp.pojoToJason());
-//		Object result = response.body().jsonPath().get("experience");
-//		System.out.println(result);
+		//System.out.println(exp.pojoToJason());
+		List <Experience> experience = response.jsonPath().getList("experience", Experience.class);
+		System.out.println(experience);
 		
 	}
 
@@ -76,7 +79,7 @@ public class BoraTechApis {
 
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");  //sending body data
-		request.body(edu.pojoToJason());
+		request.body(edu);
 		
 //		
 //		JsonObject body = new JsonObject();
@@ -85,9 +88,8 @@ public class BoraTechApis {
 //		body.addProperty("current", true);
 //		
 		Response response = request.put(endpoint);
-		//System.out.println(response.body().asPrettyString());
-		
-		System.out.println(edu.pojoToJason());
+		List <Education> education = response.jsonPath().getList("education", Education.class);
+		System.out.println(education);
 //		Object result = response.body().get("education");
 //		System.out.println(result);
 	}
