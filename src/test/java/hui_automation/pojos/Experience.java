@@ -40,7 +40,7 @@ public class Experience {
 		expMap.put("location", this.location);
 		expMap.put("from", this.startDate.replace("/", "-"));
 		if (this.current)
-			expMap.put("to", null);
+			expMap.put("to", "");
 		else
 			expMap.put("to", this.endDate.replace("/", "-"));
 		expMap.put("current", this.current);
