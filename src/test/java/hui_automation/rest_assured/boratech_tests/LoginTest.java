@@ -26,7 +26,7 @@ public class LoginTest {
 		int expectedStatusCode = 200;
 
 		if (actualStatusCode != expectedStatusCode) {
-			System.out.println("Test failed, expected: " + expectedStatusCode + " actual: " + actualStatusCode);
+			System.out.println("Test failed, expected: " + expectedStatusCode + ", actual: " + actualStatusCode);
 		} else {
 			System.out.println("Test passed.");
 		}
