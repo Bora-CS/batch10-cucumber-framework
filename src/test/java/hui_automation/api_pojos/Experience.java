@@ -2,6 +2,7 @@ package hui_automation.api_pojos;
 
 public class Experience {
 
+	public String _id;
 	public String company;
 	public String title;
 	public String location;
