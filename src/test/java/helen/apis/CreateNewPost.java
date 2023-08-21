@@ -1,8 +1,9 @@
 package helen.apis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import helen.apiPojos.Education;
 import helen.apiPojos.NewPost;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -13,38 +14,38 @@ public class CreateNewPost {
 
 
 	public static void main(String[] args) {
-
-		String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");		
-		String endpoint = "api/posts";
 		
+		//login and get a token
+		String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");		
+		
+		//create new post
+		String endpoint = "api/posts";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
+		//request
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json"); 
 		
-		Map <String, String> expectedNewPost = new HashMap<>();
+		Map <String, String> expectedPost = new HashMap<>();
+		expectedPost.put("text", "Hello... " + helen.utilities.Keywords.getTimeStamp());		
 		
-		expectedNewPost.put = ("Hi again"  + helen.utilities.Keywords.getTimeStamp());		
-		
-		request.body(expectedNewPost);
-		
+		//response back
+		request.body(expectedPost);
 		Response response = request.post(endpoint);
 		
-		JsonPath jp = response.jsonPath();
-		
-		String actualNewPost = jp.getString("title");
-		List <NewPost> np = response.jsonPath().getList("education", NewPost.class);
-		
-		
-		//validate a single json object
-		if (expectedNewPost.equals(actualNewPost)) {
-			System.out.println("Pass");
+		//return a json object
+		List <NewPost> actualPost = response.jsonPath().getList("text", NewPost.class);
+				
+
+		//validate a list of json objects
+		if (expectedPost.equals(actualPost)) {
+			System.out.println("Pass. New Post added: " + actualPost);
 		} else {
-			System.out.println("Fail");
+			System.out.println("Fail. Expected: " + expectedPost + "Actual: " + actualPost);
 		}
 		
-	}
+	} 
 		
 	
 }

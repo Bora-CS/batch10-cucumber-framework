@@ -1,6 +1,8 @@
 package helen.apis;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import helen.apiPojos.NewPost;
 import io.restassured.RestAssured;
@@ -11,26 +13,28 @@ import io.restassured.specification.RequestSpecification;
 public class GetPostPageMeta {
 
 	public static void main(String[] args) {
-
-		String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");		
-		String endpoint = "api/posts";
 		
+		//login and get a token
+		String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");		
+		
+		//request
+		String endpoint = "api/posts";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
-
+		
+		//response back
 		request.header("x-auth-token", token);
-		
 		Response response = request.get(endpoint);
+		List<NewPost> actualPosts = response.jsonPath().getList("", NewPost.class);
 		
-		JsonPath jp = response.jsonPath();
 		
-		List<NewPost> newPosts = jp.getList("text", NewPost.class);
+		Object expectedPost = helen.utilities.BoraTechApis.addNewPost(token, "Helloooo " );
+		
 
-
-		//validate
+		//validate a list of json objects
 		boolean found = false;
-		for (NewPost actualNewPost : newPosts) {
-			if (expectedNewPost.equals(actualNewPost)) {
+		for (NewPost actualPost : actualPosts) {
+			if (expectedPost.equals(actualPost)) {
 				found = true;
 				break;
 			}
@@ -43,10 +47,6 @@ public class GetPostPageMeta {
 		}
 		
 	
-	}
-		
-		
-		
 	}
 
 }

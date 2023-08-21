@@ -2,6 +2,7 @@ package helen.utilities;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -9,6 +10,7 @@ import com.google.gson.JsonObject;
 import helen.apiPojos.User;
 import helen.apiPojos.Education;
 import helen.apiPojos.Experience;
+import helen.apiPojos.NewPost;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -94,4 +96,32 @@ public class BoraTechApis {
 //		System.out.println(result);
 	}
 
+	
+	
+	public static Object addNewPost (String token, Object ob) {
+		//add new post
+		String endpoint = "api/posts";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		//request
+		request.header("x-auth-token", token);
+		request.header("Content-Type", "application/json"); 
+		
+		Map <String, String> body = new HashMap<>();
+		body.put("text", ob + helen.utilities.Keywords.getTimeStamp());		
+		
+		//response back
+		request.body(body);
+		Response response = request.post(endpoint);
+		
+		//return a json object
+		List <NewPost> np = response.jsonPath().getList("", NewPost.class);
+		
+		return np;
+		
+	}
+
+	
+	
 }
