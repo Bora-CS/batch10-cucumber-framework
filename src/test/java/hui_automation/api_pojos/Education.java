@@ -2,6 +2,7 @@ package hui_automation.api_pojos;
 
 public class Education {
 
+	public String _id;
 	public String school;
 	public String degree;
 	public String fieldofstudy;

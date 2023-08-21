@@ -40,7 +40,7 @@ public class Education {
 		eduMap.put("fieldofstudy", this.fieldofstudy);
 		eduMap.put("from", this.startDate.replace("/", "-"));
 		if (this.current)
-			eduMap.put("to", null);
+			eduMap.put("to", "");
 		else
 			eduMap.put("to", this.endDate.replace("/", "-"));
 		eduMap.put("current", this.current);
