@@ -49,7 +49,7 @@ public class BoraTechArdal {
 
 		driver.findElement(By.xpath("//input[@name='school']")).sendKeys(education.school);
 		driver.findElement(By.xpath("//input[@name='degree']")).sendKeys(education.degree);
-		driver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys(education.fieldOfStudy);
+		driver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys(education.fieldofstudy);
 		driver.findElement(By.xpath("//input[@name='from']")).sendKeys(education.from);
 		if (education.current) {
 			driver.findElement(By.xpath("//input[@name='current']")).click();

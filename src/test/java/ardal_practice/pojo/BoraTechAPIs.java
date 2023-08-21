@@ -2,6 +2,7 @@ package ardal_practice.pojo;
 
 import java.util.HashMap;
 
+import apiPojos.User;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -27,5 +28,20 @@ public class BoraTechAPIs {
 		String token = jp.get("token");
 		return token;
 	}
+	
+	
+	public static User getAuthorizedUserMeta(String token) {
+		String endpoint = "/api/auth";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		request.header("x-auth-token", token);
+
+		Response response = request.get(endpoint);
+		User user = response.as(User.class);
+
+		return user;
+	}
+	
 
 }
