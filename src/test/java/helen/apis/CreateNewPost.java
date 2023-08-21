@@ -14,7 +14,7 @@ public class CreateNewPost {
 
 
 	public static void main(String[] args) {
-		
+
 		//login and get a token
 		String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");		
 		
@@ -34,18 +34,20 @@ public class CreateNewPost {
 		request.body(expectedPost);
 		Response response = request.post(endpoint);
 		
-		//return a json object
-		List <NewPost> actualPost = response.jsonPath().getList("text", NewPost.class);
+		
+		//validate a list of json objects
+		List<NewPost> actualPosts = response.jsonPath().getList("", NewPost.class);
+		for (NewPost actualPost : actualPosts) {
+			if (expectedPost.equals(actualPost)) {
+				System.out.println("Pass. New Post added: " + actualPost);
+			} else {
+				System.out.println("Fail. Expected: " + expectedPost + "Actual: " + actualPost);
+			}
+		}
 				
 
-		//validate a list of json objects
-		if (expectedPost.equals(actualPost)) {
-			System.out.println("Pass. New Post added: " + actualPost);
-		} else {
-			System.out.println("Fail. Expected: " + expectedPost + "Actual: " + actualPost);
-		}
 		
-	} 
 		
 	
+	}
 }

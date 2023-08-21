@@ -48,8 +48,11 @@ public class BoraTechApis {
 		request.header("x-auth-token", token); 
 		
 		Response response = request.get(endpoint);
+		//JsonPath jp = response.jsonPath();
 		//return response.jsonPath().get("name");
-		User user = response.as(User.class);
+		//response.prettyPrint();
+		//User user = jp.getObject("", User.class);
+		User user = response.as(User.class);  //get the entire response as Pojo
 		return user;
 		
 	}
@@ -98,7 +101,7 @@ public class BoraTechApis {
 
 	
 	
-	public static Object addNewPost (String token, Object ob) {
+	public static List<NewPost> addNewPost (String token, String message) {
 		//add new post
 		String endpoint = "api/posts";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
@@ -109,7 +112,7 @@ public class BoraTechApis {
 		request.header("Content-Type", "application/json"); 
 		
 		Map <String, String> body = new HashMap<>();
-		body.put("text", ob + helen.utilities.Keywords.getTimeStamp());		
+		body.put("text", message + helen.utilities.Keywords.getTimeStamp());		
 		
 		//response back
 		request.body(body);

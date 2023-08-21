@@ -17,6 +17,8 @@ public class GetPostPageMeta {
 		//login and get a token
 		String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");		
 		
+		List<NewPost> expectedPost = helen.utilities.BoraTechApis.addNewPost(token, "Helloooo " );
+		
 		//request
 		String endpoint = "api/posts";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
@@ -28,9 +30,6 @@ public class GetPostPageMeta {
 		List<NewPost> actualPosts = response.jsonPath().getList("", NewPost.class);
 		
 		
-		Object expectedPost = helen.utilities.BoraTechApis.addNewPost(token, "Helloooo " );
-		
-
 		//validate a list of json objects
 		boolean found = false;
 		for (NewPost actualPost : actualPosts) {

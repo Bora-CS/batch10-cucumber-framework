@@ -27,8 +27,7 @@ public class Education {
 	//override the equals function from object class
 	public boolean equals(Education education) {
 		return (this.degree.equals(education.degree) && this.school.equals(education.school)
-				&& this.fieldofstudy.equals(education.fieldofstudy) && this.from.equals(education.from) 
-				&& this.to.equals(education.to) && this.description.equals(education.description));
+				&& this.fieldofstudy.equals(education.fieldofstudy) && this.description.equals(education.description));
 	}
 	
 	

@@ -33,12 +33,10 @@ public class NewPost {
 	}
 	
 
-	//validate for text and name only for CreateNewPost
-	public boolean equals1(NewPost newPost) {  
+	public boolean equals(NewPost newPost) {  
 		return this.text.equals(newPost.text) && this.name.equals(newPost.name);
 	}
 	
-	//validate for every single element in json object for GetPostPageMeta
 	public boolean equals2(NewPost newPost) {
 		return 	this._id.equals(newPost._id) && this.text.equals(newPost.text) && this.name.equals(newPost.name)
 				&& this.avatar.equals(newPost.avatar) && this.user.equals(newPost.avatar) && this.likes.equals(newPost.likes)
@@ -48,13 +46,4 @@ public class NewPost {
 	
 }
 
-
-
-
-		
-
-
-
-
-//String _id, String text, String name, String avatar,String user, ArrayList<Object> likes, ArrayList<Object> comments, String date, int __v 	
 

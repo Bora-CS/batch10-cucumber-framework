@@ -22,7 +22,7 @@ public class Experience {
 	
 	}
 	
-	//compare two objects
+	//compare two objects  (overloading)
 	public boolean equals(Experience that) {  
 		return this.company.equals(that.company) && this.title.equals(that.title)
 			&& this.location.equals(that.location) && this.description.equals(that.description);
