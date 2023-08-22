@@ -70,7 +70,7 @@ public class lenaUApi {
 
 	}
 
-	public static List<PostPojo> getPost(String token) throws Exception {
+	public static void getPost(String token) throws Exception {
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		String endpoint = "/api/posts";
 		RequestSpecification request = RestAssured.given();
@@ -78,11 +78,8 @@ public class lenaUApi {
 		request.header("X-Auth-Token", token);
 		Response response = request.get(endpoint);
 
-		if (response.getStatusCode() != 200)
-			throw new Exception("Posts page failed to load: " + response.getStatusLine());
-
-		List<PostPojo> posts = response.jsonPath().getList("", PostPojo.class);
-		return posts;
+		
+		System.out.println(response.jsonPath().get("text").toString());
 
 	}
 }
