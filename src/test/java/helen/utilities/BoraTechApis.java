@@ -1,11 +1,16 @@
 package helen.utilities;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
-import helen.pojo.Education;
-import helen.pojo.Experience;
+import helen.apiPojos.User;
+import helen.apiPojos.Education;
+import helen.apiPojos.Experience;
+import helen.apiPojos.NewPost;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -35,34 +40,38 @@ public class BoraTechApis {
 	
 	
 	
-	public static String getAuthorizedUserMeta(String token) {
+	public static User getAuthorizedUserMeta(String token) {
 		String endpoint = "/api/auth";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
-		request.header("x-auth-token", token);  // no body
+		request.header("x-auth-token", token); 
 		
-		Response response = request.get(endpoint);	
-		
+		Response response = request.get(endpoint);
+		//JsonPath jp = response.jsonPath();
 		//return response.jsonPath().get("name");
-		return response.jsonPath().get("email");
+		//response.prettyPrint();
+		//User user = jp.getObject("", User.class);
+		User user = response.as(User.class);  //get the entire response as Pojo
+		return user;
 		
 	}
+	
 
 	public static void addExperience(String token, Experience exp) {
 		String endpoint = "/api/profile/experience";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 		
-		request.body(exp.pojoToJason());
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
-
+		request.body(exp);
+		
 		Response response = request.put(endpoint);
 
-		System.out.println(exp.pojoToJason());
-//		Object result = response.body().jsonPath().get("experience");
-//		System.out.println(result);
+		//System.out.println(exp.pojoToJason());
+		List <Experience> experience = response.jsonPath().getList("experience", Experience.class);
+		System.out.println(experience);
 		
 	}
 
@@ -73,15 +82,63 @@ public class BoraTechApis {
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
-		request.body(edu.pojoToJason());
 		request.header("x-auth-token", token);
-		request.header("Content-Type", "application/json");
-
+		request.header("Content-Type", "application/json");  //sending body data
+		request.body(edu);
+		
+//		
+//		JsonObject body = new JsonObject();
+//		body.addProperty("school", "BoraTech");
+//		body.addProperty("degree", "STED");
+//		body.addProperty("current", true);
+//		
 		Response response = request.put(endpoint);
-	
-		System.out.println(edu.pojoToJason());
-//		Object result = response.body().jsonPath().get("education");
+		List <Education> education = response.jsonPath().getList("education", Education.class);
+		System.out.println(education);
+//		Object result = response.body().get("education");
 //		System.out.println(result);
 	}
 
+	
+	
+	public static String addNewPost (String token, String message) {
+		//add new post
+		String endpoint = "api/posts";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		//request
+		request.header("x-auth-token", token);
+		request.header("Content-Type", "application/json"); 
+		
+		Map <String, String> body = new HashMap<>();
+		body.put("text", message);		
+		
+		//return a single 'text' string as a response
+		request.body(body);
+		Response response = request.post(endpoint);
+		
+		String actualText = response.body().jsonPath().get("text");
+		return actualText;
+		
+	}
+
+	public static List<NewPost> getNewPost(String token) {
+		//add new post
+		String endpoint = "api/posts";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		//request
+		request.header("x-auth-token", token);
+		
+		//response
+		Response response = request.get(endpoint);
+		
+		List <NewPost> np = response.jsonPath().getList("", NewPost.class);
+		return np;
+	}
+
+	
+	
 }

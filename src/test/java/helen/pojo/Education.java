@@ -45,7 +45,7 @@ public class Education {
 	}
 
 
-	private HashMap<String, Object> toHashMap() {
+	private HashMap<String, Object> toHashMap() {  //object- boolean can be converted
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("school", this.school);
 		map.put("degree", this.degree);

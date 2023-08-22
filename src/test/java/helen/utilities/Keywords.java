@@ -10,6 +10,8 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import helen.apiPojos.Education;
+
 public class Keywords {
 
 	public static void wait(int second) throws InterruptedException {
@@ -96,5 +98,15 @@ public class Keywords {
 		double roundedAve = (double) Math.round(ave * 100.0) / 100.0;
 		return roundedAve;
 	}
+	
+	
+	public static boolean equals(Education edu1, Education edu2) {
+		return edu1.degree.equals(edu2.degree) 
+				&& edu1.school.equals(edu2.school) 
+				&& edu1.fieldofstudy.equals(edu2.fieldofstudy);
+	}
+	
+	
+	
 
 }
