@@ -4,7 +4,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.RestAssured;
 
-public class task0819 {
+public class API_BoraPostStatus {
 
 	public static void main(String[] args) {
 		String endpoint = "/api/posts";
@@ -15,7 +15,7 @@ public class task0819 {
 		//request.header("Content-Type", "application/json");
 		request.header("x-auth-token", token);
 
-		Response response = request.post(endpoint);
+		Response response = request.get(endpoint);
 
 		int actualStatusCode = response.statusCode();
 		int expectedStatusCode = 200;
@@ -23,7 +23,7 @@ public class task0819 {
 		if (actualStatusCode != expectedStatusCode) {
 			System.out.println("Test failed, expected: " + expectedStatusCode + " actual: " + actualStatusCode);
 		} else {
-			System.out.println("Test passed.");
+			System.out.println("Status code matched!");
 		}
 	}
 }
