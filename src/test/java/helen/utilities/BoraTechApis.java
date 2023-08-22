@@ -132,12 +132,8 @@ public class BoraTechApis {
 		//request
 		request.header("x-auth-token", token);
 		
-		Map <String, String> body = new HashMap<>();
-		body.put("text", message);		
-		
-		//return a list of json object as a response
-		request.body(body);
-		Response response = request.post(endpoint);
+		//response
+		Response response = request.get(endpoint);
 		
 		List <NewPost> np = response.jsonPath().getList("", NewPost.class);
 		return np;
