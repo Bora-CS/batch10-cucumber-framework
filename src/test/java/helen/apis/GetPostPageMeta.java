@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,6 +26,12 @@ public class GetPostPageMeta {
 		try {
 			//login and create new post through UI
 			helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");
+			
+			String currentURL = driver.getCurrentUrl();
+			if (!currentURL.equals("https://boratech-practice-app.onrender.com/dashboard")) {
+				throw new Exception("Not on the dashboard page. Current URL: " + currentURL);
+			}
+			
 			driver.findElement(By.xpath("//a[@href='/posts']")).click();
 			driver.findElement(By.xpath("//textarea[@name='text']")).sendKeys(message);
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
