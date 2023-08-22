@@ -1,5 +1,6 @@
 package apis;
 
+import apiPojos.User;
 import utilities.BoraTechAPIs;
 
 public class GetAuthorizedUserMeta {
@@ -8,9 +9,9 @@ public class GetAuthorizedUserMeta {
 
 		String token = BoraTechAPIs.login("muradil.erkin@boratechschool.com", "Boratech");
 
-		String userName = BoraTechAPIs.getAuthorizedUserMeta(token);
+		User user = BoraTechAPIs.getAuthorizedUserMeta(token);
 
-		System.out.println("Username: " + userName);
+		System.out.println(user.email);
 
 	}
 

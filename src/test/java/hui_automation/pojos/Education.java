@@ -1,13 +1,9 @@
-package hui_automation.pojo;
+package hui_automation.pojos;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
-import com.google.gson.Gson;
 
 public class Education {
 
@@ -42,21 +38,14 @@ public class Education {
 		eduMap.put("school", this.school);
 		eduMap.put("degree", this.degree);
 		eduMap.put("fieldofstudy", this.fieldofstudy);
-		// parse start date
-		LocalDate localStartDate = LocalDate.parse(this.startDate, DateTimeFormatter.ofPattern("uuuu/MM/dd"));
-		eduMap.put("from", localStartDate.toString());
-		// parse end date
+		eduMap.put("from", this.startDate.replace("/", "-"));
 		if (this.current)
-			eduMap.put("to", null);
+			eduMap.put("to", "");
 		else
-			eduMap.put("to", LocalDate.parse(this.endDate, DateTimeFormatter.ofPattern("uuuu/MM/dd")).toString());
+			eduMap.put("to", this.endDate.replace("/", "-"));
 		eduMap.put("current", this.current);
 		eduMap.put("description", this.description);
 		return eduMap;
-	}
-
-	public String toJsonString() {
-		return new Gson().toJson(toHashMap());
 	}
 
 }

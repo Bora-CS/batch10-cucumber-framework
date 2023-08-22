@@ -1,10 +1,8 @@
-package ardal_test_pojo;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+package hui_automation.api_pojos;
 
 public class Experience {
+
+	public String _id;
 	public String company;
 	public String title;
 	public String location;
@@ -12,23 +10,25 @@ public class Experience {
 	public String to;
 	public boolean current;
 	public String description;
-	public List<String> alerts;
-	public boolean isHappyPath;
 
 	public Experience(String company, String title, String location, String from, String to, boolean current,
-			String description, String[] alerts) {
-		this.company = company;
+			String description) {
 		this.title = title;
+		this.company = company;
 		this.location = location;
 		this.from = from;
 		this.to = to;
 		this.current = current;
 		this.description = description;
-		if (alerts == null)
-			this.alerts = new ArrayList<String>();
-		else
-			this.alerts = Arrays.asList(alerts);
-		this.isHappyPath = this.alerts.size() == 0;
+	}
+
+	public boolean equals(Object obj) {
+		if (obj instanceof Experience) {
+			Experience that = (Experience) obj;
+			return this.company.equals(that.company) && this.title.equals(that.title)
+					&& this.location.equals(that.location);
+		}
+		return false;
 	}
 
 }

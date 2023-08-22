@@ -1,18 +1,19 @@
-package ardal_test_pojo;
+package krystal;
 
 import java.io.FileOutputStream;
 import java.util.List;
 
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import pojo.AmazonSearchResult;
 import utilities.Keywords;
 
-public class ExcelArdal {
+public class ExcelKrystal {
 
-	public static void exportIndigoSearchResults(String searchTerm, List<IndigoSearchResult> results) {
-
+	public static void exportAmazonSearchResults(String searchTerm, List<AmazonSearchResult> results) {
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet(searchTerm);
 
@@ -25,26 +26,19 @@ public class ExcelArdal {
 		double min = firstResultPrice;
 		double max = firstResultPrice;
 		double avg = 0, sum = 0;
-		int maxId = 0, minId = 0;
-		String maxTitle = "";
-		String minTitle = "";
 		for (int index = 0; index < results.size(); index++) {
 			XSSFRow row = sheet.createRow(index + 1);
-			IndigoSearchResult result = results.get(index);
+			AmazonSearchResult result = results.get(index);
 			row.createCell(0).setCellValue(result.id);
 			row.createCell(1).setCellValue(result.price);
 			row.createCell(2).setCellValue(result.title);
 
 			if (result.price > max) {
 				max = result.price;
-				maxId = result.id;
-				maxTitle = result.title;
 			}
 
 			if (result.price < min) {
 				min = result.price;
-				minId = result.id;
-				minTitle = result.title;
 			}
 
 			sum += result.price;
@@ -57,13 +51,9 @@ public class ExcelArdal {
 
 		minRow.createCell(0).setCellValue("Min");
 		minRow.createCell(1).setCellValue(min);
-		minRow.createCell(2).setCellValue(minId);
-		minRow.createCell(3).setCellValue(minTitle);
 
 		maxRow.createCell(0).setCellValue("Max");
 		maxRow.createCell(1).setCellValue(max);
-		maxRow.createCell(2).setCellValue(maxId);
-		maxRow.createCell(3).setCellValue(maxTitle);
 
 		avgRow.createCell(0).setCellValue("Avg");
 		avgRow.createCell(1).setCellValue(avg);
@@ -71,7 +61,7 @@ public class ExcelArdal {
 		String timeStamp = Keywords.getTimeStamp();
 		FileOutputStream fos;
 		try {
-			fos = new FileOutputStream("target/ISR<Ardal>-" + timeStamp + ".xlsx");
+			fos = new FileOutputStream("target/ASR-" + timeStamp + ".xlsx");
 			workbook.write(fos);
 			workbook.close();
 			fos.close();
