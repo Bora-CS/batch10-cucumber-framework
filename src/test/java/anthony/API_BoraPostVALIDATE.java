@@ -8,14 +8,15 @@ import anthony_pojo.Blog_Post;
 
 public class API_BoraPostVALIDATE {
     public static void main(String[] args) {
+    	String yourPost = "Spamming";
         String endpoint = "/api/posts";
         String token = UTILITIES.login("anth0ny@gmail.com", "PaSsWoRd123!");
         RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
         RequestSpecification request = RestAssured.given();
         request.header("Content-Type", "application/json");
         request.header("x-auth-token", token);
-
-        Blog_Post newPost = new Blog_Post("Spam" + UTILITIES.getTimeStamp());
+        
+        Blog_Post newPost = new Blog_Post(yourPost + UTILITIES.getTimeStamp());
 
         Response response = request.body(newPost).post(endpoint);
 
@@ -27,7 +28,7 @@ public class API_BoraPostVALIDATE {
 
     public static void validateResponse(String expectedText, String actualText) {
         if (expectedText.equals(actualText)) {
-            System.out.println("Pass validating");
+            System.out.println("We see your post");
         } else {
             System.out.println("FAILLLLL");
         }
