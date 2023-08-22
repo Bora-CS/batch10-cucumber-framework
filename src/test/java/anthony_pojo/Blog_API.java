@@ -1,8 +1,8 @@
 package anthony_pojo;
-import java.util.ArrayList;
-import java.util.List;
-public class Blog_API {
 
+import java.util.ArrayList;
+
+public class Blog_API {
 	public String _id;
 	public String text;
 	public String name;
@@ -34,4 +34,8 @@ public class Blog_API {
 		return false;
 	}
 
+	public String getText() {
+		// TODO Auto-generated method stub
+		return text;
+	}
 }
