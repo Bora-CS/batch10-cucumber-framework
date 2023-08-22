@@ -25,7 +25,7 @@ public class GetPostPageMeta {
 		
 		try {
 			//login and create new post through UI
-			helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");
+			helen.utilities.BoraTech.login(driver, "helenhjahn@gmail.com", "06102021");
 			
 			String currentURL = driver.getCurrentUrl();
 			if (!currentURL.equals("https://boratech-practice-app.onrender.com/dashboard")) {
