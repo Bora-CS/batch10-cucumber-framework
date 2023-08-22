@@ -41,7 +41,7 @@ public class GetPostPageMeta {
 			boolean found = false;
 			for (NewPost actualPost : actualPosts) {
 				if (actualPost.text.equals(message)) {
-					found = false;
+					found = true;
 					break;
 				}
 			}
