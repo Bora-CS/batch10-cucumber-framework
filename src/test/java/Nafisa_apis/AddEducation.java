@@ -1,6 +1,8 @@
 package Nafisa_apis;
 
 
+import java.util.List;
+
 import apiPojos.Education;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -20,12 +22,27 @@ String token = BoraTechAPIs.login("nanfeise@gmail.com", "Nafisa1996");
 		
 		Education education = new Education("Boratech", "Test automation", "QA tester", "2023/05/06","", true,
 				"code everyday");
+				
+
 				request.body(education);
 
-		Response response = request.put("/api/profile/education");
-		System.out.println(response.body().asPrettyString());
+				Response response = request.put("/api/profile/education");
+				List<Education> educations = response.jsonPath().getList("education", Education.class);
 
+				boolean found = false;
+				for (Education actualEducation : educations) {
+					if (education.equals(actualEducation)) {
+						found = true;
+						break;
+					}
+				}
 
-	}
+				if (found) {
+					System.out.println("Pass");
+				} else {
+					System.out.println("Fail");
+				}
 
-}
+			}
+
+		}
