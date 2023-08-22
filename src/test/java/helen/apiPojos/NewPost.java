@@ -32,12 +32,7 @@ public class NewPost {
 		this.text = text;
 	}
 	
-
-	public boolean equals(NewPost newPost) {  
-		return this.text.equals(newPost.text) && this.name.equals(newPost.name);
-	}
-	
-	public boolean equals2(NewPost newPost) {
+	public boolean equals(NewPost newPost) {
 		return 	this._id.equals(newPost._id) && this.text.equals(newPost.text) && this.name.equals(newPost.name)
 				&& this.avatar.equals(newPost.avatar) && this.user.equals(newPost.avatar) && this.likes.equals(newPost.likes)
 				&& this.comments.equals(newPost.comments) && this.date.equals(newPost.date) && this.__v == newPost.__v;

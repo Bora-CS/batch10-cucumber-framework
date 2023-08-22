@@ -71,7 +71,7 @@ public class AddEducation_DataDrivenTest {
 			System.out.println("Test Failed");
 			System.out.println("Reason: "+ e.getMessage());	
 			e.printStackTrace();
-			} finally {
+		} finally {
 			driver.close();
 			driver.quit();	
 		}

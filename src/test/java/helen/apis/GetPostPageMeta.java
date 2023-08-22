@@ -1,8 +1,14 @@
 package helen.apis;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import helen.apiPojos.NewPost;
 import io.restassured.RestAssured;
@@ -14,38 +20,44 @@ public class GetPostPageMeta {
 
 	public static void main(String[] args) {
 		
-		//login and get a token
-		String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");		
+		WebDriver driver = new ChromeDriver();
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(1));
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+//		driver.manage().window().maximize();
 		
-		List<NewPost> expectedPost = helen.utilities.BoraTechApis.addNewPost(token, "Helloooo " );
+		String message = "Hello?!-" + helen.utilities.Keywords.getTimeStamp();
 		
-		//request
-		String endpoint = "api/posts";
-		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
-		RequestSpecification request = RestAssured.given();
+
+		//login and create new post through UI
+		helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");
+		driver.findElement(By.xpath("//a[@href='/posts']")).click();
+		driver.findElement(By.xpath("//textarea[@name='text']")).sendKeys(message);
+		driver.findElement(By.xpath("//input[@type='submit']")).click();
+		//String uiText = driver.findElement(By.xpath("//p[@class='my-1']")).getText();
+
 		
-		//response back
-		request.header("x-auth-token", token);
-		Response response = request.get(endpoint);
-		List<NewPost> actualPosts = response.jsonPath().getList("", NewPost.class);
+		//login and get new post text through API
+		String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");	
+		List <NewPost> actualPosts = helen.utilities.BoraTechApis.getNewPost(token, message);
 		
-		
-		//validate a list of json objects
 		boolean found = false;
 		for (NewPost actualPost : actualPosts) {
-			if (expectedPost.equals(actualPost)) {
-				found = true;
+			if (actualPost.text.equals(message)) {
+				found = false;
 				break;
 			}
-		}
-		
-		if (found) {
-			System.out.println("Pass");
-		} else {	
-			System.out.println("Fail");
-		}
-		
 	
+		if (found) {
+			System.out.println("Pass. New Post found is " + actualPost.text);
+		} else {
+			System.out.println("Fail. \nExpected Post: " + message + "\nActual Post: " + actualPost.text );
+		}
+			
+			
+		driver.close();
+		driver.quit();
+		
+		}
+			
 	}
-
 }

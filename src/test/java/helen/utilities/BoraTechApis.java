@@ -101,7 +101,7 @@ public class BoraTechApis {
 
 	
 	
-	public static List<NewPost> addNewPost (String token, String message) {
+	public static String addNewPost (String token, String message) {
 		//add new post
 		String endpoint = "api/posts";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
@@ -112,17 +112,35 @@ public class BoraTechApis {
 		request.header("Content-Type", "application/json"); 
 		
 		Map <String, String> body = new HashMap<>();
-		body.put("text", message + helen.utilities.Keywords.getTimeStamp());		
+		body.put("text", message);		
 		
-		//response back
+		//return a single 'text' string as a response
 		request.body(body);
 		Response response = request.post(endpoint);
 		
-		//return a json object
+		String actualText = response.body().jsonPath().get("text");
+		return actualText;
+		
+	}
+
+	public static List<NewPost> getNewPost(String token, String message) {
+		//add new post
+		String endpoint = "api/posts";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		//request
+		request.header("x-auth-token", token);
+		
+		Map <String, String> body = new HashMap<>();
+		body.put("text", message);		
+		
+		//return a list of json object as a response
+		request.body(body);
+		Response response = request.post(endpoint);
+		
 		List <NewPost> np = response.jsonPath().getList("", NewPost.class);
-		
 		return np;
-		
 	}
 
 	
