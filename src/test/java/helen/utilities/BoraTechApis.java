@@ -123,7 +123,7 @@ public class BoraTechApis {
 		
 	}
 
-	public static List<NewPost> getNewPost(String token, String message) {
+	public static List<NewPost> getNewPost(String token) {
 		//add new post
 		String endpoint = "api/posts";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";

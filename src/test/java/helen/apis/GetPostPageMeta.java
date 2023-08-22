@@ -34,7 +34,7 @@ public class GetPostPageMeta {
 			
 			//login and get new post text through API
 			String token = helen.utilities.BoraTechApis.login("helenhjahn@gmail.com", "06102021");	
-			List <NewPost> actualPosts = helen.utilities.BoraTechApis.getNewPost(token, message);
+			List <NewPost> actualPosts = helen.utilities.BoraTechApis.getNewPost(token);
 			
 			
 			//validate two post texts
