@@ -26,6 +26,8 @@ public class LoginLydia {
 		
 		JsonPath jp = response.jsonPath();
 		String token = jp.get("token");
+		
+		System.out.println(token);
 	
 		System.out.println(response.statusLine());
 		System.out.println(response.getStatusCode());

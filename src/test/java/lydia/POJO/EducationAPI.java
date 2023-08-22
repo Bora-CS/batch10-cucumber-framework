@@ -20,4 +20,9 @@ public class EducationAPI {
 		this.current = current;
 		this.description = description;
 	}
-}
+	public boolean equals(EducationAPI education) {
+		return this.school.equals(education.school) && this.degree.equals(education.degree) && this.fieldofstudy.equals(education.fieldofstudy)
+				&& this.description.equals(education.description);
+
+		}
+	}
