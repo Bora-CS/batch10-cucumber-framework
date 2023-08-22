@@ -9,8 +9,7 @@ public class Education {
 	public boolean current;
 	public String description;
 
-	public Education(String school, String degree, String fieldOfStudy, String from, String to, boolean current,
-			String description) {
+	public Education(String school, String degree, String fieldOfStudy, String from, String to, boolean current, String description) {
 
 		this.school = school;
 		this.degree = degree;
