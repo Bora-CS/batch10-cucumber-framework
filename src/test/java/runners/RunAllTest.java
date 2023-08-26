@@ -12,5 +12,6 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 @SelectClasspathResource("features")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty, html:target/html-reports/index.html")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "ui_stepdefinitions")
+@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@Nike_Search")
 public class RunAllTest {
 }

@@ -1,5 +1,6 @@
 Feature: Login
 
+  @UI
   Scenario: Happy Path
     Given user is on the boratech homepage
     When user navigates to the Login page
