@@ -49,7 +49,7 @@ public class LoginSteps {
 		assertTrue(url.endsWith("/dashboard"));
 
 		String expectedTitleText = driver.findElement(By.xpath("//h1[@class='large text-primary']")).getText();
-		String actualTitleText = "Dashboard";
+		String actualTitleText = "DDDDashboard";
 		assertEquals(expectedTitleText, actualTitleText);
 	}
 }
