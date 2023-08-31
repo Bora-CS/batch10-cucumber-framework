@@ -6,9 +6,9 @@ Feature: Login
     When user navigates to the Login page
     And user enters the username - "muradil.erkin@boratechschool.com" and password - "Boratech" and submit
     Then user should be on the Dashboard page
-	
-	@API
-	Scenario: API - Happy Path
-		 Given [API] user is logged in
+
+  @API
+  Scenario: API - Happy Path
+    Given [API] user is logged in
       | username | muradil.erkin@boratechschool.com |
       | password | Boratech                         |
