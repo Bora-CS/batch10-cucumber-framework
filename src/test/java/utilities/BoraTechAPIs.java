@@ -65,6 +65,8 @@ public class BoraTechAPIs {
 		request.body(postBody);
 
 		Response response = request.post(endpoint);
+		assertEquals(200, response.statusCode());
+
 		Post post = response.as(Post.class);
 		return post;
 	}
