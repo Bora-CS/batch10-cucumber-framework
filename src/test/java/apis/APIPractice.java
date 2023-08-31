@@ -21,9 +21,8 @@ public class APIPractice {
 		// set up header/body
 		request.headers("Content-Type","application/json");
 		
-		
 		HashMap<String, String> body = new HashMap<String, String>();
-	
+		
 		body.put("email", "rubenmendozabri@gmail.com");
 		body.put("password", "12345qwerT!");
 		
