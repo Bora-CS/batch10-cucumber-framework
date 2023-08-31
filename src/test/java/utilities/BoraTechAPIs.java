@@ -1,5 +1,7 @@
 package utilities;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,8 +29,12 @@ public class BoraTechAPIs {
 
 		Response response = request.post(endpoint);
 
+		assertEquals(200, response.statusCode());
+
 		JsonPath jp = response.jsonPath();
 		String token = jp.get("token");
+
+		assertNotNull(token);
 		return token;
 	}
 
