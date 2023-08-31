@@ -6,12 +6,12 @@ import utilities.DriverManager;
 
 public class Hooks {
 
-	@Before
+	@Before("@UI or @ui")
 	public void setup() {
 		DriverManager.getInstance();
 	}
 
-	@After
+	@After("@UI or @ui")
 	public void cleanup() {
 		DriverManager.teardown();
 	}
