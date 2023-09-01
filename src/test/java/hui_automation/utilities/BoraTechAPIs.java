@@ -9,6 +9,7 @@ import java.util.Map;
 import hui_automation.api_pojos.Education;
 import hui_automation.api_pojos.Experience;
 import hui_automation.api_pojos.Post;
+import hui_automation.api_pojos.Profile;
 import hui_automation.api_pojos.User;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -36,7 +37,7 @@ public class BoraTechAPIs {
 		return token;
 	}
 
-	public static User getAuthorizedUserMeta(String token) {
+	public static User getAuthUserMeta(String token) {
 		String endpoint = "/api/auth";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
@@ -44,12 +45,13 @@ public class BoraTechAPIs {
 		request.header("X-Auth-Token", token);
 
 		Response response = request.get(endpoint);
-		User user = response.as(User.class);
+		assertEquals(200, response.getStatusCode());
 
+		User user = response.as(User.class);
 		return user;
 	}
 
-	public static void getUserProfile(String token) {
+	public static Profile getUserProfile(String token) {
 		String endpoint = "/api/profile/me";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
@@ -58,7 +60,9 @@ public class BoraTechAPIs {
 
 		Response response = request.get(endpoint);
 		assertEquals(200, response.getStatusCode());
-		response.as(Profile.class);
+
+		Profile userProfile = response.as(Profile.class);
+		return userProfile;
 	}
 
 	public static List<Experience> putExperience(String token, Experience exp) {

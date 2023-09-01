@@ -22,7 +22,7 @@ public class DeleteExperienceTest {
 			RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 			RequestSpecification request = RestAssured.given();
 
-			request.header("x-auth-token", token);
+			request.header("X-Auth-Token", token);
 
 			Response response = request.get(endpoint);
 			List<Experience> experiences = response.jsonPath().getList("experience", Experience.class);

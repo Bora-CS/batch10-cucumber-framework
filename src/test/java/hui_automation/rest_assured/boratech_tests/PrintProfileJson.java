@@ -21,7 +21,7 @@ public class PrintProfileJson {
 			RequestSpecification request = RestAssured.given();
 
 			// setting a request
-			request.header("x-auth-token", token);
+			request.header("X-Auth-Token", token);
 
 			// return a response
 			Response response = request.get(endpoint);
