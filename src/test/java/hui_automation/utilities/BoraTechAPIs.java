@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import hui_automation.api_pojos.Education;
+import hui_automation.api_pojos.Error;
 import hui_automation.api_pojos.Experience;
 import hui_automation.api_pojos.Post;
 import hui_automation.api_pojos.Profile;
@@ -83,6 +84,24 @@ public class BoraTechAPIs {
 		return experiences;
 	}
 
+	public static List<Error> putExperienceWrong(String token, Experience exp) {
+		String endpoint = "/api/profile/experience";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		// setting request
+		request.header("X-Auth-Token", token);
+		request.header("Content-Type", "application/json");
+		request.body(exp);
+
+		// return response
+		Response response = request.put(endpoint);
+		assertEquals(400, response.getStatusCode());
+
+		List<Error> errors = response.jsonPath().getList("errors", Error.class);
+		return errors;
+	}
+
 	public static List<Education> putEducation(String token, Education edu) {
 		String endpoint = "/api/profile/education";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
@@ -99,6 +118,24 @@ public class BoraTechAPIs {
 
 		List<Education> educations = response.jsonPath().getList("education", Education.class);
 		return educations;
+	}
+
+	public static List<Error> putEducationWrong(String token, Education edu) {
+		String endpoint = "/api/profile/education";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		// setting request
+		request.header("X-Auth-Token", token);
+		request.header("Content-Type", "application/json");
+		request.body(edu);
+
+		// return response
+		Response response = request.put(endpoint);
+		assertEquals(400, response.getStatusCode());
+
+		List<Error> errors = response.jsonPath().getList("errors", Error.class);
+		return errors;
 	}
 
 	public static Post postBoraTechPosts(String token, String postContent) {
