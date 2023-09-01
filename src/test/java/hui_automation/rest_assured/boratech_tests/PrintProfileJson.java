@@ -32,7 +32,7 @@ public class PrintProfileJson {
 			System.out.println(profile);
 
 			if (response.getStatusCode() == 200) {
-				File fileObj = new File("./src/test/java/hui_automation/rest_assured/target_json/hui_profile.json");
+				File fileObj = new File("target/hui_profile.json");
 				FileWriter fw = new FileWriter(fileObj);
 				BufferedWriter bw = new BufferedWriter(fw);
 				bw.write(profile);

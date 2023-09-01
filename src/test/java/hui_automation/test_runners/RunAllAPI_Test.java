@@ -7,6 +7,10 @@ import org.junit.platform.suite.api.Suite;
 
 import static io.cucumber.junit.platform.engine.Constants.*;
 
-public class RunAllAPI_Test {
-
-}
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("hui_features")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty, html:target/html_reports/index.html")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "hui_automation.steps.api")
+@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@api")
+public class RunAllAPI_Test {}

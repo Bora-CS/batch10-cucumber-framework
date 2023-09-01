@@ -1,7 +1,5 @@
 package hui_automation.rest_assured.boratech_tests;
 
-import java.util.List;
-
 import hui_automation.utilities.BoraTechAPIs;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -25,10 +23,7 @@ public class ViewProfileTest {
 			Response response = request.get(endpoint);
 
 			System.out.println(response.statusLine());
-//			response.body().prettyPrint();
-//			List<String> skills = response.jsonPath().get("skills");
-			String _id = response.jsonPath().get("_id");
-			System.out.println(_id);
+			response.body().prettyPrint();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
