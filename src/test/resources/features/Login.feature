@@ -1,14 +1,14 @@
 Feature: Login
 
-  @UI
-  Scenario: Happy Path
-    Given user is on the boratech homepage
+  @ui @boratech
+  Scenario: Login Postive Test
+    Given user is on the BoraTech homepage
     When user navigates to the Login page
-    And user enters the username - "muradil.erkin@boratechschool.com" and password - "Boratech" and submit
+    And user enters email - "hui-pretender@outlook.com" and password - "Hui123456" then click the Login button
     Then user should be on the Dashboard page
 
-  @API
-  Scenario: API - Happy Path
+  @api
+  Scenario: Login Positive Test
     Given [API] user is logged in
-      | username | muradil.erkin@boratechschool.com |
-      | password | Boratech                         |
+      | email    | hui-pretender@outlook.com |
+      | password | Hui123456                 |

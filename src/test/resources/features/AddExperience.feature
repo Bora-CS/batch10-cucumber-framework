@@ -1,15 +1,15 @@
 Feature: Add Experience
 
-  @API
-  Scenario: API - Add Experience Happy Path
+  @api
+  Scenario: Positive Test
     Given [API] user is logged in
-      | username | muradil.erkin@boratechschool.com |
-      | password | Boratech                         |
-    Then [API] users should be able to add a new experience
-      | company     | BoraTech                 |
-      | title       | Software Engineer        |
-      | location    | Annandale                |
-      | from        | 2023-08-16               |
-      | to          |                          |
-      | current     | true                     |
-      | description | This is a new experience |
+      | email    | hui-pretender@outlook.com |
+      | password | Hui123456                 |
+    Then [API] user adds a new [Experience]
+      | company     | Walmart             |
+      | title       | Cashier             |
+      | location    | Manassas, Virginia  |
+      | from        | 2006-06-06          |
+      | to          | 2008-11-11          |
+      | current     | false               |
+      | description | Payment collection. |
