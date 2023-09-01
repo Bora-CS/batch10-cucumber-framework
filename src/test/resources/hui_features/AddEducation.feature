@@ -20,7 +20,7 @@ Feature: Add Education
       | email    | hui-pretender@outlook.com |
       | password | Hui123456                 |
     When [API] user adds a wrong [Education] with <school>, <degree>, <fieldofstudy> and <from>
-    Then [API] user sees a list of error messages
+    Then [API] user sees a list of error messages of [Education]
       | school       | School is required         |
       | degree       | Degree is required         |
       | fieldofstudy | Field of study is required |
