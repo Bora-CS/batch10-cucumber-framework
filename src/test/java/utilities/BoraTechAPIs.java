@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
 import java.util.List;
 
+import apiPojos.Experience;
 import apiPojos.Post;
 import apiPojos.PostBody;
 import apiPojos.User;
@@ -82,6 +83,23 @@ public class BoraTechAPIs {
 
 		List<Post> posts = response2.jsonPath().getList("", Post.class);
 		return posts;
+	}
+
+//	TODO: update the return type to Profile pojo
+	public static List<Experience> addExperience(String token, Experience experience) {
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		request.header("Content-Type", "application/json");
+		request.header("x-auth-token", token);
+		request.body(experience);
+
+		Response response = request.put("/api/profile/experience");
+		assertEquals(200, response.statusCode());
+
+		List<Experience> experiences = response.jsonPath().getList("experience", Experience.class);
+		assertTrue(experiences.size() > 0, "No experiences received");
+		return experiences;
 	}
 
 }
