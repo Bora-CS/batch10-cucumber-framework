@@ -1,7 +1,6 @@
 package hui_automation.utilities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +41,7 @@ public class BoraTechAPIs {
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
-		request.header("x-auth-token", token);
+		request.header("X-Auth-Token", token);
 
 		Response response = request.get(endpoint);
 		User user = response.as(User.class);
@@ -50,19 +49,16 @@ public class BoraTechAPIs {
 		return user;
 	}
 
-	public static void getUserProfile(String token) throws Exception {
+	public static void getUserProfile(String token) {
 		String endpoint = "/api/profile/me";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
-		request.header("x-auth-token", token);
+		request.header("X-Auth-Token", token);
 
 		Response response = request.get(endpoint);
-
-		if (response.getStatusCode() != 200)
-			throw new Exception("User profile failed to load: " + response.getStatusLine());
-
-		System.out.println(response.body().asPrettyString());
+		assertEquals(200, response.getStatusCode());
+		response.as(Profile.class);
 	}
 
 	public static List<Experience> putExperience(String token, Experience exp) {
@@ -71,7 +67,7 @@ public class BoraTechAPIs {
 		RequestSpecification request = RestAssured.given();
 
 		// setting request
-		request.header("x-auth-token", token);
+		request.header("X-Auth-Token", token);
 		request.header("Content-Type", "application/json");
 		request.body(exp);
 
@@ -89,7 +85,7 @@ public class BoraTechAPIs {
 		RequestSpecification request = RestAssured.given();
 
 		// setting request
-		request.header("x-auth-token", token);
+		request.header("X-Auth-Token", token);
 		request.header("Content-Type", "application/json");
 		request.body(edu);
 
@@ -120,7 +116,7 @@ public class BoraTechAPIs {
 		return response.jsonPath().getObject("", Post.class);
 	}
 
-	public static List<Post> getBoraTechPosts(String token) throws Exception {
+	public static List<Post> getBoraTechPosts(String token) {
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		String endpoint = "/api/posts";
 		RequestSpecification request = RestAssured.given();
@@ -130,9 +126,7 @@ public class BoraTechAPIs {
 
 		// return a response
 		Response response = request.get(endpoint);
-
-		if (response.getStatusCode() != 200)
-			throw new Exception("Posts page failed to load: " + response.getStatusLine());
+		assertEquals(200, response.getStatusCode());
 
 		List<Post> posts = response.jsonPath().getList("", Post.class);
 		return posts;
