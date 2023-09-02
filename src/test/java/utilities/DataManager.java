@@ -2,11 +2,16 @@ package utilities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
+import apiPojos.ApiError;
+
 public class DataManager {
 
 	private static DataManager dataManager = null;
 
 	private String token;
+	private List<ApiError> apiErrors;
 
 	private DataManager() {
 	}
@@ -29,6 +34,15 @@ public class DataManager {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public List<ApiError> getApiErrors() {
+		assertNotNull(apiErrors);
+		return apiErrors;
+	}
+
+	public void setApiErrors(List<ApiError> apiErrors) {
+		this.apiErrors = apiErrors;
 	}
 
 }
