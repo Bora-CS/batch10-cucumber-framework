@@ -3,6 +3,7 @@ package hui_automation.steps.api;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +19,8 @@ import io.cucumber.java.en.*;
 public class AddExperienceSteps {
 
 	private DataManager dataManager = DataManager.getInstance();
-	private String company;
-	private String title;
-	private String from;
+	private List<Error> errors;
+	private Experience exp;
 
 	@Then("[API] user adds a new [Experience]")
 	public void api_user_adds_a_new_experience(DataTable dataTable) {
@@ -42,9 +42,9 @@ public class AddExperienceSteps {
 
 	@When("[API] user adds a wrong [Experience] with {}, {} and {}")
 	public void api_user_adds_a_wrong_experience_with_test_company_and(String company, String title, String from) {
-		this.company = company;
-		this.title = title;
-		this.from = from;
+		Experience exp = new Experience(company, title, "", from, "", true, "");
+		this.errors = BoraTechAPIs.putExperienceWrong(dataManager.getToken(), exp);
+		this.exp = exp;
 	}
 
 	@Then("[API] user sees a list of error messages of [Experience]")
@@ -53,9 +53,9 @@ public class AddExperienceSteps {
 		Map<String, String> totalErrors = dataTable.asMap();
 
 		Map<String, String> testData = new HashMap<>();
-		testData.put("title", this.title);
-		testData.put("company", this.company);
-		testData.put("from", this.from);
+		testData.put("title", this.exp.title);
+		testData.put("company", this.exp.company);
+		testData.put("from", this.exp.from);
 
 		// generate expected error messages
 		List<String> expectedErrorMsgs = new ArrayList<>();
@@ -63,19 +63,15 @@ public class AddExperienceSteps {
 			if (testData.get(errorKey).isEmpty())
 				expectedErrorMsgs.add(totalErrors.get(errorKey));
 
-		// api request
-		Experience exp = new Experience(this.company, this.title, "", this.from, "", true, "");
-		List<Error> actualErrors = BoraTechAPIs.putExperienceWrong(dataManager.getToken(), exp);
-
 		// generate actual error messages
 		List<String> actualErrorMsgs = new ArrayList<>();
-		for (Error error : actualErrors)
+		for (Error error : this.errors)
 			actualErrorMsgs.add(error.msg);
 
 		// validation
-		assertEquals(expectedErrorMsgs.size(), actualErrorMsgs.size());
-		for (String msg : actualErrorMsgs)
-			assertTrue(expectedErrorMsgs.contains(msg));
+		Collections.sort(expectedErrorMsgs);
+		Collections.sort(actualErrorMsgs);
+		assertEquals(expectedErrorMsgs, actualErrorMsgs);
 	}
 
 }

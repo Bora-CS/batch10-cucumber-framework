@@ -2,13 +2,19 @@ package hui_automation.utilities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
+import hui_automation.api_pojos.Error;
+
 public class DataManager {
 
 	private static DataManager dataManager = null;
 
 	private String token;
+	private List<Error> errors;
 
-	private DataManager() {}
+	private DataManager() {
+	}
 
 	public static DataManager getInstance() {
 		if (dataManager == null) {
@@ -28,6 +34,15 @@ public class DataManager {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public List<Error> getErrors() {
+		assertNotNull(errors, "No error message.");
+		return errors;
+	}
+
+	public void setErrors(List<Error> errors) {
+		this.errors = errors;
 	}
 
 }

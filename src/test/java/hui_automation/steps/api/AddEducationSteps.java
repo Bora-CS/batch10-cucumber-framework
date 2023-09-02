@@ -3,6 +3,7 @@ package hui_automation.steps.api;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +19,8 @@ import io.cucumber.java.en.*;
 public class AddEducationSteps {
 
 	private DataManager dataManager = DataManager.getInstance();
-	private String school;
-	private String degree;
-	private String fieldofstudy;
-	private String from;
+	private List<Error> errors;
+	private Education edu;
 
 	@Then("[API] user adds a new [Education]")
 	public void api_user_adds_a_new_education(DataTable dataTable) {
@@ -44,10 +43,9 @@ public class AddEducationSteps {
 	@When("[API] user adds a wrong [Education] with {}, {}, {} and {}")
 	public void api_user_adds_a_wrong_education_with_and(String school, String degree, String fieldofstudy,
 			String from) {
-		this.school = school;
-		this.degree = degree;
-		this.fieldofstudy = fieldofstudy;
-		this.from = from;
+		Education edu = new Education(school, degree, fieldofstudy, from, "", true, "");
+		this.errors = BoraTechAPIs.putEducationWrong(dataManager.getToken(), edu);
+		this.edu = edu;
 	}
 
 	@Then("[API] user sees a list of error messages of [Education]")
@@ -56,10 +54,10 @@ public class AddEducationSteps {
 		Map<String, String> totalErrors = dataTable.asMap();
 
 		Map<String, String> testData = new HashMap<>();
-		testData.put("school", this.school);
-		testData.put("degree", this.degree);
-		testData.put("fieldofstudy", this.fieldofstudy);
-		testData.put("from", this.from);
+		testData.put("school", this.edu.school);
+		testData.put("degree", this.edu.degree);
+		testData.put("fieldofstudy", this.edu.fieldofstudy);
+		testData.put("from", this.edu.from);
 
 		// generate expected error messages
 		List<String> expectedErrorMsgs = new ArrayList<>();
@@ -67,19 +65,15 @@ public class AddEducationSteps {
 			if (testData.get(errorKey).isEmpty())
 				expectedErrorMsgs.add(totalErrors.get(errorKey));
 
-		// api request
-		Education edu = new Education(this.school, this.degree, this.fieldofstudy, this.from, "", true, "");
-		List<Error> actualErrors = BoraTechAPIs.putEducationWrong(dataManager.getToken(), edu);
-
 		// generate actual error messages
 		List<String> actualErrorMsgs = new ArrayList<>();
-		for (Error error : actualErrors)
+		for (Error error : this.errors)
 			actualErrorMsgs.add(error.msg);
 
 		// validation
-		assertEquals(expectedErrorMsgs.size(), actualErrorMsgs.size());
-		for (String msg : actualErrorMsgs)
-			assertTrue(expectedErrorMsgs.contains(msg));
+		Collections.sort(expectedErrorMsgs);
+		Collections.sort(actualErrorMsgs);
+		assertEquals(expectedErrorMsgs, actualErrorMsgs);
 	}
 
 }
