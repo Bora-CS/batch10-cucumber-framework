@@ -8,8 +8,9 @@ import java.util.List;
 import apiPojos.ApiError;
 import apiPojos.Education;
 import apiPojos.Experience;
+import apiPojos.LoginRequest;
 import apiPojos.Post;
-import apiPojos.PostBody;
+import apiPojos.PostRequest;
 import apiPojos.User;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -18,20 +19,22 @@ import io.restassured.specification.RequestSpecification;
 
 public class BoraTechAPIs {
 
-	public static String login(String email, String password) {
+	private static Response loginBase(String email, String password) {
 		String endpoint = "/api/auth";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
 		RequestSpecification request = RestAssured.given();
 
-		HashMap<String, String> body = new HashMap<>();
-		body.put("email", email);
-		body.put("password", password);
+		LoginRequest body = new LoginRequest(email, password);
 
 		request.body(body);
 		request.header("Content-Type", "application/json");
 
 		Response response = request.post(endpoint);
+		return response;
+	}
 
+	public static String login(String email, String password) {
+		Response response = loginBase(email, password);
 		assertEquals(200, response.statusCode());
 
 		JsonPath jp = response.jsonPath();
@@ -39,6 +42,17 @@ public class BoraTechAPIs {
 
 		assertNotNull(token);
 		return token;
+	}
+
+	public static String loginUnhappy(String email, String password) {
+		Response response = loginBase(email, password);
+		assertEquals(400, response.statusCode());
+
+		JsonPath jp = response.jsonPath();
+		String msg = jp.get("errors[0].msg");
+		assertNotNull(msg);
+
+		return msg;
 	}
 
 	public static User getAuthorizedUserMeta(String token) {
@@ -63,7 +77,7 @@ public class BoraTechAPIs {
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
 
-		PostBody postBody = new PostBody(text, false);
+		PostRequest postBody = new PostRequest(text, false);
 
 		request.body(postBody);
 

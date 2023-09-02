@@ -13,7 +13,7 @@ Feature: Add Education
       | to           | <to>           |
       | current      | <current>      |
       | description  | <description>  |
-    Then [API] user should receive error messages
+    Then [API] user should receive missing form errors
       | errors | <errors> |
 
     Examples: 

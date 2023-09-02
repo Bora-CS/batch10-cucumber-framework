@@ -28,7 +28,7 @@ public class AddEducationSteps {
 		dataManager.setApiErrors(errors);
 	}
 
-	@Then("[API] user should receive error messages")
+	@Then("[API] user should receive missing form errors")
 	public void api_user_should_receive_error_messages(DataTable dataTable) {
 		// Prepare the maps to compare
 		List<String> expectedErrors = new ArrayList<>();

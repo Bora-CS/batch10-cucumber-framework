@@ -2,11 +2,11 @@ package apiPojos;
 
 import utilities.Keywords;
 
-public class PostBody {
+public class PostRequest {
 
 	public String text;
 
-	public PostBody(String text, boolean makeUnique) {
+	public PostRequest(String text, boolean makeUnique) {
 		this.text = text + (makeUnique ? Keywords.getTimeStamp() : "");
 	}
 
