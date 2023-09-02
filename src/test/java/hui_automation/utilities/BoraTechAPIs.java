@@ -38,6 +38,26 @@ public class BoraTechAPIs {
 		return token;
 	}
 
+	public static String badLogin(String email, String password) {
+		String endpoint = "/api/auth";
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		HashMap<String, String> body = new HashMap<>();
+		body.put("email", email);
+		body.put("password", password);
+
+		request.body(body);
+		request.header("Content-Type", "application/json");
+
+		Response response = request.post(endpoint);
+		assertEquals(400, response.getStatusCode());
+
+		String errorMsg = response.jsonPath().get("errors[0].msg");
+		assertNotNull(errorMsg);
+		return errorMsg;
+	}
+
 	public static User getAuthUserMeta(String token) {
 		String endpoint = "/api/auth";
 		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
