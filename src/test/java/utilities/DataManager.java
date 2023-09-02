@@ -12,6 +12,7 @@ public class DataManager {
 
 	private String token;
 	private List<ApiError> apiErrors;
+	private String errorMessage;
 
 	private DataManager() {
 	}
@@ -43,6 +44,15 @@ public class DataManager {
 
 	public void setApiErrors(List<ApiError> apiErrors) {
 		this.apiErrors = apiErrors;
+	}
+
+	public String getErrorMessage() {
+		assertNotNull(errorMessage);
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 }
