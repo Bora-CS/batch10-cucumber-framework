@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.HashMap;
 import java.util.List;
 
+import apiPojos.ApiError;
+import apiPojos.Education;
 import apiPojos.Experience;
 import apiPojos.Post;
 import apiPojos.PostBody;
@@ -100,6 +102,23 @@ public class BoraTechAPIs {
 		List<Experience> experiences = response.jsonPath().getList("experience", Experience.class);
 		assertTrue(experiences.size() > 0, "No experiences received");
 		return experiences;
+	}
+
+	public static List<ApiError> addEducationUnhappy(String token, Education education) {
+		RestAssured.baseURI = "https://boratech-practice-app.onrender.com";
+		RequestSpecification request = RestAssured.given();
+
+		request.header("Content-Type", "application/json");
+		request.header("x-auth-token", token);
+
+		request.body(education);
+
+		Response response = request.put("/api/profile/education");
+		assertEquals(400, response.getStatusCode());
+
+		List<ApiError> errors = response.jsonPath().getList("errors", ApiError.class);
+		assertTrue(errors.size() > 0, "Expected to received at least 1 error, none received.");
+		return errors;
 	}
 
 }
