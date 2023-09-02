@@ -15,9 +15,9 @@ public class AddExperienceDataDriven {
 		String email = "hui-pretender@outlook.com";
 		String password = "Hui123456";
 
-		Experience exp1 = new Experience("Walmart", "Cashier", "Manassas, Virginia", "2006/06/06", "2008/11/11", false,
+		Experience exp1 = new Experience("Walmart", "Cashier", "Manassas, Virginia", "06/06/2006", "11/11/2008", false,
 				"Payment collection.", null);
-		Experience exp2 = new Experience("NASA", "Astronaut", "Merritt Island, Florida", "2009/01/11", "2019/08/08",
+		Experience exp2 = new Experience("NASA", "Astronaut", "Merritt Island, Florida", "01/11/2009", "08/08/2019",
 				false, "Maintain safety of the international space station and fly space shuttle.", null);
 		Experience exp3 = new Experience("Self-employed", "Pirate", "High Sea", "2019/08/31", null, true,
 				"High sea raiding.", null);

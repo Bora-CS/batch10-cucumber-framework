@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Experience {
 
 	public String company;
 	public String title;
 	public String location;
-	public String startDate; // uuuu/MM/dd
+	public String startDate;
 	public String endDate;
 	public boolean current;
 	public String description;
@@ -33,8 +34,8 @@ public class Experience {
 		this.isTestPositive = this.messages.size() == 0;
 	}
 
-	public HashMap<String, Object> toHashMap() {
-		HashMap<String, Object> expMap = new HashMap<>();
+	public Map<String, Object> toMap() {
+		Map<String, Object> expMap = new HashMap<>();
 		expMap.put("company", this.company);
 		expMap.put("title", this.title);
 		expMap.put("location", this.location);

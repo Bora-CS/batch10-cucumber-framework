@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import hui_automation.utilities.Testkeys;
 
@@ -18,34 +20,32 @@ public class AddExperienceTest {
 		String expCompany = "Walmart";
 		expCompany += " " + Testkeys.getUniqueMillsTimeStr();
 		String expTitle = "Cashier";
-		String expStartDate = "2010/06/06";
-		String expEndDate = "2012/11/11";
+		String expStartDate = "06/06/2010";
+		String expEndDate = "11/11/2012";
 		boolean current = true;
 
 		try {
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 			driver.manage().window().maximize();
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 			driver.get("https://boratech-practice-app.onrender.com/");
 			driver.findElement(By.linkText("Login")).click();
 
 			driver.findElement(By.xpath("//input[@name='email']")).sendKeys("hui-pretender@outlook.com");
 			driver.findElement(By.xpath("//input[@name='password']")).sendKeys("Hui123456");
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
-			Testkeys.pause(driver, 3);
+			wait.until(ExpectedConditions.urlContains("dashboard"));
 
 			// adding experience
 			driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
 			driver.findElement(By.xpath("//input[@name='title']")).sendKeys(expTitle);
 			driver.findElement(By.xpath("//input[@name='company']")).sendKeys(expCompany);
 			driver.findElement(By.xpath("//input[@name='location']")).sendKeys("Manassas, Virginia");
-
-			driver.findElement(By.xpath("//input[@name='from']"))
-					.sendKeys(Testkeys.findDateInputStrMDY(expStartDate, "yyyy/MM/dd"));
+			driver.findElement(By.xpath("//input[@name='from']")).sendKeys(expStartDate);
 			if (current)
 				driver.findElement(By.name("current")).click();
 			else
-				driver.findElement(By.xpath("//input[@name='to']"))
-						.sendKeys(Testkeys.findDateInputStrMDY(expEndDate, "yyyy/MM/dd"));
+				driver.findElement(By.xpath("//input[@name='to']")).sendKeys(expEndDate);
 			driver.findElement(By.xpath("//textarea[@name='description']")).sendKeys("Payment collection.");
 
 			Testkeys.pause(driver, 3);

@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import hui_automation.utilities.Testkeys;
 
@@ -18,37 +20,35 @@ public class AddEducationTest {
 		String expSchool = "George Mason University";
 		expSchool += " " + Testkeys.getUniqueMillsTimeStr();
 		String expDegree = "Bachelor's Degree";
-		String expStartDate = "2008/01/31";
-		String expEndDate = "2010/05/15";
+		String expStartDate = "01/31/2008";
+		String expEndDate = "05/15/2010";
 
 		try {
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 			driver.manage().window().maximize();
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 			driver.get("https://boratech-practice-app.onrender.com/");
 			driver.findElement(By.linkText("Login")).click();
 
 			driver.findElement(By.xpath("//input[@name='email']")).sendKeys("hui-pretender@outlook.com");
 			driver.findElement(By.xpath("//input[@name='password']")).sendKeys("Hui123456");
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
-			Testkeys.pause(driver, 3);
+			wait.until(ExpectedConditions.urlContains("dashboard"));
 
 			// adding education
 			driver.findElement(By.xpath("//a[@href='/add-education']")).click();
 			driver.findElement(By.xpath("//input[@name='school']")).sendKeys(expSchool);
 			driver.findElement(By.xpath("//input[@name='degree']")).sendKeys(expDegree);
 			driver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys("Biology");
-
-			driver.findElement(By.xpath("//input[@name='from']"))
-					.sendKeys(Testkeys.findDateInputStrMDY(expStartDate, "yyyy/MM/dd"));
-			driver.findElement(By.xpath("//input[@name='to']"))
-					.sendKeys(Testkeys.findDateInputStrMDY(expEndDate, "yyyy/MM/dd"));
+			driver.findElement(By.xpath("//input[@name='from']")).sendKeys(expStartDate);
+			driver.findElement(By.xpath("//input[@name='to']")).sendKeys(expEndDate);
 			driver.findElement(By.xpath("//textarea[@name='description']"))
 					.sendKeys("Practice the scientific study of life.");
 
-			Testkeys.pause(driver, 3);
+			Testkeys.pause(driver, 1);
 			driver.findElement(By.xpath("//input[@type='submit']")).click();
 			Testkeys.jsViewTop(driver);
-			Testkeys.pause(driver, 3);
+			Testkeys.pause(driver, 1);
 
 			// validation
 			boolean targetFound = false;

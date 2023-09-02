@@ -22,8 +22,7 @@ public class BoraTech {
 		driver.findElement(By.name("email")).sendKeys(email);
 		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.xpath("//input[@type='submit']")).click();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-		wait.until(ExpectedConditions.urlContains("dashboard"));
+		new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.urlContains("dashboard"));
 	}
 
 	public static void addExperience(WebDriver driver, Experience exp) {
@@ -35,15 +34,11 @@ public class BoraTech {
 		driver.findElement(By.xpath("//input[@name='company']")).sendKeys(exp.company);
 		driver.findElement(By.xpath("//input[@name='title']")).sendKeys(exp.title);
 		driver.findElement(By.xpath("//input[@name='location']")).sendKeys(exp.location);
-
-		if (exp.startDate.length() > 0)
-			driver.findElement(By.xpath("//input[@name='from']"))
-					.sendKeys(Testkeys.findDateInputStrMDY(exp.startDate, "yyyy/MM/dd"));
+		driver.findElement(By.xpath("//input[@name='from']")).sendKeys(exp.startDate);
 		if (exp.current)
 			driver.findElement(By.name("current")).click();
 		else
-			driver.findElement(By.xpath("//input[@name='to']"))
-					.sendKeys(Testkeys.findDateInputStrMDY(exp.endDate, "yyyy/MM/dd"));
+			driver.findElement(By.xpath("//input[@name='to']")).sendKeys(exp.endDate);
 		driver.findElement(By.xpath("//textarea[@name='description']")).sendKeys(exp.description);
 
 		driver.findElement(By.xpath("//input[@type='submit']")).click();
@@ -63,9 +58,11 @@ public class BoraTech {
 			driver.get("https://boratech-practice-app.onrender.com/dashboard");
 
 		// wait for the dash board page
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-		wait.until(ExpectedConditions.urlContains("dashboard"));
+		new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.urlContains("dashboard"));
 
+		// locate experience table
+		new WebDriverWait(driver, Duration.ofSeconds(5)).until(
+				ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[text()='Experience Credentials']"))));
 		boolean targetRow = false;
 		By expTableLocator = RelativeLocator.with(By.tagName("table"))
 				.below(By.xpath("//h2[text()='Experience Credentials']"));
@@ -114,15 +111,11 @@ public class BoraTech {
 		driver.findElement(By.xpath("//input[@name='school']")).sendKeys(edu.school);
 		driver.findElement(By.xpath("//input[@name='degree']")).sendKeys(edu.degree);
 		driver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys(edu.fieldofstudy);
-
-		if (edu.startDate.length() > 0)
-			driver.findElement(By.xpath("//input[@name='from']"))
-					.sendKeys(Testkeys.findDateInputStrMDY(edu.startDate, "yyyy/MM/dd"));
+		driver.findElement(By.xpath("//input[@name='from']")).sendKeys(edu.startDate);
 		if (edu.current)
 			driver.findElement(By.name("current")).click();
 		else
-			driver.findElement(By.xpath("//input[@name='to']"))
-					.sendKeys(Testkeys.findDateInputStrMDY(edu.endDate, "yyyy/MM/dd"));
+			driver.findElement(By.xpath("//input[@name='to']")).sendKeys(edu.endDate);
 		driver.findElement(By.xpath("//textarea[@name='description']")).sendKeys(edu.description);
 
 		driver.findElement(By.xpath("//input[@type='submit']")).click();
@@ -142,9 +135,11 @@ public class BoraTech {
 			driver.get("https://boratech-practice-app.onrender.com/dashboard");
 
 		// wait for the dash board page
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-		wait.until(ExpectedConditions.urlContains("dashboard"));
+		new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.urlContains("dashboard"));
 
+		// locate education table
+		new WebDriverWait(driver, Duration.ofSeconds(5)).until(
+				ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[text()='Education Credentials']"))));
 		boolean targetRow = false;
 		By eduTableLocator = RelativeLocator.with(By.tagName("table"))
 				.below(By.xpath("//h2[text()='Education Credentials']"));
@@ -213,8 +208,7 @@ public class BoraTech {
 			driver.get("https://boratech-practice-app.onrender.com/dashboard");
 
 		// wait for the dash board page
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-		wait.until(ExpectedConditions.urlContains("dashboard"));
+		new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.urlContains("dashboard"));
 
 		// delete everything
 		String eduDeleteXpath = "//h2[text()='Education Credentials']/following-sibling::table[1]/tbody/tr/td/button[text()='Delete']";

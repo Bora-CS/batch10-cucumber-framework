@@ -16,9 +16,10 @@ public class AddEducationDataDriven {
 		String password = "Hui123456";
 
 		Education edu1 = new Education("George Mason University", "Bachelor's Degree", "Biology", "2008/01/31",
-				"2010/05/15", false, "Practice the scientific study of life.", null);
-		Education edu2 = new Education("BoraTech School", "Certificate of Completion", "Test Automation Engineering",
-				"2023/05/07", null, true, "Web application testing for quality control.", null);
+				"05/15/2010", false, "Practice the scientific study of life.", null);
+		Education edu2 = new Education("BoraTech School", "Certificate of Test Automation Engineering",
+				"Test Automation Engineering", "05/07/2023", null, true, "Web application testing for quality control.",
+				null);
 		Education[] educations = { edu1, edu2 };
 
 		try {

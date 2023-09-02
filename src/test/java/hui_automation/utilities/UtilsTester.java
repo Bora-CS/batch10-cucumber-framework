@@ -1,7 +1,7 @@
 package hui_automation.utilities;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import hui_automation.pojos.Education;
@@ -34,15 +34,15 @@ public class UtilsTester {
 		// setting request
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
-		request.body(exp.toHashMap());
+		request.body(exp.toMap());
 
 		// return response
 		Response response = request.put(endpoint);
 
 		if (response.getStatusCode() != 200)
 			throw new Exception("Add experience failed: " + response.getStatusLine());
-		List<HashMap<String, Object>> expList = response.jsonPath().getList("experience");
-		for (HashMap<String, Object> expX : expList) {
+		List<Map<String, Object>> expList = response.jsonPath().getList("experience");
+		for (Map<String, Object> expX : expList) {
 			for (Entry<String, Object> entry : expX.entrySet()) {
 				System.out.println(entry.getKey() + ": " + entry.getValue());
 			}
@@ -58,15 +58,15 @@ public class UtilsTester {
 		// setting request
 		request.header("x-auth-token", token);
 		request.header("Content-Type", "application/json");
-		request.body(edu.toHashMap());
+		request.body(edu.toMap());
 
 		// return response
 		Response response = request.put(endpoint);
 
 		if (response.getStatusCode() != 200)
 			throw new Exception("Add education failed: " + response.getStatusLine());
-		List<HashMap<String, Object>> eduList = response.jsonPath().getList("education");
-		for (HashMap<String, Object> eduX : eduList) {
+		List<Map<String, Object>> eduList = response.jsonPath().getList("education");
+		for (Map<String, Object> eduX : eduList) {
 			for (Entry<String, Object> entry : eduX.entrySet()) {
 				System.out.println(entry.getKey() + ": " + entry.getValue());
 			}

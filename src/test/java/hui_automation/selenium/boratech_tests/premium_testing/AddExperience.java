@@ -13,30 +13,25 @@ public class AddExperience {
 
 	public static void main(String[] args) {
 		// positive test cases
-		Experience exp1 = new Experience("Walmart", "Cashier", "Manassas, Virginia", "2006/06/06", "2008/11/11", false,
+		Experience exp1 = new Experience("Walmart", "Cashier", "Manassas, Virginia", "06/06/2006", "11/11/2008", false,
 				"Payment collection.", null);
-		Experience exp2 = new Experience("NASA", "Astronaut", "Merritt Island, Florida", "2009/01/11", "2019/08/08",
-				false, "Maintain safety of the international space station and fly space shuttle.", null);
-		Experience exp3 = new Experience("Self-Employed", "Pirate ", "High Sea", "2019/08/31", "", true,
-				"High sea raiding.", null);
 
 		String title = "Junior Villain";
 		String company = "Wuckert Inc";
-		String startDate = "2023/08/09";
+		String startDate = "08/09/2017";
 		String errMsg1 = "Title is required";
 		String errMsg2 = "Company is required";
 		String errMsg3 = "From date is required";
 		// negative test cases
-		Experience exp4 = new Experience("", "", "", "", "", true, "", new String[] { errMsg1, errMsg2, errMsg3 });
-		Experience exp5 = new Experience(company, "", "", startDate, "", true, "", new String[] { errMsg1 });
-		Experience exp6 = new Experience("", title, "", startDate, "", true, "", new String[] { errMsg2 });
-		Experience exp7 = new Experience(company, title, "", "", "", true, "", new String[] { errMsg3 });
-		Experience exp8 = new Experience("", "", "", "", "", true, "", new String[] { "Something" });
-		Experience exp9 = new Experience("", "", "", startDate, "", true, "", new String[] { errMsg1, errMsg2 });
-		Experience exp10 = new Experience(company, "", "", "", "", true, "", new String[] { errMsg1, errMsg3 });
-		Experience exp11 = new Experience("", title, "", "", "", true, "", new String[] { errMsg2, errMsg3 });
+		Experience exp2 = new Experience("", "", "", "", "", true, "", new String[] { errMsg1, errMsg2, errMsg3 });
+		Experience exp3 = new Experience(company, "", "", startDate, "", true, "", new String[] { errMsg1 });
+		Experience exp4 = new Experience("", title, "", startDate, "", true, "", new String[] { errMsg2 });
+		Experience exp5 = new Experience(company, title, "", "", "", true, "", new String[] { errMsg3 });
+		Experience exp6 = new Experience("", "", "", startDate, "", true, "", new String[] { errMsg1, errMsg2 });
+		Experience exp7 = new Experience(company, "", "", "", "", true, "", new String[] { errMsg1, errMsg3 });
+		Experience exp8 = new Experience("", title, "", "", "", true, "", new String[] { errMsg2, errMsg3 });
 
-		Experience[] experiences = { exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8, exp9, exp10, exp11 };
+		Experience[] experiences = { exp1, exp2, exp3, exp4, exp5, exp6, exp7, exp8, };
 
 		runTests(experiences);
 	}
@@ -80,8 +75,8 @@ public class AddExperience {
 			BoraTech.validateExperience(driver, exp);
 			System.out.println("Test passed.\n");
 		} catch (Exception e) {
-			System.err.println("Test failed.");
-			System.err.println("Reason: " + e.getMessage());
+			System.out.println("Test failed.");
+			System.out.println("Reason: " + e.getMessage());
 		}
 	}
 

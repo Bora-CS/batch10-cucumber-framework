@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Education {
 
@@ -33,8 +34,8 @@ public class Education {
 		this.isTestPositive = this.messages.size() == 0;
 	}
 
-	public HashMap<String, Object> toHashMap() {
-		HashMap<String, Object> eduMap = new HashMap<>();
+	public Map<String, Object> toMap() {
+		Map<String, Object> eduMap = new HashMap<>();
 		eduMap.put("school", this.school);
 		eduMap.put("degree", this.degree);
 		eduMap.put("fieldofstudy", this.fieldofstudy);

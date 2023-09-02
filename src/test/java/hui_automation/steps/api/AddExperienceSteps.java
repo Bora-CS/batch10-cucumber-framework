@@ -18,8 +18,8 @@ import io.cucumber.java.en.*;
 public class AddExperienceSteps {
 
 	private DataManager dataManager = DataManager.getInstance();
-	private String title;
 	private String company;
+	private String title;
 	private String from;
 
 	@Then("[API] user adds a new [Experience]")
@@ -41,9 +41,9 @@ public class AddExperienceSteps {
 	}
 
 	@When("[API] user adds a wrong [Experience] with {}, {} and {}")
-	public void api_user_adds_a_wrong_experience_with_test_company_and(String title, String company, String from) {
-		this.title = title;
+	public void api_user_adds_a_wrong_experience_with_test_company_and(String company, String title, String from) {
 		this.company = company;
+		this.title = title;
 		this.from = from;
 	}
 

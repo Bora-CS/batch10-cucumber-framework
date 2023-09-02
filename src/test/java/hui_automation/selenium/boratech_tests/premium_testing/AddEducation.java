@@ -13,9 +13,9 @@ public class AddEducation {
 
 	public static void main(String[] args) {
 		String school = "BoraTech School";
-		String degree = "Certificate of Completion";
+		String degree = "Certificate of Test Automation Engineering";
 		String fieldofstudy = "Test Automation Engineering";
-		String startDate = "2023/05/07";
+		String startDate = "05/07/2023";
 		// positive test cases
 		Education edu1 = new Education(school, degree, fieldofstudy, startDate, "", true,
 				"Web application testing for quality control.", null);
@@ -38,11 +38,15 @@ public class AddEducation {
 		Education edu9 = new Education(school, degree, "", "", "", true, "", new String[] { errMsg3, errMsg4 });
 		Education edu10 = new Education("", degree, fieldofstudy, "", "", true, "", new String[] { errMsg1, errMsg4 });
 
-		Education edu11 = new Education("", "", "", startDate, "", true, "",
+		Education edu11 = new Education(school, "", "", "", "", true, "", new String[] { errMsg2, errMsg3, errMsg4 });
+		Education edu12 = new Education("", degree, "", "", "", true, "", new String[] { errMsg1, errMsg3, errMsg4 });
+		Education edu13 = new Education("", "", fieldofstudy, "", "", true, "",
+				new String[] { errMsg1, errMsg2, errMsg4 });
+		Education edu14 = new Education("", "", "", startDate, "", true, "",
 				new String[] { errMsg1, errMsg2, errMsg3 });
-		Education edu12 = new Education(school, "", "", "", "", true, "", new String[] { errMsg2, errMsg3, errMsg4 });
 
-		Education[] educations = { edu1, edu2, edu3, edu4, edu5, edu6, edu7, edu8, edu9, edu10, edu11, edu12 };
+		Education[] educations = { edu1, edu2, edu3, edu4, edu5, edu6, edu7, edu8, edu9, edu10, edu11, edu12, edu13,
+				edu14 };
 
 		runTests(educations);
 	}
@@ -86,8 +90,8 @@ public class AddEducation {
 			BoraTech.validateEducation(driver, edu);
 			System.out.println("Test passed.\n");
 		} catch (Exception e) {
-			System.err.println("Test failed.");
-			System.err.println("Reason: " + e.getMessage());
+			System.out.println("Test failed.");
+			System.out.println("Reason: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
