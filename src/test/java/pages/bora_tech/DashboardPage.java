@@ -14,7 +14,7 @@ public class DashboardPage {
 	private static String educationTableXpath = "//*[text()='Education Credentials']/following-sibling::table[1]";
 
 	public static WebElement pageTitle(WebDriver driver) {
-		element = driver.findElement(By.xpath("h1[@class='large text-primary']"));
+		element = driver.findElement(By.xpath("//h1[@class='large text-primary']"));
 		return element;
 	}
 
