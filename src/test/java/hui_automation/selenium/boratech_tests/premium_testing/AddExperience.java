@@ -6,8 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import hui_automation.pojos.Experience;
-import hui_automation.selenium.boratech_tests.BoraTech;
+import hui_automation.utilities.BoraTech;
 import hui_automation.utilities.Testkeys;
+import pages.bora_tech.AddExperiencePage;
 
 public class AddExperience {
 
@@ -72,6 +73,8 @@ public class AddExperience {
 	private static void runTest(WebDriver driver, Experience exp) {
 		try {
 			BoraTech.addExperience(driver, exp);
+			AddExperiencePage.submitButton(driver).click();
+			Testkeys.jsViewTop(driver);
 			BoraTech.validateExperience(driver, exp);
 			System.out.println("Test passed.\n");
 		} catch (Exception e) {

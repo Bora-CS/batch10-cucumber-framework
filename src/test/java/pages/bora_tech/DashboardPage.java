@@ -43,16 +43,6 @@ public class DashboardPage {
 		return elements;
 	}
 
-	public static WebElement experienceCompany(WebDriver driver) {
-		element = driver.findElement(By.xpath(experienceTableXpath + "/tbody/tr/td[1]"));
-		return element;
-	}
-
-	public static WebElement experienceTitle(WebDriver driver) {
-		element = driver.findElement(By.xpath(experienceTableXpath + "/tbody/tr/td[2]"));
-		return element;
-	}
-
 	public static WebElement experienceDeleteButton(WebDriver driver) {
 		element = driver.findElement(By.xpath(experienceTableXpath + "/tbody/tr/td/button"));
 		return element;
@@ -66,16 +56,6 @@ public class DashboardPage {
 	public static List<WebElement> EducationTableRows(WebDriver driver) {
 		elements = driver.findElements(By.xpath(educationTableXpath + "/tbody/tr"));
 		return elements;
-	}
-
-	public static WebElement educationSchool(WebDriver driver) {
-		element = driver.findElement(By.xpath(educationTableXpath + "/tbody/tr/td[1]"));
-		return element;
-	}
-
-	public static WebElement educationDegree(WebDriver driver) {
-		element = driver.findElement(By.xpath(educationTableXpath + "/tbody/tr/td[2]"));
-		return element;
 	}
 
 	public static WebElement educationDeleteButton(WebDriver driver) {

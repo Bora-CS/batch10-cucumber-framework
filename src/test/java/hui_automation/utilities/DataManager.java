@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import hui_automation.api_pojos.Error;
+import hui_automation.pojos.Experience;
 
 public class DataManager {
 
@@ -12,6 +13,7 @@ public class DataManager {
 
 	private String token;
 	private List<Error> errors;
+	private Experience experienceUI;
 
 	private DataManager() {
 	}
@@ -43,6 +45,15 @@ public class DataManager {
 
 	public void setErrors(List<Error> errors) {
 		this.errors = errors;
+	}
+
+	public Experience getExperienceUI() {
+		assertNotNull(experienceUI, "No experience created.");
+		return experienceUI;
+	}
+
+	public void setExperienceUI(Experience experienceUI) {
+		this.experienceUI = experienceUI;
 	}
 
 }

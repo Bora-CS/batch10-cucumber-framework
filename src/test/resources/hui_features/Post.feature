@@ -3,7 +3,7 @@ Feature: Post
   @ui
   Scenario: Create Post
     Given user is logged in
-      | username | hui-pretender@outlook.com |
+      | email    | hui-pretender@outlook.com |
       | password | Hui123456                 |
     When user navigates to the Posts page
     And user enters the post content

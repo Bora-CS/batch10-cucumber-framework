@@ -1,4 +1,4 @@
-package hui_automation.selenium.boratech_tests;
+package hui_automation.utilities;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -13,36 +13,35 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import hui_automation.pojos.Education;
 import hui_automation.pojos.Experience;
-import hui_automation.utilities.Testkeys;
+import pages.bora_tech.AddExperiencePage;
+import pages.bora_tech.DashboardPage;
+import pages.bora_tech.LoginPage;
 
 public class BoraTech {
 
 	public static void login(WebDriver driver, String email, String password) {
 		driver.get("https://boratech-practice-app.onrender.com/login");
-		driver.findElement(By.name("email")).sendKeys(email);
-		driver.findElement(By.name("password")).sendKeys(password);
-		driver.findElement(By.xpath("//input[@type='submit']")).click();
+		LoginPage.emailInputBox(driver).sendKeys(email);
+		LoginPage.passwordInputBox(driver).sendKeys(password);
+		LoginPage.mainLoginButton(driver).click();
 		new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.urlContains("dashboard"));
 	}
 
 	public static void addExperience(WebDriver driver, Experience exp) {
 		// go to dash board
 		driver.get("https://boratech-practice-app.onrender.com/dashboard");
-		driver.findElement(By.xpath("//a[@href='/add-experience']")).click();
+		DashboardPage.AddExperienceButton(driver).click();
 
 		// adding experience
-		driver.findElement(By.xpath("//input[@name='company']")).sendKeys(exp.company);
-		driver.findElement(By.xpath("//input[@name='title']")).sendKeys(exp.title);
-		driver.findElement(By.xpath("//input[@name='location']")).sendKeys(exp.location);
-		driver.findElement(By.xpath("//input[@name='from']")).sendKeys(exp.startDate);
+		AddExperiencePage.companyInputBox(driver).sendKeys(exp.company);
+		AddExperiencePage.titleInputBox(driver).sendKeys(exp.title);
+		AddExperiencePage.locationInputBox(driver).sendKeys(exp.location);
+		AddExperiencePage.fromDateInputBox(driver).sendKeys(exp.startDate);
 		if (exp.current)
-			driver.findElement(By.name("current")).click();
+			AddExperiencePage.currentCheckBox(driver).click();
 		else
-			driver.findElement(By.xpath("//input[@name='to']")).sendKeys(exp.endDate);
-		driver.findElement(By.xpath("//textarea[@name='description']")).sendKeys(exp.description);
-
-		driver.findElement(By.xpath("//input[@type='submit']")).click();
-		Testkeys.jsViewTop(driver);
+			AddExperiencePage.toDateInputBox(driver).sendKeys(exp.endDate);
+		AddExperiencePage.descriptionInputBox(driver).sendKeys(exp.description);
 	}
 
 	public static void validateExperience(WebDriver driver, Experience exp) throws Exception {

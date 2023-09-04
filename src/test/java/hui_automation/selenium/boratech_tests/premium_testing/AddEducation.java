@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import hui_automation.pojos.Education;
-import hui_automation.selenium.boratech_tests.BoraTech;
+import hui_automation.utilities.BoraTech;
 import hui_automation.utilities.Testkeys;
 
 public class AddEducation {

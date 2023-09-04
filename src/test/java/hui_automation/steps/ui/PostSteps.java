@@ -17,26 +17,6 @@ public class PostSteps {
 
 	private WebDriver driver = DriverManager.getInstance();
 
-	@Given("user is logged in")
-	public void user_is_logged_in(DataTable dataTable) {
-		Map<String, String> credentials = dataTable.asMap();
-		String username = credentials.get("username");
-		String password = credentials.get("password");
-
-		driver.get("https://boratech-practice-app.onrender.com/");
-		Testkeys.pause(driver, 2);
-		assertEquals("BoraTech", driver.findElement(By.xpath("//h1[@class]")).getText());
-
-		driver.findElement(By.xpath("//a[@href='/login'][contains(@class, 'btn')]")).click();
-		Testkeys.pause(driver, 2);
-		assertTrue(driver.getCurrentUrl().endsWith("login"));
-
-		driver.findElement(By.name("email")).sendKeys(username);
-		driver.findElement(By.name("password")).sendKeys(password);
-		driver.findElement(By.xpath("//input[@type='submit']")).click();
-		Testkeys.pause(driver, 2);
-	}
-
 	@When("user navigates to the Posts page")
 	public void user_navigates_to_the_posts_page() {
 		driver.findElement(By.xpath("//a[@href='/posts']")).click();

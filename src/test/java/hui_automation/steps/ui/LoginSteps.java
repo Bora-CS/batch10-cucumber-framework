@@ -1,7 +1,10 @@
 package hui_automation.steps.ui;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
@@ -13,7 +16,31 @@ import pages.bora_tech.LoginPage;
 
 public class LoginSteps {
 
-	WebDriver driver = DriverManager.getInstance();
+	private WebDriver driver = DriverManager.getInstance();
+
+	@Given("user is logged in")
+	public void user_is_logged_in(DataTable dataTable) {
+		Map<String, String> credentials = dataTable.asMap();
+		String email = credentials.get("email");
+		String password = credentials.get("password");
+
+		// home page
+		driver.get("https://boratech-practice-app.onrender.com/");
+		Testkeys.pause(driver, 1);
+		assertEquals("BoraTech", HomePage.pageTitle(driver).getText());
+
+		// login page
+		HomePage.mainLoginButton(driver).click();
+		Testkeys.pause(driver, 1);
+		assertTrue(driver.getCurrentUrl().endsWith("login"));
+
+		LoginPage.emailInputBox(driver).sendKeys(email);
+		LoginPage.passwordInputBox(driver).sendKeys(password);
+		LoginPage.mainLoginButton(driver).click();
+		Testkeys.pause(driver, 1);
+
+		Testkeys.pause(driver, 1);
+	}
 
 	@Given("user is on the BoraTech homepage")
 	public void user_is_on_the_bora_tech_homepage() {

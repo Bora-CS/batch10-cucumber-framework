@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import hui_automation.api_pojos.Post;
-import hui_automation.selenium.boratech_tests.BoraTech;
+import hui_automation.utilities.BoraTech;
 import hui_automation.utilities.BoraTechAPIs;
 import hui_automation.utilities.Testkeys;
 
