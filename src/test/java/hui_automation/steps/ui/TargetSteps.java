@@ -196,7 +196,7 @@ public class TargetSteps {
 	public void users_sees_all_the_products_related_to_the_search_term(String searchTerm) {
 		System.out.println("Search for: " + searchTerm);
 		String searchDetail = wait.until(
-				ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[@data-test='resultsHeading']"))))
+				ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-test='resultsHeading']/h2"))))
 				.getText();
 		System.out.println(searchDetail);
 		Dimension dim = driver.manage().window().getSize();
