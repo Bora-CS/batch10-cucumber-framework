@@ -18,8 +18,8 @@ Feature: Login
       | error | <error> |
 
     Examples: 
-      | email                             | password   | error                |
-      | invalid.someone@invalid.email.com | invalid123 | Password is required |
+      | email                             | password   | error               |
+      | invalid.someone@invalid.email.com | invalid123 | Invalid credentials |
 
   @api
   Scenario: API - Login Positive Test

@@ -21,7 +21,7 @@ public class DashboardPage {
 	}
 
 	// Actions
-	public void validatePageload() {
+	public void isPageLoaded() {
 		assertEquals(URL, driver.getCurrentUrl());
 		assertEquals(TITLE_TEXT, driver.findElement(titleText).getText());
 	}

@@ -17,6 +17,7 @@ public class LoginPage {
 	private By emailInput = By.xpath("//input[@name='email']");
 	private By passwordInput = By.xpath("//input[@name='password']");
 	private By loginButton = By.xpath("//input[@value='Login']");
+	private By errorAlert = By.xpath("//div[@class='alert alert-danger']");
 
 	// Constructor
 	public LoginPage(WebDriver driver) {
@@ -30,9 +31,14 @@ public class LoginPage {
 		driver.findElement(loginButton).click();
 	}
 
-	public void validatePageload() {
+	public void isPageLoaded() {
 		assertEquals(URL, driver.getCurrentUrl());
 		assertEquals(TITLE_TEXT, driver.findElement(titleText).getText());
+	}
+
+	public void isLoginFailed(String expectedErrorText) {
+		assertEquals(URL, driver.getCurrentUrl());
+		assertEquals(expectedErrorText, driver.findElement(errorAlert).getText());
 	}
 
 }

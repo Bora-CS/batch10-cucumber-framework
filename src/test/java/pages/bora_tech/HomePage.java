@@ -27,7 +27,7 @@ public class HomePage {
 		driver.navigate().to(URL);
 	}
 
-	public void validatePageload() {
+	public void isPageLoaded() {
 		assertEquals(TITLE_TEXT, driver.findElement(titleText).getText());
 	}
 

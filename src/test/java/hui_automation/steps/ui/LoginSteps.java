@@ -2,10 +2,13 @@ package hui_automation.steps.ui;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Map;
+
 import org.openqa.selenium.WebDriver;
 
 import hui_automation.utilities.DriverManager;
 import hui_automation.utilities.Testkeys;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import pages.bora_tech.DashboardPage;
 import pages.bora_tech.HomePage;
@@ -20,27 +23,43 @@ public class LoginSteps {
 	private LoginPage loginPage = new LoginPage(driver);
 	private DashboardPage dashboardPage = new DashboardPage(driver);
 
-	@Given("user is on the boratech homepage")
+	@Given("user is on the BoraTech homepage")
 	public void user_is_on_the_boratech_homepage() {
 		homePage.navigate();
-		homePage.validatePageload();
+		homePage.isPageLoaded();
 	}
 
 	@And("user navigates to the Login page")
 	public void user_navigates_to_the_login_page() {
 		navbar.navigateToLoginPage();
-		loginPage.validatePageload();
+		loginPage.isPageLoaded();
 	}
 
-	@When("user enters the username - {string} and password - {string} and submit")
-	public void user_enters_the_username_and_password_and_submit(String username, String password) {
-		loginPage.login(username, password);
+	@When("user enters email - {string} and password - {string} then click the Login button")
+	public void user_enters_the_username_and_password_and_submit(String email, String password) {
+		loginPage.login(email, password);
 		Testkeys.pause(driver, 2);
 	}
 
 	@Then("user should be on the Dashboard page")
 	public void user_should_be_on_the_dashboard_page() {
-		dashboardPage.validatePageload();
+		dashboardPage.isPageLoaded();
+	}
+
+	@When("user attempts to enter email and password data then click the Login button")
+	public void user_attempts_to_enter_email_and_password_data_then_click_the_login_button(DataTable dataTable) {
+		Map<String, String> data = dataTable.asMap();
+		String email = data.get("email");
+		String password = data.get("password");
+		loginPage.login(email, password);
+		Testkeys.pause(driver, 1);
+	}
+
+	@Then("user should receive login errors")
+	public void user_should_receive_login_errors(DataTable dataTable) {
+		Map<String, String> data = dataTable.asMap();
+		String expectedErrorText = data.get("error");
+		loginPage.isLoginFailed(expectedErrorText);
 	}
 
 }
