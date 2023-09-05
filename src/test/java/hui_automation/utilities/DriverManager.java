@@ -3,8 +3,6 @@ package hui_automation.utilities;
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DriverManager {
 
@@ -15,9 +13,8 @@ public class DriverManager {
 
 	public static WebDriver getInstance() {
 		if (driver == null) {
-			ChromeOptions co = new ChromeOptions();
-			co.addArguments("--remote-allow-origins=*");
-			driver = new ChromeDriver(co);
+			String browserName = Configuration.get("browser");
+			driver = DriverFactory.getDriver(browserName);
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		}
