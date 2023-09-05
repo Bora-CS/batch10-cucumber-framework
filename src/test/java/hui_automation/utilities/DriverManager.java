@@ -21,7 +21,7 @@ public class DriverManager {
 		return driver;
 	}
 
-	public static void tearDown() {
+	public static void reset() {
 		if (driver != null)
 			driver.quit();
 		driver = null;
