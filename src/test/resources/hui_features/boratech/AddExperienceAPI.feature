@@ -21,16 +21,14 @@ Feature: Add Experience
       | password | Hui123456                 |
     When [API] user adds a wrong [Experience] with <company>, <title> and <from>
     Then [API] user sees a list of error messages of [Experience]
-      | company | Company is required   |
-      | title   | Title is required     |
-      | from    | From date is required |
+      | error | <error> |
 
     Examples: 
-      | company      | title      | from       |
-      |              |            |            |
-      |              | Test Title | 2002-02-02 |
-      | Test Company |            | 2002-02-02 |
-      | Test Company | Test Title |            |
-      |              |            | 2002-02-02 |
-      |              | Test Title |            |
-      | Test Company |            |            |
+      | company      | title      | from       | error                                                       |
+      |              |            |            | Company is required,Title is required,From date is required |
+      |              | Test Title | 2002-02-02 | Company is required                                         |
+      | Test Company |            | 2002-02-02 | Title is required                                           |
+      | Test Company | Test Title |            | From date is required                                       |
+      |              |            | 2002-02-02 | Company is required,Title is required                       |
+      |              | Test Title |            | Company is required,From date is required                   |
+      | Test Company |            |            | Title is required,From date is required                     |

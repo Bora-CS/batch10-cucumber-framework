@@ -37,9 +37,9 @@ Feature: Add Experience
     Examples: 
       | company      | title      | from       | error                                                       |
       |              |            |            | Company is required,Title is required,From date is required |
-      |              | Test Title | 2002-02-02 | Company is required                                         |
-      | Test Company |            | 2002-02-02 | Title is required                                           |
+      |              | Test Title | 02/02/2002 | Company is required                                         |
+      | Test Company |            | 02/02/2002 | Title is required                                           |
       | Test Company | Test Title |            | From date is required                                       |
-      |              |            | 2002-02-02 | Company is required,Title is required                       |
+      |              |            | 02/02/2002 | Company is required,Title is required                       |
       |              | Test Title |            | Company is required,From date is required                   |
       | Test Company |            |            | Title is required,From date is required                     |

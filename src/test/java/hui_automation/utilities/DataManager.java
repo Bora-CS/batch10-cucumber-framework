@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
-import hui_automation.api_pojos.Error;
 import hui_automation.pojos.Education;
 import hui_automation.pojos.Experience;
 
@@ -13,7 +12,7 @@ public class DataManager {
 	private static DataManager dataManager = null;
 
 	private String token;
-	private List<Error> errors;
+	private List<String> texts;
 	private Experience experienceUI;
 	private Education educationUI;
 
@@ -40,15 +39,6 @@ public class DataManager {
 		this.token = token;
 	}
 
-	public List<Error> getErrors() {
-		assertNotNull(errors, "No error message.");
-		return errors;
-	}
-
-	public void setErrors(List<Error> errors) {
-		this.errors = errors;
-	}
-
 	public Experience getExperienceUI() {
 		assertNotNull(experienceUI, "No experience created.");
 		return experienceUI;
@@ -65,6 +55,15 @@ public class DataManager {
 
 	public void setEducationUI(Education educationUI) {
 		this.educationUI = educationUI;
+	}
+
+	public List<String> getTexts() {
+		assertNotNull(texts, "No text is available.");
+		return texts;
+	}
+
+	public void setTexts(List<String> texts) {
+		this.texts = texts;
 	}
 
 }

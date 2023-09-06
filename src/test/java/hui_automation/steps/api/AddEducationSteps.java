@@ -3,8 +3,8 @@ package hui_automation.steps.api;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +19,6 @@ import io.cucumber.java.en.*;
 public class AddEducationSteps {
 
 	private DataManager dataManager = DataManager.getInstance();
-	private List<Error> errors;
-	private Education edu;
 
 	@Then("[API] user adds a new [Education]")
 	public void api_user_adds_a_new_education(DataTable dataTable) {
@@ -44,31 +42,20 @@ public class AddEducationSteps {
 	public void api_user_adds_a_wrong_education_with_and(String school, String degree, String fieldofstudy,
 			String from) {
 		Education edu = new Education(school, degree, fieldofstudy, from, "", true, "");
-		this.errors = BoraTechAPIs.putEducationWrong(dataManager.getToken(), edu);
-		this.edu = edu;
+		List<Error> errors = BoraTechAPIs.putEducationWrong(dataManager.getToken(), edu);
+		List<String> texts = new ArrayList<>();
+		for (Error error : errors)
+			texts.add(error.msg);
+		dataManager.setTexts(texts);
 	}
 
 	@Then("[API] user sees a list of error messages of [Education]")
 	public void api_user_sees_a_list_of_error_messages(DataTable dataTable) {
-		// system default error messages
-		Map<String, String> totalErrors = dataTable.asMap();
-
-		Map<String, String> testData = new HashMap<>();
-		testData.put("school", this.edu.school);
-		testData.put("degree", this.edu.degree);
-		testData.put("fieldofstudy", this.edu.fieldofstudy);
-		testData.put("from", this.edu.from);
-
 		// generate expected error messages
-		List<String> expectedErrorMsgs = new ArrayList<>();
-		for (String errorKey : testData.keySet())
-			if (testData.get(errorKey).isEmpty())
-				expectedErrorMsgs.add(totalErrors.get(errorKey));
+		List<String> expectedErrorMsgs = Arrays.asList(dataTable.asMap().get("error").split(","));
 
 		// generate actual error messages
-		List<String> actualErrorMsgs = new ArrayList<>();
-		for (Error error : this.errors)
-			actualErrorMsgs.add(error.msg);
+		List<String> actualErrorMsgs = dataManager.getTexts();
 
 		// validation
 		Collections.sort(expectedErrorMsgs);
