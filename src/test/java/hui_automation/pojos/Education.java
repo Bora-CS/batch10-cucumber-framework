@@ -21,12 +21,30 @@ public class Education {
 	public Education(String school, String degree, String fieldofstudy, String fromDate, String toDate, boolean current,
 			String programDescription, String[] ErrorMessages) {
 		this.school = school;
+		if (this.school == null)
+			this.school = "";
+
 		this.degree = degree;
+		if (this.degree == null)
+			this.degree = "";
+
 		this.fieldofstudy = fieldofstudy;
+		if (this.fieldofstudy == null)
+			this.fieldofstudy = "";
+
 		this.fromDate = fromDate;
+		if (this.fromDate == null)
+			this.fromDate = "";
+
 		this.toDate = toDate;
+		if (this.toDate == null)
+			this.toDate = "";
+
 		this.current = current;
 		this.programDescription = programDescription;
+		if (this.programDescription == null)
+			this.programDescription = "";
+
 		if (ErrorMessages == null)
 			this.ErrorMessages = new ArrayList<String>();
 		else

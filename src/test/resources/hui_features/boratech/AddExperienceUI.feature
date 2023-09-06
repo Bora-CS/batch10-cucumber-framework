@@ -17,7 +17,7 @@ Feature: Add Experience
       | error           |                     |
     Then user sees a newly added [Experience] on Dashboard page
 
-  @ui @hui
+  @ui
   Scenario Outline: Negative Test
     Given user is logged in
       | email    | hui-pretender@outlook.com |
