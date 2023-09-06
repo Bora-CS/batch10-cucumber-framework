@@ -14,7 +14,7 @@ Feature: Add Experience
       | to              | 11/11/2008          |
       | current         | false               |
       | job description | Payment collection. |
-      | error           | false               |
+      | error           |                     |
     Then user sees a newly added [Experience] on Dashboard page
 
   @ui @hui
@@ -31,18 +31,15 @@ Feature: Add Experience
       | to              | 11/11/2008          |
       | current         | false               |
       | job description | Payment collection. |
-      | error           | true                |
+      | error           | <error>             |
     Then user sees a list of error messages of [Experience]
-      | job title | Title is required     |
-      | company   | Company is required   |
-      | from      | From date is required |
 
     Examples: 
-      | company      | title      | from       |
-      |              |            |            |
-      |              | Test Title | 2002-02-02 |
-      | Test Company |            | 2002-02-02 |
-      | Test Company | Test Title |            |
-      |              |            | 2002-02-02 |
-      |              | Test Title |            |
-      | Test Company |            |            |
+      | company      | title      | from       | error                                                       |
+      |              |            |            | Company is required,Title is required,From date is required |
+      |              | Test Title | 2002-02-02 | Company is required                                         |
+      | Test Company |            | 2002-02-02 | Title is required                                           |
+      | Test Company | Test Title |            | From date is required                                       |
+      |              |            | 2002-02-02 | Company is required,Title is required                       |
+      |              | Test Title |            | Company is required,From date is required                   |
+      | Test Company |            |            | Title is required,From date is required                     |

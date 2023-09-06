@@ -76,8 +76,9 @@ public class AddExperiencePage {
 		assertEquals(TITLE_TEXT, titleText.getText());
 	}
 
-	public void hasAddExperienceFailed(List<String> expectedErrorMsgs) {
+	public void hasAddExperienceFailed() {
 		List<String> actualErrorMsgs = new ArrayList<>();
+		List<String> expectedErrorMsgs = this.experience.ErrorMessages;
 		for (WebElement alert : errorAlerts)
 			actualErrorMsgs.add(alert.getText());
 		Collections.sort(expectedErrorMsgs);
