@@ -11,11 +11,11 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import hui_automation.pages.bora_tech.AddExperiencePage;
+import hui_automation.pages.bora_tech.DashboardPage;
+import hui_automation.pages.bora_tech.LoginPage;
 import hui_automation.pojos.Education;
 import hui_automation.pojos.Experience;
-import pages.bora_tech.AddExperiencePage;
-import pages.bora_tech.DashboardPage;
-import pages.bora_tech.LoginPage;
 
 public class BoraTech {
 

@@ -1,4 +1,4 @@
-package pages.bora_tech;
+package hui_automation.pages.bora_tech;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

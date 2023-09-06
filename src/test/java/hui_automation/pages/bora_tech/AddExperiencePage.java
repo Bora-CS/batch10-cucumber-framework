@@ -1,4 +1,4 @@
-package pages.bora_tech;
+package hui_automation.pages.bora_tech;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,26 +11,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import hui_automation.pojos.Education;
+import hui_automation.pojos.Experience;
 
-public class AddEducationPage {
+public class AddExperiencePage {
 
 	private WebDriver driver;
 
-	private final String URL = "https://boratech-practice-app.onrender.com/add-education";
-	private final String TITLE_TEXT = "Add Your Education";
+	private final String URL = "https://boratech-practice-app.onrender.com/add-experience";
+	private final String TITLE_TEXT = "Add An Experience";
 
 	@FindBy(xpath = "//h1[@class='large text-primary']")
 	private WebElement titleText;
 
-	@FindBy(name = "school")
-	private WebElement schoolInput;
+	@FindBy(name = "title")
+	private WebElement jobTitleInput;
 
-	@FindBy(name = "degree")
-	private WebElement degreeInput;
+	@FindBy(name = "company")
+	private WebElement companyInput;
 
-	@FindBy(name = "fieldofstudy")
-	private WebElement fieldofstudyInput;
+	@FindBy(name = "location")
+	private WebElement locationInput;
 
 	@FindBy(name = "from")
 	private WebElement fromDateInput;
@@ -42,7 +42,7 @@ public class AddEducationPage {
 	private WebElement currentCheckBox;
 
 	@FindBy(xpath = "//textarea[@name='description']")
-	private WebElement programDescriptionInput;
+	private WebElement jobDescriptionInput;
 
 	@FindBy(xpath = "//input[@type='submit']")
 	private WebElement submitButton;
@@ -50,24 +50,24 @@ public class AddEducationPage {
 	@FindBy(xpath = "//div[@class='alert alert-danger']")
 	private List<WebElement> errorAlerts;
 
-	private Education education;
+	private Experience experience;
 
-	public AddEducationPage(WebDriver driver) {
+	public AddExperiencePage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	public void addEducation(Education education) {
-		this.education = education;
-		schoolInput.sendKeys(education.school);
-		degreeInput.sendKeys(education.degree);
-		fieldofstudyInput.sendKeys(education.fieldofstudy);
-		fromDateInput.sendKeys(education.fromDate);
-		if (education.current)
+	public void addExperience(Experience experience) {
+		this.experience = experience;
+		jobTitleInput.sendKeys(experience.jobTitle);
+		companyInput.sendKeys(experience.company);
+		locationInput.sendKeys(experience.location);
+		fromDateInput.sendKeys(experience.fromDate);
+		if (experience.current)
 			currentCheckBox.click();
 		else
-			toDateInput.sendKeys(education.toDate);
-		programDescriptionInput.sendKeys(education.programDescription);
+			toDateInput.sendKeys(experience.toDate);
+		jobDescriptionInput.sendKeys(experience.jobDescription);
 		submitButton.click();
 	}
 
@@ -76,9 +76,9 @@ public class AddEducationPage {
 		assertEquals(TITLE_TEXT, titleText.getText());
 	}
 
-	public void hasAddEducationFailed() {
-		assertTrue(this.education.ErrorMessages.size() > 0);
-		List<String> expectedErrorMsgs = this.education.ErrorMessages;
+	public void hasAddExperienceFailed() {
+		assertTrue(this.experience.ErrorMessages.size() > 0);
+		List<String> expectedErrorMsgs = this.experience.ErrorMessages;
 		List<String> actualErrorMsgs = new ArrayList<>();
 		for (WebElement alert : errorAlerts)
 			actualErrorMsgs.add(alert.getText());

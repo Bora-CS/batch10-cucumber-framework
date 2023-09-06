@@ -1,4 +1,4 @@
-package pages.bora_tech;
+package hui_automation.pages.bora_tech;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +20,7 @@ public class DashboardPage {
 
 	// Local Variables
 	private WebDriver driver;
-	private WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	private WebDriverWait wait;
 	private final String URL = "https://boratech-practice-app.onrender.com/dashboard";
 	private final String TITLE_TEXT = "Dashboard";
 
@@ -46,6 +46,7 @@ public class DashboardPage {
 	// Constructor
 	public DashboardPage(WebDriver driver) {
 		this.driver = driver;
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		PageFactory.initElements(driver, this);
 	}
 

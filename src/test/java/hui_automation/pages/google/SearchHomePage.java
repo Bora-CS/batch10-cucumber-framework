@@ -1,4 +1,4 @@
-package pages.google;
+package hui_automation.pages.google;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

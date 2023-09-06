@@ -7,9 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import hui_automation.pages.google.SearchHomePage;
 import hui_automation.utilities.DriverManager;
 import io.cucumber.java.en.*;
-import pages.google.SearchHomePage;
 
 public class SearchSteps {
 

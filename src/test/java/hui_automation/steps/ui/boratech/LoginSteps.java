@@ -6,14 +6,14 @@ import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
+import hui_automation.pages.bora_tech.DashboardPage;
+import hui_automation.pages.bora_tech.HomePage;
+import hui_automation.pages.bora_tech.LoginPage;
+import hui_automation.pages.bora_tech.Navbar;
 import hui_automation.utilities.DriverManager;
 import hui_automation.utilities.Testkeys;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
-import pages.bora_tech.DashboardPage;
-import pages.bora_tech.HomePage;
-import pages.bora_tech.LoginPage;
-import pages.bora_tech.Navbar;
 
 public class LoginSteps {
 

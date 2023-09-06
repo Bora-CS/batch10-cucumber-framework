@@ -8,12 +8,12 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 
+import hui_automation.pages.bora_tech.AddEducationPage;
+import hui_automation.pages.bora_tech.DashboardPage;
+import hui_automation.pages.bora_tech.LoginPage;
 import hui_automation.pojos.Education;
 import hui_automation.utilities.DriverFactory;
 import hui_automation.utilities.Testkeys;
-import pages.bora_tech.AddEducationPage;
-import pages.bora_tech.DashboardPage;
-import pages.bora_tech.LoginPage;
 
 public class PrintPageSource {
 

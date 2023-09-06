@@ -1,4 +1,4 @@
-package pages.bora_tech;
+package hui_automation.pages.bora_tech;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

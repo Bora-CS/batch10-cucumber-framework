@@ -4,14 +4,14 @@ import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
+import hui_automation.pages.bora_tech.AddExperiencePage;
+import hui_automation.pages.bora_tech.DashboardPage;
 import hui_automation.pojos.Experience;
 import hui_automation.utilities.DataManager;
 import hui_automation.utilities.DriverManager;
 import hui_automation.utilities.Testkeys;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
-import pages.bora_tech.AddExperiencePage;
-import pages.bora_tech.DashboardPage;
 
 public class AddExperienceSteps {
 

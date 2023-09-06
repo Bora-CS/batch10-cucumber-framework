@@ -5,10 +5,10 @@ import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import hui_automation.pages.bora_tech.AddExperiencePage;
 import hui_automation.pojos.Experience;
 import hui_automation.utilities.BoraTech;
 import hui_automation.utilities.Testkeys;
-import pages.bora_tech.AddExperiencePage;
 
 public class AddExperience {
 
