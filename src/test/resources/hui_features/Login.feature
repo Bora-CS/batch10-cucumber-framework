@@ -1,3 +1,4 @@
+@login
 Feature: Login
 
   @ui @boratech
@@ -11,9 +12,7 @@ Feature: Login
   Scenario Outline: Login Negative Test
     Given user is on the BoraTech homepage
     When user navigates to the Login page
-    And user attempts to enter email and password data then click the Login button
-      | email    | <email>    |
-      | password | <password> |
+    And user enters email - "<email>" and password - "<password>" then click the Login button
     Then user should receive login errors
       | error | <error> |
 

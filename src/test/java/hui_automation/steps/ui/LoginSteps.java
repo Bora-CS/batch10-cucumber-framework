@@ -46,15 +46,6 @@ public class LoginSteps {
 		dashboardPage.isPageLoaded();
 	}
 
-	@When("user attempts to enter email and password data then click the Login button")
-	public void user_attempts_to_enter_email_and_password_data_then_click_the_login_button(DataTable dataTable) {
-		Map<String, String> data = dataTable.asMap();
-		String email = data.get("email");
-		String password = data.get("password");
-		loginPage.login(email, password);
-		Testkeys.pause(driver, 1);
-	}
-
 	@Then("user should receive login errors")
 	public void user_should_receive_login_errors(DataTable dataTable) {
 		Map<String, String> data = dataTable.asMap();
