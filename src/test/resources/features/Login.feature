@@ -1,3 +1,4 @@
+@Login
 Feature: Login
 
   @UI
@@ -6,6 +7,18 @@ Feature: Login
     When user navigates to the Login page
     And user enters the username - "muradil.erkin@boratechschool.com" and password - "Boratech" and submit
     Then user should be on the Dashboard page
+
+  @UI
+  Scenario Outline: Unhappy Path
+    Given user is on the boratech homepage
+    When user navigates to the Login page
+    And user enters the username - "<email>" and password - "<password>" and submit
+    Then user should see a login error
+
+    Examples: 
+      | email                            | password   |
+      | muradil.erkin@boratechschool.com | IsJinLost? |
+      | jin@boratechschool.com           | Boratech   |
 
   @API
   Scenario: API - Happy Path
