@@ -2,8 +2,10 @@ package page_objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
 
@@ -13,13 +15,19 @@ public class HomePage {
 	private final String TITLE_TEXT = "BoraTech";
 
 	// Elements
-	private By signUpButton = By.xpath("//section//a[@href='/register']");
-	private By loginButton = By.xpath("//section//a[@href='/login']");
-	private By titleText = By.xpath("//h1[@class='x-large']");
+	@FindBy(xpath = "//section//a[@href='/register']")
+	private WebElement signUpButton;
+
+	@FindBy(xpath = "//section//a[@href='/login']")
+	private WebElement loginButton;
+
+	@FindBy(xpath = "//h1[@class='x-large']")
+	private WebElement titleText;
 
 	// Constructor
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 
 	// Actions
@@ -28,15 +36,15 @@ public class HomePage {
 	}
 
 	public void validatePageload() {
-		assertEquals(TITLE_TEXT, driver.findElement(titleText).getText());
+		assertEquals(TITLE_TEXT, titleText.getText());
 	}
 
 	public void clickOnLogin() {
-		driver.findElement(loginButton).click();
+		loginButton.click();
 	}
 
 	public void clickOnSignUp() {
-		driver.findElement(signUpButton).click();
+		signUpButton.click();
 	}
 
 }

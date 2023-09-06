@@ -2,8 +2,10 @@ package page_objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class DashboardPage {
 
@@ -13,17 +15,19 @@ public class DashboardPage {
 	private final String TITLE_TEXT = "Dashboard";
 
 	// Elements
-	private By titleText = By.xpath("//h1[@class='large text-primary']");
+	@FindBy(xpath = "//h1[@class='large text-primary']")
+	private WebElement titleText;
 
 	// Constructor
 	public DashboardPage(WebDriver driver) {
 		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 
 	// Actions
 	public void validatePageload() {
 		assertEquals(URL, driver.getCurrentUrl());
-		assertEquals(TITLE_TEXT, driver.findElement(titleText).getText());
+		assertEquals(TITLE_TEXT, titleText.getText());
 	}
 
 }
