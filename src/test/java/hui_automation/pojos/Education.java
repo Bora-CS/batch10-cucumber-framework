@@ -11,27 +11,27 @@ public class Education {
 	public String school;
 	public String degree;
 	public String fieldofstudy;
-	public String startDate;
-	public String endDate;
+	public String fromDate;
+	public String toDate;
 	public boolean current;
-	public String description;
-	public List<String> messages;
+	public String programDescription;
+	public List<String> ErrorMessages;
 	public boolean isTestPositive;
 
-	public Education(String school, String degree, String fieldofstudy, String startDate, String endDate,
-			boolean current, String description, String[] messages) {
+	public Education(String school, String degree, String fieldofstudy, String fromDate, String toDate, boolean current,
+			String programDescription, String[] ErrorMessages) {
 		this.school = school;
 		this.degree = degree;
 		this.fieldofstudy = fieldofstudy;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.fromDate = fromDate;
+		this.toDate = toDate;
 		this.current = current;
-		this.description = description;
-		if (messages == null)
-			this.messages = new ArrayList<String>();
+		this.programDescription = programDescription;
+		if (ErrorMessages == null)
+			this.ErrorMessages = new ArrayList<String>();
 		else
-			this.messages = Arrays.asList(messages);
-		this.isTestPositive = this.messages.size() == 0;
+			this.ErrorMessages = Arrays.asList(ErrorMessages);
+		this.isTestPositive = this.ErrorMessages.size() == 0;
 	}
 
 	public Map<String, Object> toMap() {
@@ -39,13 +39,13 @@ public class Education {
 		eduMap.put("school", this.school);
 		eduMap.put("degree", this.degree);
 		eduMap.put("fieldofstudy", this.fieldofstudy);
-		eduMap.put("from", this.startDate.replace("/", "-"));
+		eduMap.put("from", this.fromDate.replace("/", "-"));
 		if (this.current)
 			eduMap.put("to", "");
 		else
-			eduMap.put("to", this.endDate.replace("/", "-"));
+			eduMap.put("to", this.toDate.replace("/", "-"));
 		eduMap.put("current", this.current);
-		eduMap.put("description", this.description);
+		eduMap.put("description", this.programDescription);
 		return eduMap;
 	}
 

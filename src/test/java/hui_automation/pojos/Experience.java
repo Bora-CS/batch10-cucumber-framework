@@ -9,43 +9,43 @@ import java.util.Map;
 public class Experience {
 
 	public String company;
-	public String title;
+	public String jobTitle;
 	public String location;
-	public String startDate;
-	public String endDate;
+	public String fromDate;
+	public String toDate;
 	public boolean current;
-	public String description;
-	public List<String> messages;
+	public String jobDescription;
+	public List<String> ErrorMessages;
 	public boolean isTestPositive;
 
-	public Experience(String company, String title, String location, String startDate, String endDate, boolean current,
-			String description, String[] messages) {
+	public Experience(String company, String jobTitle, String location, String fromDate, String toDate, boolean current,
+			String jobDescription, String[] ErrorMessages) {
 		this.company = company;
-		this.title = title;
+		this.jobTitle = jobTitle;
 		this.location = location;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.fromDate = fromDate;
+		this.toDate = toDate;
 		this.current = current;
-		this.description = description;
-		if (messages == null)
-			this.messages = new ArrayList<String>();
+		this.jobDescription = jobDescription;
+		if (ErrorMessages == null)
+			this.ErrorMessages = new ArrayList<String>();
 		else
-			this.messages = Arrays.asList(messages);
-		this.isTestPositive = this.messages.size() == 0;
+			this.ErrorMessages = Arrays.asList(ErrorMessages);
+		this.isTestPositive = this.ErrorMessages.size() == 0;
 	}
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> expMap = new HashMap<>();
 		expMap.put("company", this.company);
-		expMap.put("title", this.title);
+		expMap.put("title", this.jobTitle);
 		expMap.put("location", this.location);
-		expMap.put("from", this.startDate.replace("/", "-"));
+		expMap.put("from", this.fromDate.replace("/", "-"));
 		if (this.current)
 			expMap.put("to", "");
 		else
-			expMap.put("to", this.endDate.replace("/", "-"));
+			expMap.put("to", this.toDate.replace("/", "-"));
 		expMap.put("current", this.current);
-		expMap.put("description", this.description);
+		expMap.put("description", this.jobDescription);
 		return expMap;
 	}
 

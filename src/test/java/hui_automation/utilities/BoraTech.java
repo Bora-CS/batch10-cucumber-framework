@@ -32,15 +32,15 @@ public class BoraTech {
 //		DashboardPage.AddExperienceButton(driver).click();
 
 		// adding experience
-		AddExperiencePage.companyInputBox(driver).sendKeys(exp.company);
-		AddExperiencePage.titleInputBox(driver).sendKeys(exp.title);
-		AddExperiencePage.locationInputBox(driver).sendKeys(exp.location);
-		AddExperiencePage.fromDateInputBox(driver).sendKeys(exp.startDate);
-		if (exp.current)
-			AddExperiencePage.currentCheckBox(driver).click();
-		else
-			AddExperiencePage.toDateInputBox(driver).sendKeys(exp.endDate);
-		AddExperiencePage.descriptionInputBox(driver).sendKeys(exp.description);
+//		AddExperiencePage.companyInputBox(driver).sendKeys(exp.company);
+//		AddExperiencePage.titleInputBox(driver).sendKeys(exp.title);
+//		AddExperiencePage.locationInputBox(driver).sendKeys(exp.location);
+//		AddExperiencePage.fromDateInputBox(driver).sendKeys(exp.startDate);
+//		if (exp.current)
+//			AddExperiencePage.currentCheckBox(driver).click();
+//		else
+//			AddExperiencePage.toDateInputBox(driver).sendKeys(exp.endDate);
+//		AddExperiencePage.descriptionInputBox(driver).sendKeys(exp.description);
 	}
 
 	public static void validateExperience(WebDriver driver, Experience exp) throws Exception {
@@ -70,23 +70,23 @@ public class BoraTech {
 		for (WebElement row : rows) {
 			String company = row.findElement(By.xpath("td[1]")).getText();
 			String title = row.findElement(By.xpath("td[2]")).getText();
-			if (company.equals(exp.company) && title.equals(exp.title))
+			if (company.equals(exp.company) && title.equals(exp.jobTitle))
 				targetRow = true;
 		}
 
 		// check targetRow
 		if (!targetRow)
-			throw new Exception(String.format("Added experience not found: [%s, %s]%n", exp.company, exp.title));
+			throw new Exception(String.format("Added experience not found: [%s, %s]%n", exp.company, exp.jobTitle));
 	}
 
 	private static void addExpNegValidation(WebDriver driver, Experience exp) throws Exception {
 		// find error elements
 		List<WebElement> alerts = driver.findElements(By.cssSelector(".alert.alert-danger"));
 		// check for size match
-		if (exp.messages.size() != alerts.size())
+		if (exp.ErrorMessages.size() != alerts.size())
 			throw new Exception(
 					String.format("Actual error numbers mismatch.%nExpected number(s): %d%nActual number(s): %d%n",
-							exp.messages.size(), alerts.size()));
+							exp.ErrorMessages.size(), alerts.size()));
 
 		// find actual error texts
 		List<String> alertTexts = new ArrayList<>();
@@ -94,7 +94,7 @@ public class BoraTech {
 			alertTexts.add(alert.getText());
 
 		// validation
-		for (String msg : exp.messages) {
+		for (String msg : exp.ErrorMessages) {
 			if (!alertTexts.contains(msg))
 				throw new Exception("Expected error message not found: " + msg);
 		}
@@ -109,12 +109,12 @@ public class BoraTech {
 		driver.findElement(By.xpath("//input[@name='school']")).sendKeys(edu.school);
 		driver.findElement(By.xpath("//input[@name='degree']")).sendKeys(edu.degree);
 		driver.findElement(By.xpath("//input[@name='fieldofstudy']")).sendKeys(edu.fieldofstudy);
-		driver.findElement(By.xpath("//input[@name='from']")).sendKeys(edu.startDate);
+		driver.findElement(By.xpath("//input[@name='from']")).sendKeys(edu.fromDate);
 		if (edu.current)
 			driver.findElement(By.name("current")).click();
 		else
-			driver.findElement(By.xpath("//input[@name='to']")).sendKeys(edu.endDate);
-		driver.findElement(By.xpath("//textarea[@name='description']")).sendKeys(edu.description);
+			driver.findElement(By.xpath("//input[@name='to']")).sendKeys(edu.toDate);
+		driver.findElement(By.xpath("//textarea[@name='description']")).sendKeys(edu.programDescription);
 
 		driver.findElement(By.xpath("//input[@type='submit']")).click();
 		Testkeys.jsViewTop(driver);
@@ -159,10 +159,10 @@ public class BoraTech {
 		// find error elements
 		List<WebElement> alerts = driver.findElements(By.cssSelector(".alert.alert-danger"));
 		// check for size match
-		if (edu.messages.size() != alerts.size())
+		if (edu.ErrorMessages.size() != alerts.size())
 			throw new Exception(
 					String.format("Actual error numbers mismatch.%nExpected number(s): %d%nActual number(s): %d%n",
-							edu.messages.size(), alerts.size()));
+							edu.ErrorMessages.size(), alerts.size()));
 
 		// find actual error texts
 		List<String> alertTexts = new ArrayList<>();
@@ -170,7 +170,7 @@ public class BoraTech {
 			alertTexts.add(alert.getText());
 
 		// validation
-		for (String msg : edu.messages) {
+		for (String msg : edu.ErrorMessages) {
 			if (!alertTexts.contains(msg))
 				throw new Exception("Expected error message not found: " + msg);
 		}

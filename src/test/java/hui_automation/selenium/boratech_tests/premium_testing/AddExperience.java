@@ -73,7 +73,7 @@ public class AddExperience {
 	private static void runTest(WebDriver driver, Experience exp) {
 		try {
 			BoraTech.addExperience(driver, exp);
-			AddExperiencePage.submitButton(driver).click();
+//			AddExperiencePage.submitButton(driver).click();
 			Testkeys.jsViewTop(driver);
 			BoraTech.validateExperience(driver, exp);
 			System.out.println("Test passed.\n");

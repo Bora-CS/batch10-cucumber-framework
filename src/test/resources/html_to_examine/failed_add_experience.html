@@ -27,31 +27,27 @@
             </ul>
         </nav>
         <section class="container">
-            <div class="alert alert-danger">School is required</div>
-            <div class="alert alert-danger">Degree is required</div>
-            <div class="alert alert-danger">Field of study is required</div>
+            <div class="alert alert-danger">Title is required</div>
+            <div class="alert alert-danger">Company is required</div>
             <div class="alert alert-danger">From date is required</div>
-            <h1 class="large text-primary">Add Your Education</h1>
-            <p class="lead"><i class="fas fa-code-branch"></i> Add any school or bootcamp that you have attended</p>
-            <small>* = required field</small>
+            <h1 class="large text-primary">Add An Experience</h1>
+            <p class="lead"><i class="fas fa-code-branch"></i> Add your professional experience here</p><small>* =
+                required field</small>
             <form class="form">
-                <div class="form-group"><input type="text" placeholder="* School or Bootcamp" name="school" value="">
-                </div>
-                <div class="form-group"><input type="text" placeholder="* Degree or Certificate" name="degree" value="">
-                </div>
-                <div class="form-group"><input type="text" placeholder="Field of Study" name="fieldofstudy" value="">
-                </div>
+                <div class="form-group"><input type="text" placeholder="* Job Title" name="title" value=""></div>
+                <div class="form-group"><input type="text" placeholder="* Company" name="company" value=""></div>
+                <div class="form-group"><input type="text" placeholder="Location" name="location" value=""></div>
                 <div class="form-group">
                     <h4>From Date</h4><input type="date" name="from" value="">
                 </div>
                 <div class="form-group">
-                    <p><input type="checkbox" name="current" value="false"> Current School or Bootcamp</p>
+                    <p><input type="checkbox" name="current" value="false"> Current Job</p>
                 </div>
                 <div class="form-group">
                     <h4>To Date</h4><input type="date" name="to" value="">
                 </div>
                 <div class="form-group"><textarea name="description" cols="30" rows="5"
-                        placeholder="Program Description"></textarea></div><input type="submit"
+                        placeholder="Job Description"></textarea></div><input type="submit"
                     class="btn btn-primary my-1"><a class="btn btn-light my-1" href="/dashboard">Go Back</a>
             </form>
         </section>

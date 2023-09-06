@@ -23,6 +23,18 @@ public class LoginSteps {
 	private LoginPage loginPage = new LoginPage(driver);
 	private DashboardPage dashboardPage = new DashboardPage(driver);
 
+	@Given("user is logged in")
+	public void user_is_logged_in(DataTable dataTable) {
+		homePage.navigate();
+		homePage.isPageLoaded();
+		homePage.clickOnLogin();
+		loginPage.isPageLoaded();
+		Map<String, String> data = dataTable.asMap();
+		String email = data.get("email");
+		String password = data.get("password");
+		loginPage.login(email, password);
+	}
+
 	@Given("user is on the BoraTech homepage")
 	public void user_is_on_the_boratech_homepage() {
 		homePage.navigate();
