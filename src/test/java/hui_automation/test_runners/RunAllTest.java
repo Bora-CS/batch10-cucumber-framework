@@ -12,5 +12,5 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 @SelectClasspathResource("hui_features")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty, html:target/html_reports/index.html")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "hui_automation.steps")
-@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@login and @ui")
+@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@hui and @ui")
 public class RunAllTest {}

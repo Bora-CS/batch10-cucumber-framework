@@ -21,12 +21,30 @@ public class Experience {
 	public Experience(String company, String jobTitle, String location, String fromDate, String toDate, boolean current,
 			String jobDescription, String[] ErrorMessages) {
 		this.company = company;
+		if (this.company == null)
+			this.company = "";
+		
 		this.jobTitle = jobTitle;
+		if (this.jobTitle == null)
+			this.jobTitle = "";
+
 		this.location = location;
+		if (this.location == null)
+			this.location = "";
+
 		this.fromDate = fromDate;
+		if (this.fromDate == null)
+			this.fromDate = "";
+
 		this.toDate = toDate;
+		if (this.toDate == null)
+			this.toDate = "";
+
 		this.current = current;
 		this.jobDescription = jobDescription;
+		if (this.jobDescription == null)
+			this.jobDescription = "";
+
 		if (ErrorMessages == null)
 			this.ErrorMessages = new ArrayList<String>();
 		else
