@@ -10,10 +10,10 @@ Feature: Post
       | content                                          |
       | Cucumber automation is a lot more than you think |
     And user clicks on the submit button
-    Then user should see a success alert that says "Post Created"
+    Then user should see a success alert that says [Post Created]
 
   @API
-  Scenario: API - Create Post Happy Path
+  Scenario: API - Cre/te Post Happy Path
     Given [API] user is logged in
       | username | muradil.erkin@boratechschool.com |
       | password | Boratech                         |
