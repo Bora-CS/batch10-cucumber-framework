@@ -17,6 +17,24 @@ Feature: Add Experience
       | error           |                     |
     Then user sees a newly added [Experience] on Dashboard page
 
+  @ui @hui
+  Scenario: Add an experience and then delete the experience
+    Given user is logged in
+      | email    | hui-pretender@outlook.com |
+      | password | Hui123456                 |
+    When user clicks on [Add Experience] button
+    And user enters a new [Experience] data
+      | company         | Walmart             |
+      | job title       | Cashier             |
+      | location        | Manassas, Virginia  |
+      | from            | 06/06/2006          |
+      | to              | 11/11/2008          |
+      | current         | false               |
+      | job description | Payment collection. |
+      | error           |                     |
+    Then user sees a newly added [Experience] on Dashboard page
+    And user deletes the newly added [Experience] on Dashboard page
+
   @ui
   Scenario Outline: Negative Test
     Given user is logged in

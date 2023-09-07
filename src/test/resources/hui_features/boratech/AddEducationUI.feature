@@ -17,6 +17,24 @@ Feature: Add Education
       | error               |                                              |
     Then user sees a newly added [Education] on Dashboard page
 
+  @ui @hui
+  Scenario: Add an education and then delete the education
+    Given user is logged in
+      | email    | hui-pretender@outlook.com |
+      | password | Hui123456                 |
+    When user clicks on [Add Education] button
+    And user enters a new [Education] data
+      | school              | BoraTech School                              |
+      | degree              | Certificate of Test Automation Engineering   |
+      | fieldofstudy        | Test Automation Engineering                  |
+      | from                | 05/07/2023                                   |
+      | to                  |                                              |
+      | current             | true                                         |
+      | program description | Web application testing for quality control. |
+      | error               |                                              |
+    Then user sees a newly added [Education] on Dashboard page
+    And user deletes the newly added [Education] on Dashboard page
+
   @ui
   Scenario Outline: Negative Test
     Given user is logged in

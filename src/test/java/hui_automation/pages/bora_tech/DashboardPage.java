@@ -44,13 +44,7 @@ public class DashboardPage {
 	private List<WebElement> educationTableRows;
 
 	@FindBy(xpath = "//div[@class='alert alert-success']")
-	private WebElement deleteSuccessAlert;
-
-	@FindBy(xpath = "//h2[text()='Experience Credentials']/following-sibling::table[1]/tbody/tr//button[@class='btn btn-danger']")
-	private List<WebElement> experienceDeleteButtons;
-
-	@FindBy(xpath = "//h2[text()='Education Credentials']/following-sibling::table[1]/tbody/tr//button[@class='btn btn-danger']")
-	private List<WebElement> educationDeleteButtons;
+	private WebElement successAlert;
 
 	// Constructor
 	public DashboardPage(WebDriver driver) {
@@ -73,12 +67,19 @@ public class DashboardPage {
 		addEducationLink.click();
 	}
 
+	private WebElement[] getCells(WebElement row, int num) {
+		WebElement[] cells = new WebElement[num];
+		for (int i = 0; i < cells.length; i++)
+			cells[i] = row.findElement(By.xpath(String.format("td[%d]", i + 1)));
+		return cells;
+	}
+
 	public void validateAddExperience(Experience experience) {
 		wait.until(ExpectedConditions.visibilityOfAllElements(experienceTableRows));
 		boolean targetFound = false;
 		for (WebElement row : experienceTableRows) {
-			String actualCompany = row.findElement(By.xpath("td[1]")).getText();
-			String actualJobTitle = row.findElement(By.xpath("td[2]")).getText();
+			String actualCompany = getCells(row, 2)[0].getText();
+			String actualJobTitle = getCells(row, 2)[1].getText();
 			if (actualCompany.equals(experience.company) && actualJobTitle.equals(experience.jobTitle)) {
 				targetFound = true;
 				break;
@@ -91,8 +92,8 @@ public class DashboardPage {
 		wait.until(ExpectedConditions.visibilityOfAllElements(educationTableRows));
 		boolean targetFound = false;
 		for (WebElement row : educationTableRows) {
-			String actualSchool = row.findElement(By.xpath("td[1]")).getText();
-			String actualDegree = row.findElement(By.xpath("td[2]")).getText();
+			String actualSchool = getCells(row, 2)[0].getText();
+			String actualDegree = getCells(row, 2)[1].getText();
 			if (actualSchool.equals(education.school) && actualDegree.equals(education.degree)) {
 				targetFound = true;
 				break;
@@ -101,17 +102,42 @@ public class DashboardPage {
 		assertTrue(targetFound);
 	}
 
-	public void deleteAllExperiences() {
-		while (experienceDeleteButtons.size() > 0) {
-			for (WebElement button : experienceDeleteButtons) {
-				wait.until(ExpectedConditions.visibilityOf(button)).click();
-				wait.until(ExpectedConditions.visibilityOf(deleteSuccessAlert));
-				assertEquals("Experience Removed", deleteSuccessAlert.getText());
-				wait.until(ExpectedConditions.invisibilityOf(deleteSuccessAlert));
-				continue;
+	private WebElement findDeleteButton(WebElement row) {
+		return row.findElement(By.tagName("button"));
+	}
+
+	public void deleteExperience(Experience experience) {
+		assertTrue(experienceTableRows.size() > 0);
+		boolean isTargetDeleted = false;
+		for (WebElement row : experienceTableRows) {
+			String company = getCells(row, 2)[0].getText();
+			String jobTitle = getCells(row, 2)[1].getText();
+			WebElement deleteExperienceButton = findDeleteButton(row);
+			if (company.equals(experience.company) && jobTitle.equals(experience.jobTitle)) {
+				deleteExperienceButton.click();
+				isTargetDeleted = true;
+				System.out.println(String.format("Delete Experience[%s, %s]", company, jobTitle));
+				break;
 			}
 		}
-		assertEquals(0, experienceDeleteButtons.size());
+		assertTrue(isTargetDeleted, "Target experience was not found or failed to be deleted.");
+	}
+
+	public void deleteEducation(Education education) {
+		assertTrue(educationTableRows.size() > 0);
+		boolean isTargetDeleted = false;
+		for (WebElement row : educationTableRows) {
+			String school = getCells(row, 2)[0].getText();
+			String degree = getCells(row, 2)[1].getText();
+			WebElement deleteEducationButton = findDeleteButton(row);
+			if (school.equals(education.school) && degree.equals(education.degree)) {
+				deleteEducationButton.click();
+				isTargetDeleted = true;
+				System.out.println(String.format("Delete Education[%s, %s]", school, degree));
+				break;
+			}
+		}
+		assertTrue(isTargetDeleted, "Target education was not found or failed to be deleted.");
 	}
 
 }
