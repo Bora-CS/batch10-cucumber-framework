@@ -30,7 +30,7 @@ public class PrintPageSource {
 			loginPage.login("hui-pretender@outlook.com", "Hui123456");
 			Testkeys.waitUtilURL_Contains(driver, "dashboard", 5);
 			driver.findElement(By.xpath(
-					"//h2[text()='Experience Credentials']/following-sibling::table[1]/tbody/tr//button[@class='btn btn-danger']"))
+					"//h2[text()='Education Credentials']/following-sibling::table[1]/tbody/tr//button[@class='btn btn-danger']"))
 					.click();
 			Testkeys.pause(driver, 1);
 			page = driver.getPageSource();
