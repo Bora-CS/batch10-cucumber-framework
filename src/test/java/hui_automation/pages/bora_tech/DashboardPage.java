@@ -43,6 +43,15 @@ public class DashboardPage {
 	@FindBy(xpath = "//h2[text()='Education Credentials']/following-sibling::table[1]/tbody/tr")
 	private List<WebElement> educationTableRows;
 
+	@FindBy(xpath = "//div[@class='alert alert-success']")
+	private WebElement deleteSuccessAlert;
+
+	@FindBy(xpath = "//h2[text()='Experience Credentials']/following-sibling::table[1]/tbody/tr//button[@class='btn btn-danger']")
+	private List<WebElement> experienceDeleteButtons;
+
+	@FindBy(xpath = "//h2[text()='Education Credentials']/following-sibling::table[1]/tbody/tr//button[@class='btn btn-danger']")
+	private List<WebElement> educationDeleteButtons;
+
 	// Constructor
 	public DashboardPage(WebDriver driver) {
 		this.driver = driver;
@@ -90,6 +99,19 @@ public class DashboardPage {
 			}
 		}
 		assertTrue(targetFound);
+	}
+
+	public void deleteAllExperiences() {
+		while (experienceDeleteButtons.size() > 0) {
+			for (WebElement button : experienceDeleteButtons) {
+				wait.until(ExpectedConditions.visibilityOf(button)).click();
+				wait.until(ExpectedConditions.visibilityOf(deleteSuccessAlert));
+				assertEquals("Experience Removed", deleteSuccessAlert.getText());
+				wait.until(ExpectedConditions.invisibilityOf(deleteSuccessAlert));
+				continue;
+			}
+		}
+		assertEquals(0, experienceDeleteButtons.size());
 	}
 
 }

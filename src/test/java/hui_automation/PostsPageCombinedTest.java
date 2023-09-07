@@ -17,24 +17,24 @@ import hui_automation.utilities.Testkeys;
 public class PostsPageCombinedTest {
 
 	public static void main(String[] args) {
-		WebDriver testDriver = new ChromeDriver();
-		testDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		WebDriverWait wait = new WebDriverWait(testDriver, Duration.ofSeconds(20));
-		testDriver.manage().window().maximize();
+		WebDriver driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		driver.manage().window().maximize();
 		String email = "hui-pretender@outlook.com";
 		String password = "Hui123456";
 
 		try {
-			BoraTech.login(testDriver, email, password);
-			testDriver.findElement(By.xpath("//a[@href='/posts']")).click();
+			BoraTech.login(driver, email, password);
+			driver.findElement(By.xpath("//a[@href='/posts']")).click();
 			wait.until(ExpectedConditions.urlContains("posts"));
 
 			// add a post
 			String postContent = "I want to fight a fish. " + Testkeys.getUniqueMillsTimeStr();
-			testDriver.findElement(By.tagName("textarea")).sendKeys(postContent);
-			testDriver.findElement(By.xpath("//input[@type='submit']")).click();
-			Testkeys.pause(testDriver, 3);
-			testDriver.close();
+			driver.findElement(By.tagName("textarea")).sendKeys(postContent);
+			driver.findElement(By.xpath("//input[@type='submit']")).click();
+			Testkeys.pause(driver, 3);
+			driver.close();
 
 			// validate through API
 			String token = BoraTechAPIs.login(email, password);
@@ -56,7 +56,7 @@ public class PostsPageCombinedTest {
 			System.out.println("Test failed!");
 			e.printStackTrace();
 		} finally {
-			Testkeys.terminate(testDriver);
+			Testkeys.terminate(driver);
 		}
 	}
 

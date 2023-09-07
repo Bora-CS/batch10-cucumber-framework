@@ -6,12 +6,10 @@ import java.io.BufferedWriter;
 
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import hui_automation.pages.bora_tech.AddEducationPage;
-import hui_automation.pages.bora_tech.DashboardPage;
 import hui_automation.pages.bora_tech.LoginPage;
-import hui_automation.pojos.Education;
 import hui_automation.utilities.DriverFactory;
 import hui_automation.utilities.Testkeys;
 
@@ -31,11 +29,9 @@ public class PrintPageSource {
 			LoginPage loginPage = new LoginPage(driver);
 			loginPage.login("hui-pretender@outlook.com", "Hui123456");
 			Testkeys.waitUtilURL_Contains(driver, "dashboard", 5);
-			DashboardPage dashboardPage = new DashboardPage(driver);
-			dashboardPage.clickOnAddEducation();
-			Testkeys.waitUtilURL_Contains(driver, "add-education", 10);
-			AddEducationPage addEducationPage = new AddEducationPage(driver);
-			addEducationPage.addEducation(new Education("", "", "", "", "", false, "", null));
+			driver.findElement(By.xpath(
+					"//h2[text()='Experience Credentials']/following-sibling::table[1]/tbody/tr//button[@class='btn btn-danger']"))
+					.click();
 			Testkeys.pause(driver, 1);
 			page = driver.getPageSource();
 		} catch (Exception e) {
@@ -48,7 +44,7 @@ public class PrintPageSource {
 
 	private static void printToFile(String page) {
 		try {
-			File pageFile = new File("./src/test/resources/html_to_examine/failed_add_education.html");
+			File pageFile = new File("./src/test/resources/html_to_examine/remove_experience.html");
 			FileWriter fw = new FileWriter(pageFile);
 			BufferedWriter bw = new BufferedWriter(fw);
 
