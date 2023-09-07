@@ -44,7 +44,7 @@ public class PrintPageSource {
 
 	private static void printToFile(String page) {
 		try {
-			File pageFile = new File("./src/test/resources/html_to_examine/remove_experience.html");
+			File pageFile = new File("./src/test/resources/html_to_examine/remove_education.html");
 			FileWriter fw = new FileWriter(pageFile);
 			BufferedWriter bw = new BufferedWriter(fw);
 
