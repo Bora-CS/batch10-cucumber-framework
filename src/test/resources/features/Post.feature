@@ -13,7 +13,7 @@ Feature: Post
     Then user should see a success alert that says [Post Created]
 
   @API
-  Scenario: API - Cre/te Post Happy Path
+  Scenario: API - Create Post Happy Path
     Given [API] user is logged in
       | username | muradil.erkin@boratechschool.com |
       | password | Boratech                         |
