@@ -10,7 +10,7 @@ Feature: Post
       | content                                          |
       | Cucumber automation is a lot more than you think |
     And user clicks on the submit button
-    Then user should see a success alert that says "Post Created"
+    Then user should see a success alert that says [Post Created]
 
   @API
   Scenario: API - Create Post Happy Path
