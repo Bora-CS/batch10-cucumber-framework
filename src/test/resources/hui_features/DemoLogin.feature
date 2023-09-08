@@ -1,10 +1,7 @@
-#Author: your.email@your.domain.com
-#Feature: Login
-#Scenario: valid login
-#Scenario: invalid login
+#Author: Hui Yang
+@login
 Feature: Login
 
-  @ui
   Scenario: Login Positive Test
     Given user is on demo login page
     When user enter "username" and "password" and then clicks Login button
@@ -12,7 +9,7 @@ Feature: Login
       | password | secret_sauce  |
     Then user is on Products page
 
-  @ui
+  @ui @firefox
   Scenario Outline: Login Negative Test
     Given user is on demo login page
     When user attempts to enter <username> and <password> and then clicks Login button
