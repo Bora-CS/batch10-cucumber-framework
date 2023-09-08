@@ -1,8 +1,10 @@
 package ardal_task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -21,8 +23,7 @@ public class AddExperiencePage {
 	private final String TITLE_TEXT = "Add An Experience";
 
 //	Elements
-	
-	
+
 	@FindBy(xpath = "//h1[@class='large text-primary']")
 	private WebElement titleText;
 
@@ -52,7 +53,7 @@ public class AddExperiencePage {
 
 	@FindBy(xpath = "//a[@class='btn btn-light my-1']")
 	private WebElement goBackButton;
-	
+
 	private By errorAlerts = By.xpath("//div[@class='alert alert-danger']");
 
 //	Constructor
@@ -84,19 +85,29 @@ public class AddExperiencePage {
 	public void submitExperience() {
 		submitButton.click();
 	}
-	
-	public void errorValidation() {
-		List<WebElement> alerts = driver.findElements(errorAlerts);
-			List<String> actualErrors = new ArrayList<>();
-		for (WebElement errorAlert : alerts) {
+
+	public void errorValidation(List<String> expectedErrors) {
+		List<WebElement> actualError = driver.findElements(errorAlerts);
+		List<String> actualErrors = new ArrayList<>();
+		for (WebElement errorAlert : actualError) {
 			actualErrors.add(errorAlert.getText());
 		}
-		
-		
-		
-		
-	}
-	
 
+		assertTrue(actualErrors.size() == expectedErrors.size(), "Error messages size dosen't match");
+		boolean found = false;
+		for (String acterror : actualErrors) {
+			for (String experror : expectedErrors) {
+				if (acterror.equals(experror)) {
+					found = true;
+					break;
+				}
+			}
+			if(found) {
+				break;
+			}
+		}
+		assertTrue(found,"Expected error message not found");
+
+	}
 
 }

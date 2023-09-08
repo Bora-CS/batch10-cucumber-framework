@@ -70,7 +70,7 @@ public class PageManager {
 		}
 		return postsPage;
 	}
-	
+
 	public AddExperiencePage addExperiencePage() {
 		if (addExperiencePage == null) {
 			addExperiencePage = new AddExperiencePage(driver);
