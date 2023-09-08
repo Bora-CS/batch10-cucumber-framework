@@ -69,4 +69,9 @@ public class PageManager {
 		return postsPage;
 	}
 
+	public Object getAddExperiencePage() {
+		
+		return null;
+	}
+
 }
