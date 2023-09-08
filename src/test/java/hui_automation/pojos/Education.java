@@ -20,6 +20,12 @@ public class Education {
 	public boolean isTestPositive;
 
 	public Education(Map<String, String> data) {
+		this.school = "";
+		this.degree = "";
+		this.fieldofstudy = "";
+		this.fromDate = "";
+		this.toDate = "";
+		this.programDescription = "";
 		this.errorTexts = new ArrayList<>();
 		for (Entry<String, String> entry : data.entrySet()) {
 			String value = entry.getValue();
