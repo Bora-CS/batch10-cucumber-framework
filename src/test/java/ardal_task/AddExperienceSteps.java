@@ -1,6 +1,5 @@
 package ardal_task;
 
-import java.util.List;
 import java.util.Map;
 
 import io.cucumber.datatable.DataTable;
@@ -14,17 +13,6 @@ import utilities.PageManager;
 public class AddExperienceSteps {
 	private PageManager pages = PageManager.getInstance();
 	
-	@Given("user Ardal is logged in")
-	public void user_ardal_is_logged_in(DataTable dataTable) {
-		 Map<String, String> data = dataTable.asMap();
-	    pages.homePage().navigate();
-	    pages.homePage().clickOnLogin();
-	    String email = data.get("email");
-	    String password = data.get("password");
-	    pages.loginPage().login(email, password);
-		
-		
-	}
 
 	@When("user clicks on [Add Experience] button")
 	public void user_clicks_on_add_experience_button() {
@@ -55,6 +43,7 @@ public class AddExperienceSteps {
 	 Map<String, String> data = dataTable.asMap();
 	 String messages = data.get("error");
 	 String[] errorMessage = messages.split(",");
+	 
 	 
 	}
 	

@@ -18,7 +18,7 @@ public class AddExperiencePage {
 //	Local Variable
 	private WebDriver driver;
 	private final String URL = "https://boratech-practice-app.onrender.com/add-experience";
-	private final String TITLE_TEXT = "Add Experience";
+	private final String TITLE_TEXT = "Add An Experience";
 
 //	Elements
 	

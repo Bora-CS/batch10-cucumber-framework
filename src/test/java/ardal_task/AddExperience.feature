@@ -4,7 +4,7 @@ Feature: Add Experience UI Flow
   @UI @Ardal
   Scenario: Add Experience Happy Path
     Given user Ardal is logged in
-      | email    | ardal002713@gamil.com |
+      | email    | ardal002713@gmail.com |
       | password | ardal123              |
     When user clicks on [Add Experience] button
     Then user should be on the add experience page
@@ -20,9 +20,9 @@ Feature: Add Experience UI Flow
 
   @UI @Ardal
   Scenario Outline: Add Experience Unhappy Path
-    Given user Ardal is logged in
-      | email    | ardal002713@gamil.com |
-      | password | Ardal123              |
+    Given user is logged in
+      | email    | ardal002713@gmail.com |
+      | password | ardal123              |
     When user clicks on [Add Experience] button
     Then user should be on the add experience page
     And user enters [Experience] content 
