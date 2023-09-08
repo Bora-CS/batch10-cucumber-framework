@@ -29,14 +29,10 @@ public class AddEducationSteps {
 		Testkeys.waitUtilURL_Contains(driver, "add-education", 10);
 		pages.addEducationPage().isPageLoaded();
 		Map<String, String> data = dataTable.asMap();
+		Education education = new Education(data);
 		if (data.get("error") == null)
-			dataManager.setEducationUI(new Education(data.get("school") + " " + Testkeys.getTimestamp(),
-					data.get("degree"), data.get("fieldofstudy"), data.get("from"), data.get("to"),
-					Boolean.valueOf(data.get("current")), data.get("program description"), null));
-		else
-			dataManager.setEducationUI(new Education(data.get("school"), data.get("degree"), data.get("fieldofstudy"),
-					data.get("from"), data.get("to"), Boolean.valueOf(data.get("current")),
-					data.get("program description"), data.get("error").split(",")));
+			education.school += " " + Testkeys.getTimestamp();
+		dataManager.setEducationUI(education);
 		pages.addEducationPage().addEducation(dataManager.getEducationUI());
 	}
 

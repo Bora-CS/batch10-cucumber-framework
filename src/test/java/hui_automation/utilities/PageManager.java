@@ -28,7 +28,7 @@ public class PageManager {
 		return pageManager;
 	}
 
-	public static void tearDown() {
+	public static void reset() {
 		pageManager = null;
 	}
 

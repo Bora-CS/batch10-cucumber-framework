@@ -13,7 +13,7 @@ public class Hooks {
 
 	@After("@api")
 	public void cleanup() {
-		DataManager.tearDown();
+		DataManager.reset();
 	}
 
 }

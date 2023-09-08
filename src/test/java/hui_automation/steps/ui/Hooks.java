@@ -43,8 +43,8 @@ public class Hooks {
 	@After("@UI or @ui")
 	public void tearDown() {
 		DriverManager.reset();
-		DataManager.tearDown();
-		PageManager.tearDown();
+		DataManager.reset();
+		PageManager.reset();
 		System.out.println("Quitting driver...");
 	}
 

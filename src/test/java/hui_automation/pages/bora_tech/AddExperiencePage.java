@@ -78,7 +78,7 @@ public class AddExperiencePage {
 
 	public void hasAddExperienceFailed() {
 		List<String> actualErrorMsgs = new ArrayList<>();
-		List<String> expectedErrorMsgs = this.experience.ErrorMessages;
+		List<String> expectedErrorMsgs = this.experience.errorTexts;
 		for (WebElement alert : errorAlerts)
 			actualErrorMsgs.add(alert.getText());
 		Collections.sort(expectedErrorMsgs);

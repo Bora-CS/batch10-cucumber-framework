@@ -10,8 +10,8 @@ Feature: Add Experience
       | company         | Walmart             |
       | job title       | Cashier             |
       | location        | Manassas, Virginia  |
-      | from            | 06/06/2006          |
-      | to              | 11/11/2008          |
+      | from date       | 06/06/2006          |
+      | to date         | 11/11/2008          |
       | current         | false               |
       | job description | Payment collection. |
       | error           |                     |
@@ -27,8 +27,8 @@ Feature: Add Experience
       | company         | Walmart             |
       | job title       | Cashier             |
       | location        | Manassas, Virginia  |
-      | from            | 06/06/2006          |
-      | to              | 11/11/2008          |
+      | from date       | 06/06/2006          |
+      | to date         | 11/11/2008          |
       | current         | false               |
       | job description | Payment collection. |
       | error           |                     |
@@ -43,17 +43,17 @@ Feature: Add Experience
     When user clicks on [Add Experience] button
     And user enters a new [Experience] data
       | company         | <company>           |
-      | job title       | <title>             |
+      | job title       | <job title>         |
       | location        | Manassas, Virginia  |
-      | from            | <from>              |
-      | to              | 11/11/2008          |
+      | from date       | <from date>         |
+      | to date         | 11/11/2008          |
       | current         | false               |
       | job description | Payment collection. |
       | error           | <error>             |
     Then user sees a list of error messages of [Experience]
 
     Examples: 
-      | company      | title      | from       | error                                                       |
+      | company      | job title  | from date  | error                                                       |
       |              |            |            | Company is required,Title is required,From date is required |
       |              | Test Title | 02/02/2002 | Company is required                                         |
       | Test Company |            | 02/02/2002 | Title is required                                           |

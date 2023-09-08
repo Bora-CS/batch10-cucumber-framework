@@ -26,7 +26,7 @@ public class DataManager {
 		return dataManager;
 	}
 
-	public static void tearDown() {
+	public static void reset() {
 		dataManager = null;
 	}
 

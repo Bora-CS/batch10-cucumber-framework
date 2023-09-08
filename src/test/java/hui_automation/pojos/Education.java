@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Education {
 
@@ -15,56 +16,70 @@ public class Education {
 	public String toDate;
 	public boolean current;
 	public String programDescription;
-	public List<String> ErrorMessages;
+	public List<String> errorTexts;
 	public boolean isTestPositive;
 
-	public Education(String school, String degree, String fieldofstudy, String fromDate, String toDate, boolean current,
-			String programDescription, String[] ErrorMessages) {
-		this.school = school;
-		if (this.school == null)
-			this.school = "";
-
-		this.degree = degree;
-		if (this.degree == null)
-			this.degree = "";
-
-		this.fieldofstudy = fieldofstudy;
-		if (this.fieldofstudy == null)
-			this.fieldofstudy = "";
-
-		this.fromDate = fromDate;
-		if (this.fromDate == null)
-			this.fromDate = "";
-
-		this.toDate = toDate;
-		if (this.toDate == null)
-			this.toDate = "";
-
-		this.current = current;
-		this.programDescription = programDescription;
-		if (this.programDescription == null)
-			this.programDescription = "";
-
-		if (ErrorMessages == null)
-			this.ErrorMessages = new ArrayList<String>();
-		else
-			this.ErrorMessages = Arrays.asList(ErrorMessages);
-		this.isTestPositive = this.ErrorMessages.size() == 0;
+	public Education(Map<String, String> data) {
+		this.errorTexts = new ArrayList<>();
+		for (Entry<String, String> entry : data.entrySet()) {
+			String value = entry.getValue();
+			if (value == null)
+				value = "";
+			switch (entry.getKey().toLowerCase()) {
+			case "school":
+				this.school = value;
+				break;
+			case "degree":
+				this.degree = value;
+				break;
+			case "fieldofstudy":
+			case "field of study":
+				this.fieldofstudy = value;
+				break;
+			case "from":
+			case "fromdate":
+			case "from date":
+				this.fromDate = value;
+				break;
+			case "to":
+			case "todate":
+			case "to date":
+				this.toDate = value;
+				break;
+			case "current":
+				this.current = Boolean.valueOf(value);
+				break;
+			case "description":
+			case "programdescription":
+			case "program description":
+				this.programDescription = value;
+				break;
+			case "error":
+			case "errors":
+				if (value.isEmpty())
+					break;
+				this.errorTexts = Arrays.asList(value.split(","));
+				break;
+			default:
+				break;
+			}
+		}
+		this.isTestPositive = this.errorTexts.size() == 0;
 	}
 
 	public Map<String, Object> toMap() {
-		Map<String, Object> eduMap = new HashMap<>();
-		eduMap.put("school", this.school);
-		eduMap.put("degree", this.degree);
-		eduMap.put("fieldofstudy", this.fieldofstudy);
-		eduMap.put("from", this.fromDate.replace("/", "-"));
+		Map<String, Object> data = new HashMap<>();
+		data.put("school", this.school);
+		data.put("degree", this.degree);
+		data.put("fieldofstudy", this.fieldofstudy);
+		data.put("from", this.fromDate.replace("/", "-"));
 		if (this.current)
-			eduMap.put("to", "");
+			data.put("to", "");
 		else
-			eduMap.put("to", this.toDate.replace("/", "-"));
-		eduMap.put("current", this.current);
-		eduMap.put("description", this.programDescription);
-		return eduMap;
+			data.put("to", this.toDate.replace("/", "-"));
+		data.put("current", this.current);
+		data.put("description", this.programDescription);
+		return data;
 	}
 
 }

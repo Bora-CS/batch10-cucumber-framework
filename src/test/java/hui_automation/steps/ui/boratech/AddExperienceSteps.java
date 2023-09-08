@@ -29,14 +29,10 @@ public class AddExperienceSteps {
 		Testkeys.waitUtilURL_Contains(driver, "add-experience", 10);
 		pages.addExperiencePage().isPageLoaded();
 		Map<String, String> data = dataTable.asMap();
+		Experience experience = new Experience(data);
 		if (data.get("error") == null)
-			dataManager.setExperienceUI(new Experience(data.get("company") + " " + Testkeys.getTimestamp(),
-					data.get("job title"), data.get("location"), data.get("from"), data.get("to"),
-					Boolean.valueOf(data.get("current")), data.get("job description"), null));
-		else
-			dataManager.setExperienceUI(new Experience(data.get("company"), data.get("job title"), data.get("location"),
-					data.get("from"), data.get("to"), Boolean.valueOf(data.get("current")), data.get("job description"),
-					data.get("error").split(",")));
+			experience.company += " " + Testkeys.getTimestamp();
+		dataManager.setExperienceUI(experience);
 		pages.addExperiencePage().addExperience(dataManager.getExperienceUI());
 	}
 

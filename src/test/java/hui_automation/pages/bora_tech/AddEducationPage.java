@@ -77,8 +77,8 @@ public class AddEducationPage {
 	}
 
 	public void hasAddEducationFailed() {
-		assertTrue(this.education.ErrorMessages.size() > 0);
-		List<String> expectedErrorMsgs = this.education.ErrorMessages;
+		assertTrue(this.education.errorTexts.size() > 0);
+		List<String> expectedErrorMsgs = this.education.errorTexts;
 		List<String> actualErrorMsgs = new ArrayList<>();
 		for (WebElement alert : errorAlerts)
 			actualErrorMsgs.add(alert.getText());

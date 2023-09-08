@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Experience {
 
@@ -15,56 +16,71 @@ public class Experience {
 	public String toDate;
 	public boolean current;
 	public String jobDescription;
-	public List<String> ErrorMessages;
+	public List<String> errorTexts;
 	public boolean isTestPositive;
 
-	public Experience(String company, String jobTitle, String location, String fromDate, String toDate, boolean current,
-			String jobDescription, String[] ErrorMessages) {
-		this.company = company;
-		if (this.company == null)
-			this.company = "";
-		
-		this.jobTitle = jobTitle;
-		if (this.jobTitle == null)
-			this.jobTitle = "";
-
-		this.location = location;
-		if (this.location == null)
-			this.location = "";
-
-		this.fromDate = fromDate;
-		if (this.fromDate == null)
-			this.fromDate = "";
-
-		this.toDate = toDate;
-		if (this.toDate == null)
-			this.toDate = "";
-
-		this.current = current;
-		this.jobDescription = jobDescription;
-		if (this.jobDescription == null)
-			this.jobDescription = "";
-
-		if (ErrorMessages == null)
-			this.ErrorMessages = new ArrayList<String>();
-		else
-			this.ErrorMessages = Arrays.asList(ErrorMessages);
-		this.isTestPositive = this.ErrorMessages.size() == 0;
+	public Experience(Map<String, String> data) {
+		this.errorTexts = new ArrayList<>();
+		for (Entry<String, String> entry : data.entrySet()) {
+			String value = entry.getValue();
+			if (value == null)
+				value = "";
+			switch (entry.getKey().toLowerCase()) {
+			case "company":
+				this.company = value;
+				break;
+			case "title":
+			case "jobtitle":
+			case "job title":
+				this.jobTitle = value;
+				break;
+			case "location":
+				this.location = value;
+				break;
+			case "from":
+			case "fromdate":
+			case "from date":
+				this.fromDate = value;
+				break;
+			case "to":
+			case "todate":
+			case "to date":
+				this.toDate = value;
+				break;
+			case "current":
+				this.current = Boolean.valueOf(value);
+				break;
+			case "description":
+			case "jobdescription":
+			case "job description":
+				this.jobDescription = value;
+				break;
+			case "error":
+			case "errors":
+				if (value.isEmpty())
+					break;
+				this.errorTexts = Arrays.asList(value.split(","));
+				break;
+			default:
+				break;
+			}
+		}
+		this.isTestPositive = this.errorTexts.size() == 0;
 	}
 
 	public Map<String, Object> toMap() {
-		Map<String, Object> expMap = new HashMap<>();
-		expMap.put("company", this.company);
-		expMap.put("title", this.jobTitle);
-		expMap.put("location", this.location);
-		expMap.put("from", this.fromDate.replace("/", "-"));
+		Map<String, Object> data = new HashMap<>();
+		data.put("company", this.company);
+		data.put("title", this.jobTitle);
+		data.put("location", this.location);
+		data.put("from", this.fromDate.replace("/", "-"));
 		if (this.current)
-			expMap.put("to", "");
+			data.put("to", "");
 		else
-			expMap.put("to", this.toDate.replace("/", "-"));
-		expMap.put("current", this.current);
-		expMap.put("description", this.jobDescription);
-		return expMap;
+			data.put("to", this.toDate.replace("/", "-"));
+		data.put("current", this.current);
+		data.put("description", this.jobDescription);
+		return data;
 	}
 
 }
