@@ -2,6 +2,7 @@ package utilities;
 
 import org.openqa.selenium.WebDriver;
 
+import LydiaHomework907.AddExperiencePage;
 import page_objects.DashboardPage;
 import page_objects.HomePage;
 import page_objects.LoginPage;
@@ -18,6 +19,7 @@ public class PageManager {
 	private DashboardPage dashboardPage;
 	private Navbar navbar;
 	private PostsPage postsPage;
+	private AddExperiencePage addExperiencePage;
 
 	private PageManager(WebDriver driver) {
 		this.driver = driver;
@@ -67,6 +69,13 @@ public class PageManager {
 			postsPage = new PostsPage(driver);
 		}
 		return postsPage;
+	}
+
+	public AddExperiencePage getAddExperiencePage() {
+		if (addExperiencePage == null) {
+			addExperiencePage = new AddExperiencePage(driver);
+		}
+		return addExperiencePage;
 	}
 
 }
