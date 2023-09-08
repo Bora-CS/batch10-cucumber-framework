@@ -20,6 +20,12 @@ public class Experience {
 	public boolean isTestPositive;
 
 	public Experience(Map<String, String> data) {
+		this.company = "";
+		this.jobTitle = "";
+		this.location = "";
+		this.fromDate = "";
+		this.toDate = "";
+		this.jobDescription = "";
 		this.errorTexts = new ArrayList<>();
 		for (Entry<String, String> entry : data.entrySet()) {
 			String value = entry.getValue();
