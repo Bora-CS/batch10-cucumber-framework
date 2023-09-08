@@ -17,6 +17,9 @@ public class DashboardPage {
 	// Elements
 	@FindBy(xpath = "//h1[@class='large text-primary']")
 	private WebElement titleText;
+	
+	@FindBy(xpath = "//a[@href='/add-experience']")
+	private WebElement addExperience;
 
 	// Constructor
 	public DashboardPage(WebDriver driver) {
@@ -28,6 +31,10 @@ public class DashboardPage {
 	public void validatePageload() {
 		assertEquals(URL, driver.getCurrentUrl());
 		assertEquals(TITLE_TEXT, titleText.getText());
+	}
+	
+	public void clickOnAddExperience() {
+		addExperience.click();
 	}
 
 }
