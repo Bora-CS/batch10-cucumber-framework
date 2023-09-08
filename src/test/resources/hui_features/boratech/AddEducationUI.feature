@@ -17,7 +17,7 @@ Feature: Add Education
       | error               |                                              |
     Then user sees a newly added [Education] on Dashboard page
 
-  @ui @hui
+  @ui
   Scenario: Add an education and then delete the education
     Given user is logged in
       | email    | hui-pretender@outlook.com |

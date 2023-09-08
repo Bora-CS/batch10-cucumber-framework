@@ -35,7 +35,7 @@ Feature: Add Experience
     Then user sees a newly added [Experience] on Dashboard page
     And user deletes the newly added [Experience] on Dashboard page
 
-  @ui
+  @ui @hui
   Scenario Outline: Negative Test
     Given user is logged in
       | email    | hui-pretender@outlook.com |
