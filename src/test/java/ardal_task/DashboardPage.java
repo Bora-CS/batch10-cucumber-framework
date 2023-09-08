@@ -1,4 +1,4 @@
-package page_objects;
+package ardal_task;
 
 import static org.junit.jupiter.api.Assertions.*;
 
