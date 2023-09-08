@@ -7,6 +7,7 @@ import page_objects.HomePage;
 import page_objects.LoginPage;
 import page_objects.Navbar;
 import page_objects.PostsPage;
+import page_objects.ExperiencePage;
 
 public class PageManager {
 
@@ -18,6 +19,7 @@ public class PageManager {
 	private DashboardPage dashboardPage;
 	private Navbar navbar;
 	private PostsPage postsPage;
+	private ExperiencePage ExperiencePage;
 
 	private PageManager(WebDriver driver) {
 		this.driver = driver;
@@ -68,5 +70,12 @@ public class PageManager {
 		}
 		return postsPage;
 	}
+	public ExperiencePage ExperiencePage() {
+		if (ExperiencePage == null) {
+			ExperiencePage = new ExperiencePage(driver);
+		}
+		return ExperiencePage;
+	}
+
 
 }
