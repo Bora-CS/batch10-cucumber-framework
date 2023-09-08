@@ -34,12 +34,12 @@ public class AddExperienceSteps {
 	}
 
 	@When("user tries to add new experiences")
-	public void pom_user_tries_to_add_new_experiences(io.cucumber.datatable.DataTable dataTable) {
+	public void pom_user_tries_to_add_new_experiences(DataTable dataTable) {
 		pages.getAddExperiencePage().addExperienceUnhappy(dataTable);
 	}
 
 	@Then("user should receive error messages")
-	public void pom_user_should_receive_error_messages(DataTable dataTable) {
+	public void pom_user_should_receive_error_messages(DataTable dataTable) throws Exception {
 		pages.getAddExperiencePage().validateErrorAlert(dataTable);
 	}
 
