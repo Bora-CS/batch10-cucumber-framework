@@ -18,6 +18,12 @@ public class DashboardPage {
 	@FindBy(xpath = "//h1[@class='large text-primary']")
 	private WebElement titleText;
 
+	@FindBy(xpath = "//a[@href='/add-experience']")
+	private WebElement addExperienceLink;
+
+	@FindBy(xpath = "//div[@class='alert alert-success']")
+	private WebElement successAlert;
+
 	// Constructor
 	public DashboardPage(WebDriver driver) {
 		this.driver = driver;
@@ -28,6 +34,15 @@ public class DashboardPage {
 	public void validatePageload() {
 		assertEquals(URL, driver.getCurrentUrl());
 		assertEquals(TITLE_TEXT, titleText.getText());
+	}
+
+	public void initiateAddExperience() {
+		addExperienceLink.click();
+	}
+
+	public void validateSuccessAlert(String alertText) {
+		assertTrue(successAlert.isDisplayed());
+		assertEquals(alertText, successAlert.getText());
 	}
 
 }

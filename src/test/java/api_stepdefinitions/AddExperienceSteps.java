@@ -16,7 +16,7 @@ public class AddExperienceSteps {
 
 	private DataManager dataManager = DataManager.getInstance();
 
-	@Then("[API] users should be able to add a new experience")
+	@Then("[API] user should be able to add a new experience")
 	public void apiAddExperience(DataTable dataTable) {
 		Map<String, String> data = dataTable.asMap();
 
