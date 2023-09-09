@@ -1,6 +1,9 @@
 package api_stepdefinitions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.List;
 
 import apiPojos.Post;
 import io.cucumber.datatable.DataTable;
@@ -19,6 +22,24 @@ public class PostSteps {
 		String token = dataManager.getToken();
 		Post post = BoraTechAPIs.createPost(token, expectedContent);
 		assertEquals(expectedContent, post.text);
+		dataManager.setPost(post);
+	}
+
+	@Then("[API] user can validate that the post they created previously is not there anymore")
+	public void api_user_can_validate_that_the_post_they_created_previously_is_not_there_anymore() {
+		String token = dataManager.getToken();
+		Post previouslyCreatedPost = dataManager.getPost();
+		List<Post> posts = BoraTechAPIs.getPosts(token);
+
+		boolean found = false;
+		for (Post post : posts) {
+			if (post.equals(previouslyCreatedPost)) {
+				found = true;
+				break;
+			}
+		}
+
+		assertFalse(found, "Previously deleted post is still there");
 	}
 
 }
