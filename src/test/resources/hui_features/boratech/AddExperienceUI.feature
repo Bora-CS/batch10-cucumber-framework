@@ -35,7 +35,7 @@ Feature: Add Experience
     Then user sees a newly added [Experience] on Dashboard page
     And user deletes the newly added [Experience] on Dashboard page
 
-  @ui @hui
+  @ui @hui @cool
   Scenario Outline: Negative Test
     Given user is logged in
       | email    | hui-pretender@outlook.com |
@@ -53,11 +53,11 @@ Feature: Add Experience
     Then user sees a list of error messages of [Experience]
 
     Examples: 
-      | company      | job title  | from date  | error                                                       |
-      |              |            |            | Company is required,Title is required,From date is required |
-      |              | Test Title | 02/02/2002 | Company is required                                         |
-      | Test Company |            | 02/02/2002 | Title is required                                           |
-      | Test Company | Test Title |            | From date is required                                       |
-      |              |            | 02/02/2002 | Company is required,Title is required                       |
-      |              | Test Title |            | Company is required,From date is required                   |
-      | Test Company |            |            | Title is required,From date is required                     |
+      | company      | job title  | from date  | error                                                         |
+      |              |            |            | Company is required, Title is required, From date is required |
+      |              | Test Title | 02/02/2002 | Company is required                                           |
+      | Test Company |            | 02/02/2002 | Title is required                                             |
+      | Test Company | Test Title |            | From date is required                                         |
+      |              |            | 02/02/2002 | Company is required, Title is required                        |
+      |              | Test Title |            | Company is required, From date is required                    |
+      | Test Company |            |            | Title is required, From date is required                      |

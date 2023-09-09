@@ -1,7 +1,6 @@
 package hui_automation.pojos;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +63,9 @@ public class Education {
 			case "errors":
 				if (value.isEmpty())
 					break;
-				this.errorTexts = Arrays.asList(value.split(","));
+				String[] errors = value.split(",");
+				for (String error : errors)
+					this.errorTexts.add(error.trim());
 				break;
 			default:
 				break;
