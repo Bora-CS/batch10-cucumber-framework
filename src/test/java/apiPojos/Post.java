@@ -25,4 +25,8 @@ public class Post {
 		this.__v = __v;
 	}
 
+	public boolean equals(Post post) {
+		return this._id.equals(post._id) && this.text.equals(post.text) && this.user.equals(post.user);
+	}
+
 }

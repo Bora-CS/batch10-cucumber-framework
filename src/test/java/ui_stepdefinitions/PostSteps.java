@@ -3,7 +3,9 @@ package ui_stepdefinitions;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
+import apiPojos.Post;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.*;
 import page_objects.DashboardPage;
@@ -11,6 +13,7 @@ import page_objects.HomePage;
 import page_objects.LoginPage;
 import page_objects.Navbar;
 import page_objects.PostsPage;
+import utilities.DataManager;
 import utilities.DriverManager;
 import utilities.Keywords;
 import utilities.PageManager;
@@ -18,26 +21,9 @@ import utilities.PageManager;
 public class PostSteps {
 
 	private PageManager pages = PageManager.getInstance();
+	private DataManager data = DataManager.getInstance();
 
-	@Given("user is logged in")
-	public void user_is_logged_in(DataTable dataTable) throws InterruptedException {
-		Map<String, String> credentials = dataTable.asMap();
-		String username = credentials.get("username");
-		String password = credentials.get("password");
-
-		pages.homePage().navigate();
-		pages.homePage().clickOnLogin();
-
-		pages.loginPage().login(username, password);
-		Keywords.wait(2);
-		pages.dashboardPage().validatePageload();
-	}
-
-	@When("user navigates to the Posts page")
-	public void user_navigates_to_the_posts_page() {
-		pages.navbar().navigateToPostsPage();
-		pages.postsPage().validatePageload();
-	}
+	private WebElement deleteButton;
 
 	@When("user enters the post content")
 	public void user_enters_the_post_content(DataTable dataTable) {
@@ -55,6 +41,18 @@ public class PostSteps {
 	@Then("user should see a success alert that says [Post Created]")
 	public void user_should_see_a_success_alert_that_says() {
 		pages.postsPage().validateCreatePost();
+	}
+
+	@Then("user should see the post that was created previously")
+	public void user_should_see_the_post_that_was_created_previously() throws InterruptedException {
+		Post previouslyCreatedPost = data.getPost();
+		deleteButton = pages.postsPage().findAndValidatePost(previouslyCreatedPost);
+	}
+
+	@When("user deletes the post that was created previously")
+	public void user_deletes_the_post_that_was_created_previously() {
+		deleteButton.click();
+		pages.postsPage().validateDeletePost();
 	}
 
 }
