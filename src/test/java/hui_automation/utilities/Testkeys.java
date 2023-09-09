@@ -5,11 +5,15 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,10 +21,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Testkeys {
 
-	public static String findDateInputStrMDY(String dateStr, String dateStrPattern) {
-		LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(dateStrPattern));
-		String inputDateStr = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-		return inputDateStr;
+	public static String getDateInput(LocalDate date, String dateInputPattern) {
+		return date.format(DateTimeFormatter.ofPattern(dateInputPattern));
+	}
+
+	public static LocalDate getDate(String dateData, String datePattern) {
+		return LocalDate.parse(datePattern, DateTimeFormatter.ofPattern(datePattern));
+	}
+
+	public static Map<String, String> getNoNullMap(Map<String, String> data) {
+		Map<String, String> output = new HashMap<>();
+		for (Entry<String, String> entry : data.entrySet()) {
+			output.put(entry.getKey(), entry.getValue());
+			if (entry.getValue() == null)
+				output.put(entry.getKey(), "");
+		}
+		return output;
 	}
 
 	public static String getTimeStr() {
@@ -44,15 +60,9 @@ public class Testkeys {
 		try {
 			driver.findElement(locator);
 			return true;
-		} catch (Exception e) {
+		} catch (NoSuchElementException e) {
 			return false;
 		}
-	}
-
-	public static void containsElement(WebDriver driver, By locator, String errStr) throws Exception {
-		boolean result = containsElement(driver, locator);
-		if (!result)
-			throw new Exception(errStr);
 	}
 
 	public static void pause(WebDriver driver, int sec) {

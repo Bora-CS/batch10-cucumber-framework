@@ -15,19 +15,19 @@ public class Hooks {
 		System.out.println("Open Chrome...");
 	}
 
-	@Before(order = 1, value = "@Firefox or @firefox")
-	public void setupFirefox() {
-		Configuration.config("browser", "firefox");
-		System.out.println("Open Firefox...");
-	}
-
-	@Before(order = 2, value = "@Edge or @edge")
+	@Before(order = 1, value = "@Edge or @edge")
 	public void setupEdge() {
 		Configuration.config("browser", "edge");
 		System.out.println("Open Edge...");
 	}
 
-	@Before(order = 3, value = "@UI or @ui or @Chrome or @chrome or @Firefox or @firefox or @Edge or @edge")
+	@Before(order = 2, value = "@Firefox or @firefox")
+	public void setupFirefox() {
+		Configuration.config("browser", "firefox");
+		System.out.println("Open Firefox...");
+	}
+
+	@Before(order = 3, value = "@UI or @ui or @Chrome or @chrome or @Edge or @edge or @Firefox or @firefox")
 	public void powerUp() {
 		DriverManager.getInstance();
 		DataManager.getInstance();
@@ -35,7 +35,7 @@ public class Hooks {
 		System.out.println("Power up driver...");
 	}
 
-	@After("@UI or @ui or @Chrome or @chrome or @Firefox or @firefox or @Edge or @edge")
+	@After("@UI or @ui or @Chrome or @chrome or @Edge or @edge or @Firefox or @firefox")
 	public void tearDown() {
 		DriverManager.reset();
 		DataManager.reset();

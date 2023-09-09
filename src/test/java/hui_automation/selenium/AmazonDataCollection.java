@@ -25,7 +25,7 @@ public class AmazonDataCollection {
 		driver.manage().window().maximize();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		List<AmazonSearchResult> results = new ArrayList<>();
-		
+
 		String searchTerm = "men's shoes";
 		int numResults = 200;
 
@@ -36,8 +36,7 @@ public class AmazonDataCollection {
 			Testkeys.containsElement(driver,
 					By.xpath(String.format(
 							"//div[contains(@cel_widget_id,'UPPER-RESULT_INFO_BAR')]//*[contains(text(), \"%s\")]",
-							searchTerm)),
-					String.format("%s not found", searchTerm));
+							searchTerm)));
 
 			int count = 0;
 			SEARCH_LOOP: while (count < numResults) {
@@ -55,7 +54,7 @@ public class AmazonDataCollection {
 						String title = driver.findElement(By.xpath(titleXpath)).getText();
 						String label = driver.findElement(By.xpath(labelXpath)).getText();
 //						String realTitle = title + " - " + label;
-						String price = driver.findElement(By.xpath(priceXpath)).getText();						
+						String price = driver.findElement(By.xpath(priceXpath)).getText();
 						price = price.replace("\n", ".").replace("$", "");
 
 						results.add(new AmazonSearchResult(++count, Double.valueOf(price), title, label));
@@ -88,7 +87,7 @@ public class AmazonDataCollection {
 		} finally {
 			Testkeys.terminate(driver);
 		}
-		
+
 		Excel.exportAmazonSearchResult(searchTerm, results);
 
 	} // main
