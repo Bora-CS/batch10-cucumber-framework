@@ -14,7 +14,7 @@ Feature: Add Experience
       | current     | true                     |
       | description | This is a new experience |
 
-  @UI
+  @UI @Parallel
   Scenario: UI - Add Experience Happy Path
     Given user is logged in
       | username | muradil.erkin@boratechschool.com |

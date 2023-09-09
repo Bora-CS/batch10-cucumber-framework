@@ -9,7 +9,7 @@ import apiPojos.Post;
 
 public class DataManager {
 
-	private static DataManager dataManager = null;
+	private static ThreadLocal<DataManager> threadLocalDataManager;
 
 	private String token;
 	private List<ApiError> apiErrors;
@@ -20,14 +20,20 @@ public class DataManager {
 	}
 
 	public static DataManager getInstance() {
-		if (dataManager == null) {
-			dataManager = new DataManager();
+		if (threadLocalDataManager == null) {
+			threadLocalDataManager = new ThreadLocal<DataManager>();
 		}
-		return dataManager;
+
+		if (threadLocalDataManager.get() == null) {
+			DataManager dataManager = new DataManager();
+			threadLocalDataManager.set(dataManager);
+		}
+
+		return threadLocalDataManager.get();
 	}
 
 	public static void cleanup() {
-		dataManager = null;
+		threadLocalDataManager.set(null);
 	}
 
 	public String getToken() {

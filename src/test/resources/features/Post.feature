@@ -1,6 +1,6 @@
 Feature: Post
 
-  @UI
+  @UI @Parallel
   Scenario: Create Post
     Given user is logged in
       | username | muradil.erkin@boratechschool.com |

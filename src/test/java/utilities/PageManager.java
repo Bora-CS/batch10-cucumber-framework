@@ -11,7 +11,7 @@ import page_objects.PostsPage;
 
 public class PageManager {
 
-	private static PageManager pageManager = null;
+	private static ThreadLocal<PageManager> threadLocalPageManager;
 	private WebDriver driver;
 
 	private HomePage homePage;
@@ -26,14 +26,20 @@ public class PageManager {
 	}
 
 	public static PageManager getInstance() {
-		if (pageManager == null) {
-			pageManager = new PageManager(DriverManager.getInstance());
+		if (threadLocalPageManager == null) {
+			threadLocalPageManager = new ThreadLocal<PageManager>();
 		}
-		return pageManager;
+
+		if (threadLocalPageManager.get() == null) {
+			PageManager pageManager = new PageManager(DriverManager.getInstance());
+			threadLocalPageManager.set(pageManager);
+		}
+
+		return threadLocalPageManager.get();
 	}
 
 	public static void cleanup() {
-		pageManager = null;
+		threadLocalPageManager.set(null);
 	}
 
 	public HomePage homePage() {
