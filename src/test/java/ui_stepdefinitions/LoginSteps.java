@@ -30,11 +30,6 @@ public class LoginSteps {
 		Keywords.wait(2);
 	}
 
-	@Then("user should be on the Dashboard page")
-	public void user_should_be_on_the_dashboard_page() {
-		pages.dashboardPage().validatePageload();
-	}
-
 	@Then("user should see a login error")
 	public void user_should_see_a_login_error() {
 		pages.loginPage().validateErrorState();

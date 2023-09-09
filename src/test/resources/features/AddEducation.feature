@@ -21,5 +21,5 @@ Feature: Add Education
       |          |                          | Coffee Drinking | 2023-08-01 |    | true    | Drinking all sorts of coffee | Degree is required, School is required                             |
       | BoraTech |                          | Coffee Drinking | 2023-08-01 |    | true    | Drinking all sorts of coffee | Degree is required                                                 |
       |          | Certified Coffee Drinker | Coffee Drinking | 2023-08-01 |    | true    | Drinking all sorts of coffee | School is required                                                 |
-      | BoraTech | Certified Coffee Drinker |                 | 2023-08-01 |    | true    | Drinking all sorts of coffee | Field of study is required is required                             |
+      | BoraTech | Certified Coffee Drinker |                 | 2023-08-01 |    | true    | Drinking all sorts of coffee | Field of study is required                                         |
       |          |                          |                 | 2023-08-01 |    | true    | Drinking all sorts of coffee | Degree is required, School is required, Field of study is required |
