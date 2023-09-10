@@ -21,7 +21,7 @@ Feature: Post
       | content                       |
       | I still want to fight a fish. |
 
-  @e2e
+  @e2e @hero
   Scenario: [API - UI][UI - API] Create a post
     Given [API] user is logged in
       | email    | hui-pretender@outlook.com |

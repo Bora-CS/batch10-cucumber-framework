@@ -1,14 +1,14 @@
 @login
 Feature: Login
 
-  @ui @hero
+  @ui
   Scenario: Login Postive Test
     Given user is on the BoraTech homepage
     When user navigates to the Login page
     And user enters email - "hui-pretender@outlook.com" and password - "Hui123456" then click the Login button
     Then user should be on the Dashboard page
 
-  @ui @hero
+  @ui
   Scenario Outline: Login Negative Test
     Given user is on the BoraTech homepage
     When user navigates to the Login page
