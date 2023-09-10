@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -44,7 +45,9 @@ public class DashboardPage {
 	private List<WebElement> educationTableRows;
 
 	@FindBy(xpath = "//div[@class='alert alert-success']")
-	private WebElement successAlert;
+	private List<WebElement> successAlerts;
+
+//	private By successAlertLocator = By.xpath("//div[@class='alert alert-success']");
 
 	// Constructor
 	public DashboardPage(WebDriver driver) {
@@ -55,8 +58,14 @@ public class DashboardPage {
 
 	// Actions
 	public void isPageLoaded() {
-		assertEquals(URL, driver.getCurrentUrl());
-		assertEquals(TITLE_TEXT, titleText.getText());
+		ExpectedCondition<?>[] conditions = new ExpectedCondition[2];
+		ExpectedCondition<Boolean> condition1 = ExpectedConditions.urlToBe(URL);
+		ExpectedCondition<Boolean> condition2 = ExpectedConditions.textToBePresentInElement(titleText, TITLE_TEXT);
+		conditions[0] = condition1;
+		conditions[1] = condition2;
+		wait.until(ExpectedConditions.and(conditions));
+//		assertEquals(URL, driver.getCurrentUrl());
+//		assertEquals(TITLE_TEXT, titleText.getText());
 	}
 
 	public void clickOnAddExperience() {
@@ -75,6 +84,19 @@ public class DashboardPage {
 	}
 
 	public void validateAddExperience(Experience experience) {
+		// finding success alert
+		wait.until(ExpectedConditions.visibilityOfAllElements(successAlerts));
+		boolean targetAlertFound = false;
+		for (WebElement alert : successAlerts) {
+			String text = alert.getText();
+			if (text.equals("Experience Added")) {
+				targetAlertFound = true;
+				break;
+			}
+		}
+		assertTrue(targetAlertFound);
+		
+		// finding matching row
 		wait.until(ExpectedConditions.visibilityOfAllElements(experienceTableRows));
 		boolean targetFound = false;
 		for (WebElement row : experienceTableRows) {
@@ -89,17 +111,30 @@ public class DashboardPage {
 	}
 
 	public void validateAddEducation(Education education) {
+		// finding success alert
+		wait.until(ExpectedConditions.visibilityOfAllElements(successAlerts));
+		boolean targetAlertFound = false;
+		for (WebElement alert : successAlerts) {
+			String text = alert.getText();
+			if (text.equals("Education Added")) {
+				targetAlertFound = true;
+				break;
+			}
+		}
+		assertTrue(targetAlertFound);
+		
+		// finding matching row
 		wait.until(ExpectedConditions.visibilityOfAllElements(educationTableRows));
-		boolean targetFound = false;
+		boolean targetRowFound = false;
 		for (WebElement row : educationTableRows) {
 			String actualSchool = getCells(row, 2)[0].getText();
 			String actualDegree = getCells(row, 2)[1].getText();
 			if (actualSchool.equals(education.school) && actualDegree.equals(education.degree)) {
-				targetFound = true;
+				targetRowFound = true;
 				break;
 			}
 		}
-		assertTrue(targetFound);
+		assertTrue(targetRowFound);
 	}
 
 	private WebElement findDeleteButton(WebElement row) {

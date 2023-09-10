@@ -6,7 +6,7 @@ import hui_automation.pages.bora_tech.*;
 
 public class PageManager {
 
-	private static PageManager pageManager = null;
+	private static ThreadLocal<PageManager> threadLocalPageManager;
 	private WebDriver driver;
 
 	private Navbar navbar;
@@ -22,14 +22,15 @@ public class PageManager {
 	}
 
 	public static PageManager getInstance() {
-		if (pageManager == null) {
-			pageManager = new PageManager(DriverManager.getInstance());
-		}
-		return pageManager;
+		if (threadLocalPageManager == null)
+			threadLocalPageManager = new ThreadLocal<>();
+		if (threadLocalPageManager.get() == null)
+			threadLocalPageManager.set(new PageManager(DriverManager.getInstance()));
+		return threadLocalPageManager.get();
 	}
 
 	public static void reset() {
-		pageManager = null;
+		threadLocalPageManager.set(null);
 	}
 
 	public HomePage homePage() {

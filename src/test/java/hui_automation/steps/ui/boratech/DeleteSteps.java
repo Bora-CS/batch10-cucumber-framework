@@ -1,15 +1,12 @@
 package hui_automation.steps.ui.boratech;
 
-import org.openqa.selenium.WebDriver;
 
 import hui_automation.utilities.DataManager;
-import hui_automation.utilities.DriverManager;
 import hui_automation.utilities.PageManager;
 import io.cucumber.java.en.Then;
 
 public class DeleteSteps {
 
-	private WebDriver driver = DriverManager.getInstance();
 	private DataManager dataManager = DataManager.getInstance();
 	private PageManager pages = PageManager.getInstance();
 

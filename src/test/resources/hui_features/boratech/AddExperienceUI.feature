@@ -1,10 +1,15 @@
 Feature: Add Experience
 
-  @ui
-  Scenario: Positive Test
+  Background: 
     Given user is logged in
       | email    | hui-pretender@outlook.com |
       | password | Hui123456                 |
+
+  @ui
+  Scenario: Positive Test
+    #Given user is logged in
+    #| email    | hui-pretender@outlook.com |
+    #| password | Hui123456                 |
     When user clicks on [Add Experience] button
     And user enters a new [Experience] data
       | company         | Walmart             |
@@ -17,36 +22,36 @@ Feature: Add Experience
       | error           |                     |
     Then user sees a newly added [Experience] on Dashboard page
 
-  @ui @hui
+  @ui
   Scenario: Add an experience and then delete the experience
-    Given user is logged in
-      | email    | hui-pretender@outlook.com |
-      | password | Hui123456                 |
+    #Given user is logged in
+    #| email    | hui-pretender@outlook.com |
+    #| password | Hui123456                 |
     When user clicks on [Add Experience] button
     And user enters a new [Experience] data
       | company         | Walmart             |
       | job title       | Cashier             |
       | location        | Manassas, Virginia  |
-      | from date       | 06/06/2006          |
-      | to date         | 11/11/2008          |
+      | from date       | 06-06-2006          |
+      | to date         | 11-11-2008          |
       | current         | false               |
       | job description | Payment collection. |
       | error           |                     |
     Then user sees a newly added [Experience] on Dashboard page
     And user deletes the newly added [Experience] on Dashboard page
 
-  @ui @hui @cool
+  @ui
   Scenario Outline: Negative Test
-    Given user is logged in
-      | email    | hui-pretender@outlook.com |
-      | password | Hui123456                 |
+    #Given user is logged in
+    #| email    | hui-pretender@outlook.com |
+    #| password | Hui123456                 |
     When user clicks on [Add Experience] button
     And user enters a new [Experience] data
       | company         | <company>           |
       | job title       | <job title>         |
       | location        | Manassas, Virginia  |
       | from date       | <from date>         |
-      | to date         | 11/11/2008          |
+      | to date         | 11-11-2008          |
       | current         | false               |
       | job description | Payment collection. |
       | error           | <error>             |

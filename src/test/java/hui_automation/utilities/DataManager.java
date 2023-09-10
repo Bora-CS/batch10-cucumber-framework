@@ -4,34 +4,41 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+import org.openqa.selenium.WebElement;
+
+import hui_automation.api_pojos.Post;
 import hui_automation.pojos.Education;
 import hui_automation.pojos.Experience;
 
 public class DataManager {
 
-	private static DataManager dataManager = null;
+	private static ThreadLocal<DataManager> threadLocalDataManager;
 
 	private String token;
 	private List<String> texts;
 	private Experience experienceUI;
 	private Education educationUI;
+	private Post postAPI;
+	private WebElement element;
 
 	private DataManager() {
 	}
 
 	public static DataManager getInstance() {
-		if (dataManager == null) {
-			dataManager = new DataManager();
+		if (threadLocalDataManager == null)
+			threadLocalDataManager = new ThreadLocal<>();
+		if (threadLocalDataManager.get() == null) {
+			threadLocalDataManager.set(new DataManager());
 		}
-		return dataManager;
+		return threadLocalDataManager.get();
 	}
 
 	public static void reset() {
-		dataManager = null;
+		threadLocalDataManager.set(null);
 	}
 
 	public String getToken() {
-		assertNotNull(token, "DataManager - Token is not available");
+		assertNotNull(token, "Login token is not available");
 		return token;
 	}
 
@@ -64,6 +71,24 @@ public class DataManager {
 
 	public void setTexts(List<String> texts) {
 		this.texts = texts;
+	}
+
+	public Post getPostAPI() {
+		assertNotNull(postAPI, "No post created.");
+		return postAPI;
+	}
+
+	public void setPostAPI(Post postAPI) {
+		this.postAPI = postAPI;
+	}
+
+	public WebElement getElement() {
+		assertNotNull(element, "No such element existed.");
+		return element;
+	}
+
+	public void setElement(WebElement element) {
+		this.element = element;
 	}
 
 }

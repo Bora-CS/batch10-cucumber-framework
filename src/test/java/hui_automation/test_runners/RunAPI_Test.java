@@ -13,4 +13,4 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty, html:target/html_reports/index.html")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "hui_automation.steps.api")
 @ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@api")
-public class RunAllAPI_Test {}
+public class RunAPI_Test {}

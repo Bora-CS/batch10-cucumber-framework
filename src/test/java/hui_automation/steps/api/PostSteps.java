@@ -21,7 +21,21 @@ public class PostSteps {
 		List<Map<String, String>> data = dataTable.asMaps();
 		String postContent = data.get(0).get("content") + " " + Testkeys.getTimestamp();
 		Post post = BoraTechAPIs.postBoraTechPosts(dataManager.getToken(), postContent);
+		dataManager.setPostAPI(post);
 		assertEquals(post.text, postContent);
+	}
+
+	@Then("[API] users gets a list of posts that does not contain the previously created post")
+	public void api_users_gets_a_list_of_posts_that_does_not_contain_the_previously_created_post() {
+		List<Post> posts = BoraTechAPIs.getBoraTechPosts(dataManager.getToken());
+		boolean targetPostFound = false;
+		for (Post post : posts) {
+			if (post.equals(dataManager.getPostAPI())) {
+				targetPostFound = true;
+				break;
+			}
+		}
+		assertFalse(targetPostFound);
 	}
 
 }

@@ -3,6 +3,7 @@ package hui_automation.pages.bora_tech;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,12 +11,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import hui_automation.pojos.Education;
 
 public class AddEducationPage {
 
 	private WebDriver driver;
+	private WebDriverWait wait;
 
 	private final String URL = "https://boratech-practice-app.onrender.com/add-education";
 	private final String TITLE_TEXT = "Add Your Education";
@@ -54,7 +59,17 @@ public class AddEducationPage {
 
 	public AddEducationPage(WebDriver driver) {
 		this.driver = driver;
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		PageFactory.initElements(driver, this);
+	}
+
+	public void isPageLoaded() {
+		ExpectedCondition<?>[] conditions = new ExpectedCondition[2];
+		ExpectedCondition<Boolean> condition1 = ExpectedConditions.urlToBe(URL);
+		ExpectedCondition<Boolean> condition2 = ExpectedConditions.textToBePresentInElement(titleText, TITLE_TEXT);
+		conditions[0] = condition1;
+		conditions[1] = condition2;
+		wait.until(ExpectedConditions.and(conditions));
 	}
 
 	public void addEducation(Education education) {
@@ -71,12 +86,8 @@ public class AddEducationPage {
 		submitButton.click();
 	}
 
-	public void isPageLoaded() {
-		assertEquals(URL, driver.getCurrentUrl());
-		assertEquals(TITLE_TEXT, titleText.getText());
-	}
-
 	public void hasAddEducationFailed() {
+		wait.until(ExpectedConditions.visibilityOfAllElements(errorAlerts));
 		assertTrue(this.education.errorTexts.size() > 0);
 		List<String> expectedErrorMsgs = this.education.errorTexts;
 		List<String> actualErrorMsgs = new ArrayList<>();

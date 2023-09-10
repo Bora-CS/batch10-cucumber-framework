@@ -1,6 +1,6 @@
 Feature: Post
 
-  @ui @hero
+  @ui
   Scenario: Create Post
     Given user is logged in
       | email    | hui-pretender@outlook.com |
@@ -21,7 +21,7 @@ Feature: Post
       | content                       |
       | I still want to fight a fish. |
 
-  @E2E
+  @e2e
   Scenario: [API - UI][UI - API] Create a post
     Given [API] user is logged in
       | email    | hui-pretender@outlook.com |
@@ -34,5 +34,5 @@ Feature: Post
       | password | Hui123456                 |
     When user navigates to the Posts page
     Then user sees the newly created post
-    When user deletes newly created post
+    When user deletes the newly created post
     Then [API] users gets a list of posts that does not contain the previously created post

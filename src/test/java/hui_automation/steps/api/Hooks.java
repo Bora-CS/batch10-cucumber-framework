@@ -6,12 +6,12 @@ import hui_automation.utilities.DataManager;
 
 public class Hooks {
 
-	@Before("@api")
+	@Before("@API or @api or @E2E or @e2e")
 	public void setup() {
 		DataManager.getInstance();
 	}
 
-	@After("@api")
+	@After("@API or @api or @E2E or @e2e")
 	public void cleanup() {
 		DataManager.reset();
 	}

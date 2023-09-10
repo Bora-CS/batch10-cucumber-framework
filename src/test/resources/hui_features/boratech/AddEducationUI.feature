@@ -10,7 +10,7 @@ Feature: Add Education
       | school              | BoraTech School                              |
       | degree              | Certificate of Test Automation Engineering   |
       | field of study      | Test Automation Engineering                  |
-      | from date           | 05/07/2023                                   |
+      | from date           | 05-07-2023                                   |
       | to date             |                                              |
       | current             | true                                         |
       | program description | Web application testing for quality control. |
@@ -27,7 +27,7 @@ Feature: Add Education
       | school              | BoraTech School                              |
       | degree              | Certificate of Test Automation Engineering   |
       | field of study      | Test Automation Engineering                  |
-      | from date           | 05/07/2023                                   |
+      | from date           | 05-07-2023                                   |
       | to date             |                                              |
       | current             | true                                         |
       | program description | Web application testing for quality control. |
@@ -53,17 +53,17 @@ Feature: Add Education
     Then user sees a list of error messages of [Education]
 
     Examples: 
-      | school      | degree      | field of study | from date  | error                                                                                  |
-      |             |             |                |            | School is required,Degree is required,Field of study is required,From date is required |
-      |             | Test Degree | Test Study     | 02/02/2002 | School is required                                                                     |
-      | Test School |             | Test Study     | 02/02/2002 | Degree is required                                                                     |
-      | Test School | Test Degree |                | 02/02/2002 | Field of study is required                                                             |
-      | Test School | Test Degree | Test Study     |            | From date is required                                                                  |
-      |             |             | Test Study     | 02/02/2002 | School is required,Degree is required                                                  |
-      | Test School | Test Degree |                |            | Field of study is required,From date is required                                       |
-      | Test School |             |                | 02/02/2002 | Degree is required,Field of study is required                                          |
-      |             | Test Degree | Test Study     |            | School is required,From date is required                                               |
-      |             |             |                | 02/02/2002 | School is required,Degree is required,Field of study is required                       |
-      |             |             | Test Study     |            | School is required,Degree is required,From date is required                            |
-      |             | Test Degree |                |            | School is required,Field of study is required,From date is required                    |
-      | Test School |             |                |            | Degree is required,Field of study is required,From date is required                    |
+      | school      | degree      | field of study | from date  | error                                                                                     |
+      |             |             |                |            | School is required, Degree is required, Field of study is required, From date is required |
+      |             | Test Degree | Test Study     | 02/02/2002 | School is required                                                                        |
+      | Test School |             | Test Study     | 02/02/2002 | Degree is required                                                                        |
+      | Test School | Test Degree |                | 02/02/2002 | Field of study is required                                                                |
+      | Test School | Test Degree | Test Study     |            | From date is required                                                                     |
+      |             |             | Test Study     | 02/02/2002 | School is required, Degree is required                                                    |
+      | Test School | Test Degree |                |            | Field of study is required, From date is required                                         |
+      | Test School |             |                | 02/02/2002 | Degree is required, Field of study is required                                            |
+      |             | Test Degree | Test Study     |            | School is required, From date is required                                                 |
+      |             |             |                | 02/02/2002 | School is required, Degree is required, Field of study is required                        |
+      |             |             | Test Study     |            | School is required, Degree is required, From date is required                             |
+      |             | Test Degree |                |            | School is required, Field of study is required, From date is required                     |
+      | Test School |             |                |            | Degree is required, Field of study is required, From date is required                     |
